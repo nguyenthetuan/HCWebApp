@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss"; // nếu dùng CSS module
+import { Box } from "@mui/material";
+import MyButton from "../MyButton";
 
 type PaginationProps = {
   currentPage: number;
@@ -29,40 +31,47 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className={styles.pagination}>
-      <button onClick={() => goToPage(1)} disabled={currentPage === 1}>
-        &laquo;
-      </button>
-      <button
+    <Box className={styles.pagination}>
+      <MyButton
+        onClick={() => goToPage(1)}
+        disabled={currentPage === 1}
+        className={styles.button}
+      >
+        &gt;
+      </MyButton>
+      <MyButton
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
+        className={styles.button}
       >
-        &lt;
-      </button>
+        &raquo;
+      </MyButton>
 
       {pageNumbers.map((page) => (
-        <button
+        <MyButton
           key={page}
           onClick={() => goToPage(page)}
           className={page === currentPage ? styles.active : ""}
         >
           {page}
-        </button>
+        </MyButton>
       ))}
 
-      <button
+      <MyButton
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
+        className={styles.button}
       >
         &gt;
-      </button>
-      <button
+      </MyButton>
+      <MyButton
         onClick={() => goToPage(totalPages)}
         disabled={currentPage === totalPages}
+        className={styles.button}
       >
         &raquo;
-      </button>
-    </div>
+      </MyButton>
+    </Box>
   );
 };
 

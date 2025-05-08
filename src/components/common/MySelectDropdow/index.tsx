@@ -8,6 +8,7 @@ import {
   styled,
 } from "@mui/material";
 import styles from "./styles.module.scss";
+import MyTypography from "../MyTypography";
 
 const MySelectDropdow = ({
   id,
@@ -28,7 +29,7 @@ const MySelectDropdow = ({
       className={styles.wrapSelect}
     >
       <CustomInputLabel id={`${id}-label`} className={styles.label}>
-        {label}
+        <MyTypography>{label}</MyTypography>
       </CustomInputLabel>
       <SelectCustom
         labelId={`${id}-label`}
@@ -54,15 +55,15 @@ const MySelectDropdow = ({
   );
 };
 const CustomInputLabel = styled(InputLabel)(({ theme }) => ({
-  fontSize: 14,
+  fontSize: 12,
   color: theme.palette.primary.main,
 }));
 const MenuItemCustom = styled(MenuItem)(({ theme }) => ({
-  fontSize: 14,
+  fontSize: 12,
   color: theme.palette.primary.main,
 }));
 const SelectCustom = styled(Select)(({ theme }) => ({
-  fontSize: 14,
+  fontSize: 12,
   color: theme.palette.primary.main,
 }));
 export default MySelectDropdow;

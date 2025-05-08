@@ -1,49 +1,65 @@
+@use "../../../../styles/mixins" as *;
+.container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
 .textEpay {
-    font-weight:300;
-    font-size: small;
+  font-weight: 300;
+  font-size: small;
 }
 
 .myTextField {
-    height: 20px;
-    width: 100px;
-    :global {
-      .MuiOutlinedInput-root {
-        height: 20px;
-        min-width: 0 !important;
-        font-size: 14px;
-      }
-      .MuiInputBase-input {
-        padding: 6px 10px;
-        min-width: 0 !important;
-      }
-  
-      .MuiInputLabel-root {
-        font-size: 11px;
-        top: -5px;
-      }
+  height: 20px;
+  width: 100px;
+  :global {
+    .MuiOutlinedInput-root {
+      height: 20px;
+      min-width: 0 !important;
+      font-size: 14px;
     }
-  }
+    .MuiInputBase-input {
+      // padding: 6px 10px;
+      min-width: 0 !important;
+    }
 
-  .myButton {
-    font-size: 10px;
-    text-transform: none;
-    color: white;
-    height: 25px;
-    :global {
-      .MuiButton-root {
-        padding: 0 0 0;
-      }
+    .MuiInputLabel-root {
+      font-size: 11px;
+      top: -5px;
     }
   }
+}
 
-  .customButton {
-    font-size: 50px;
-    font-weight: bold;
-    color: white;
-    background-color: #1976d2;
-  
-    &:hover {
-      background-color: #115293;
+.myButton {
+  font-size: 10px;
+  text-transform: none;
+  color: white;
+  height: 25px;
+  :global {
+    .MuiButton-root {
+      padding: 0 0 0;
     }
   }
-  
+}
+
+.customButton {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  background-color: #1976d2;
+
+  &:hover {
+    background-color: #115293;
+  }
+}
+
+.btnRegistry {
+  @include button;
+}
+.rate {
+  gap: 16px;
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+    gap: 16px;
+  }
+}

@@ -6,7 +6,16 @@ import {
   Radio,
 } from "@mui/material";
 import styles from "./styles.module.scss";
-
+import MyTypography from "../MyTypography";
+import { styled } from "@mui/material/styles";
+const StyledRadio = styled(Radio)(({ theme }) => ({
+  "& .MuiSvgIcon-root": {
+    fontSize: "20px", // Kích thước mặc định cho màn hình nhỏ
+    // [theme.breakpoints.up(1280)]: {
+    //   fontSize: "20px", // Khi màn hình >= 1280px
+    // },
+  },
+}));
 export default function MyRadioGroup({
   label,
   name,
@@ -24,7 +33,7 @@ export default function MyRadioGroup({
             fontWeight: "430",
           }}
         >
-          {label}
+          <MyTypography>{label}</MyTypography>
         </FormLabel>
         <RadioGroup
           row
@@ -37,8 +46,8 @@ export default function MyRadioGroup({
             <FormControlLabel
               key={opt.value}
               value={opt.value}
-              control={<Radio />}
-              label={opt.label}
+              control={<StyledRadio />}
+              label={<MyTypography>{opt.label}</MyTypography>}
               className={styles.myFormControlLabel}
             />
           ))}
