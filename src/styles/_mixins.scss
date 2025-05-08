@@ -1,0 +1,11 @@
+@mixin container {
+  display: flex;
+  flex: 1;
+}
+
+@mixin button {
+  font-size: 8px !important;
+  @media (max-width: 768px) {
+    font-size: 8px !important;
+  }
+}

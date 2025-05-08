@@ -1,0 +1,79 @@
+@use "../../styles/mixins" as *;
+.Container {
+  padding: 1rem 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+.wrapPagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  padding-right: 5rem;
+  margin-top: 1rem;
+  flex: 1.1;
+  @media (max-width: 768px) {
+    flex: 1.6;
+    flex-direction: column;
+    padding-right: 0;
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+.wrapFooterPagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  padding-right: 5rem;
+  margin-top: 1rem;
+  flex: 1.1;
+}
+
+.leftPane {
+  flex: 2;
+  overflow: auto;
+}
+
+.rightPane {
+  flex: 2;
+  overflow: auto;
+}
+
+.centerPane {
+  flex: 1/3;
+  overflow: auto;
+  align-content: center;
+  margin-right: 2rem;
+}
+
+.wrapCenter {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+
+.wrapRadioGroup {
+  display: flex;
+  flex-direction: row;
+}
+
+.moreInfor {
+  display: flex;
+  flex: 1;
+  @media (max-width: 768px) {
+    flex: 1;
+  }
+}
+
+.table {
+  @include container;
+  margin-top: 1rem;
+}

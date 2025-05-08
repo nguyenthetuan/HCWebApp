@@ -1,0 +1,14 @@
+@use "../../../../styles/mixins" as *;
+
+.centerFlexShrink {
+  flex-shrink: 0;
+  align-content: center;
+}
+.buttons {
+  @include button;
+}
+.txtButton {
+  @media (max-width: 768px) {
+    font-size: 12rem;
+  }
+}

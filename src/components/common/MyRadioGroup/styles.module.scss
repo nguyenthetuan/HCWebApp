@@ -1,0 +1,43 @@
+.FormControl {
+  display: flex;
+  flex-direction: row;
+}
+
+.myFormLabel {
+  :global {
+    .MuiFormLabel-root {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1976d2;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.RadioGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.rowWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.myFormControlLabel {
+  :global {
+    .MuiFormControlLabel-root {
+      margin: 0;
+    }
+
+    .MuiFormControlLabel-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+}

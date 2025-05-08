@@ -1,0 +1,35 @@
+@use "../../../styles/mixins" as *;
+
+.container {
+  @include container;
+  align-items: center;
+}
+.TextFieldSearch {
+  @include container;
+  font-size: 8px;
+  flex-direction: row;
+  :global {
+    .MuiOutlinedInput-root {
+      height: 2.36em;
+      min-width: 0 !important;
+      border-radius: 0 !important;
+      font-size: 14px;
+    }
+    .MuiInputBase-input {
+      padding: 6px 10px;
+      min-width: 0 !important;
+    }
+
+    .MuiInputLabel-root {
+      font-size: 11px;
+      top: -5px;
+    }
+  }
+}
+
+.buttonSearch {
+  align-self: center;
+  background-color: #deb887 !important;
+  border-radius: 0 !important;
+  height: 2.36em;
+}

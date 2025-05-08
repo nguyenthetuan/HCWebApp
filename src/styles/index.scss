@@ -1,0 +1,5 @@
+@use './Mysearch.scss' as *;
+@mixin container {
+    display: flex;
+    flex: 1
+}

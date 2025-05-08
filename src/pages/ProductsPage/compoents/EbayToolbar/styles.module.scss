@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: "100%";
+  background-color: #f8f1e4;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.Typography {
+  font-size: small;
+}
+
+.boxLink {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.centerFlexShrink {
+  flex-shrink: 0;
+  align-content: center;
+}
