@@ -1,4 +1,8 @@
 .container {
+  font-size: 12px !important;
+  @media (max-width: 1280px) {
+    font-size: 10px !important;
+  }
   @media (max-width: 768px) {
     font-size: 8px !important;
   }

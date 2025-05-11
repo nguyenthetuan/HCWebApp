@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'https://api.example.com'; // Thay bằng base URL của bạn
+const BASE_URL = "http://192.168.2.227:8000"; // Thay bằng base URL của bạn
 
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     // 'Authorization': `Bearer ${token}`, // Thêm nếu cần auth
   },
 });
 
 // Hàm xử lý lỗi chung (tùy chọn)
 const handleError = (error) => {
-  console.error('API Error:', error);
+  console.error("API Error:", error);
   throw error; // ném ra để bên ngoài xử lý nếu cần
 };
 
@@ -52,7 +52,7 @@ const request = {
     } catch (error) {
       handleError(error);
     }
-  }
+  },
 };
 
 export default request;

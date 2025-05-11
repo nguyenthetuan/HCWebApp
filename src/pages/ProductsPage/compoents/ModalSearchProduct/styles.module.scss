@@ -1,0 +1,30 @@
+@use "../../../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 3rem 3rem 3rem;
+}
+.textHeader {
+  font-size: 16px !important;
+  text-transform: uppercase;
+  text-align: center;
+}
+.formSearch {
+  justify-items: center;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+.status {
+  display: flex;
+  flex: 1;
+  font-size: 12px !important;
+}
+.dropdow {
+  height: 2.5rem !important;
+}

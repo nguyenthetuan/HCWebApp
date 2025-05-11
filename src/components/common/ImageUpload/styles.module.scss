@@ -1,0 +1,9 @@
+@use "../../../styles/mixins" as *;
+
+.btn {
+  @include button;
+}
+
+.iconShare {
+  font-size: 12px !important;
+}

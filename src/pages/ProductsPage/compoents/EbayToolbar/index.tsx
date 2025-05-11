@@ -11,9 +11,6 @@ import styles from "./styles.module.scss";
 export default function EbayToolbar() {
   const links = [
     "Cách sử dụng (Hướng dẫn đơn giản)",
-    "Hướng dẫn sử dụng",
-    "Nhóm hỗ trợ HARU",
-    "Yêu cầu của HARU",
     "Kiểm tra từ vựng hàng tồn kho",
     "Tải xuống CSV",
     "Tải lên CSV",

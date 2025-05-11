@@ -1,0 +1,66 @@
+@use "../../../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 3rem 3rem 3rem 3rem;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.btn {
+  @include button;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+.status {
+  display: flex;
+  flex: 1;
+  font-size: 12px !important;
+}
+.title {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+}
+.btnTranslate {
+  @include button;
+}
+.dropdow {
+  height: 2.5rem;
+}
+.Box {
+  // display: flex;
+  // flex-direction: column;
+  flex: 1;
+}
+.frame {
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+  flex: 1;
+}
+.frameRow {
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+  flex: 1;
+  display: flex;
+}
+.btnAdd {
+  width: 50%;
+  align-self: center;
+}

@@ -1,3 +1,5 @@
+@use "../../../styles/mixins" as *;
+
 .pagination {
   display: flex;
   gap: 8px;
@@ -10,6 +12,7 @@
   cursor: pointer;
   min-width: 32px;
   font-size: small;
+  height: 30px !important;
 }
 
 .pagination button:disabled {
@@ -25,4 +28,5 @@
   background: orange;
   color: white;
   border: 1px solid #888;
+  height: 30px !important;
 }
