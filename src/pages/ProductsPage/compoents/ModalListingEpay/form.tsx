@@ -42,10 +42,7 @@ const FormEpay = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log(formData);
-    // Xử lý submit dữ liệu ở đây (gửi lên API hoặc lưu vào state)
-  };
+  const handleSubmit = () => {};
 
   const [inputs, setInputs] = useState(["", "", "", "", ""]);
 
@@ -285,7 +282,7 @@ const FormEpay = () => {
         </Stack>
 
         <Box className={styles.frame}>
-          <MyTypography marginBottom={1}>Chi tiết sản phẩm</MyTypography>
+          <Typography marginBottom={1}>Chi tiết sản phẩm</Typography>
           <Grid className={styles.row} container spacing={42}>
             <Stack className={styles.Box} spacing={2}>
               {inputs.map((value, index) => (
@@ -433,10 +430,16 @@ const FormEpay = () => {
             size="small"
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Grid xs={12} container spacing={2}>
+          <MyButton variant="contained" color="primary" onClick={handleSubmit}>
             Gửi thông tin sản phẩm
-          </Button>
+          </MyButton>
+          <MyButton variant="contained" color="primary" onClick={handleSubmit}>
+            Lưu dữ liệu danh sách
+          </MyButton>
+          <MyButton variant="contained" color="primary" onClick={handleSubmit}>
+            Lưu dưới dạng mẫu danh sách
+          </MyButton>
         </Grid>
       </Stack>
     </Box>

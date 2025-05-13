@@ -4,10 +4,12 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Box,
 } from "@mui/material";
 import styles from "./styles.module.scss";
 import MyTypography from "../MyTypography";
 import { styled } from "@mui/material/styles";
+import clsx from "clsx";
 const StyledRadio = styled(Radio)(({ theme }) => ({
   "& .MuiSvgIcon-root": {
     fontSize: "20px", // Kích thước mặc định cho màn hình nhỏ
@@ -16,16 +18,26 @@ const StyledRadio = styled(Radio)(({ theme }) => ({
     // },
   },
 }));
+
+interface props {
+  label?: string;
+  name?: string;
+  options?: any;
+  value?: string;
+  onChange?: (value: string) => void;
+  rowWrapperClassName?: any;
+}
 export default function MyRadioGroup({
   label,
   name,
   options,
   value,
   onChange,
-}) {
+  rowWrapperClassName,
+}: props) {
   return (
     <FormControl component="fieldset" className={styles.FormControl}>
-      <div className={styles.rowWrapper}>
+      <Box className={clsx(styles.rowWrapper, rowWrapperClassName)}>
         {label && (
           <FormLabel
             sx={{
@@ -55,7 +67,7 @@ export default function MyRadioGroup({
             />
           ))}
         </RadioGroup>
-      </div>
+      </Box>
     </FormControl>
   );
 }

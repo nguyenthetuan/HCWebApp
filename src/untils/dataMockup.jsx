@@ -98,6 +98,35 @@ export const TOOLTIP = {
       |. , phân tách chúng bằng dấu |.
     </>
   ),
+  EBAY: <>*Nếu giá của nhà cung cấp có dấu phẩy, vui lòng thêm dấu phẩy vào.</>,
+  PRICE: (
+    <>*Nếu giá của nhà cung cấp có dấu phẩy, vui lòng thêm dấu phẩy vào.</>
+  ),
+  FEE_BUY_TRANSPORT: <>(Có dấu phẩy hoặc không có dấu phẩy)</>,
+  KEY_STOCK: (
+    <>
+      *Nhập chuỗi ký tự sẽ biến mất khi hết hàng vào URL nhà cung cấp. * Vui
+      lòng tham khảo <a> hướng dẫn sử dụng </a>để biết từ vựng của từng nhà cung
+      cấp. Chế độ giám sát:
+    </>
+  ),
+  MODE: (
+    <>
+      Chọn giữa chế độ bình thường, chế độ này sẽ cảnh báo bạn khi một từ "biến
+      mất" trong URL của nhà cung cấp hoặc chế độ Theo dõi, chế độ này sẽ cảnh
+      báo bạn khi một từ "xuất hiện" trong URL của nhà cung cấp . Thông thường,
+      hãy sử dụng ở "Chế độ bình thường".
+    </>
+  ),
+  LOGIC: (
+    <>
+      *Nếu giá và thông tin về kho hàng là chính xác nhưng cảnh báo vẫn được đưa
+      ra, vui lòng thử kiểm tra logic 1. *Nếu bạn đang ở trên một trang web cấm
+      truy cập liên tục và muốn thêm thời gian chờ vào khoảng thời gian kiểm
+      tra, vui lòng thử kiểm tra logic 2 (chờ).
+    </>
+  ),
+  RATIO: <>(0,01 đến 1,0)</>,
 };
 
 export const optionStatus = [
@@ -148,7 +177,7 @@ export const optionHtml = [
 export const endDow = [
   {
     value: "1",
-    label: "có hiệu lực",
+    label: "Có hiệu lực",
   },
   {
     value: "0",
@@ -246,5 +275,94 @@ export const categoryProductNetsea = [
   {
     value: "8",
     label: "Thực phẩm/Đồ uống",
+  },
+];
+
+export const optionOnOff = [
+  {
+    value: "on",
+    label: "On",
+  },
+  {
+    value: "off",
+    label: "Off",
+  },
+];
+
+export const mode = [
+  {
+    value: "normal",
+    label: "Chế độ bình thường",
+  },
+  {
+    value: "tracking",
+    label: "Chế độ theo dõi",
+  },
+];
+
+export const logic = [
+  {
+    value: "normal",
+    label: "Kiểm tra logic 2 (bình thường)",
+  },
+  {
+    value: "await",
+    label: "Kiểm tra logic 2 (chờ)",
+  },
+  {
+    value: "logic1",
+    label: "Kiểm tra logic 1",
+  },
+  {
+    value: "Nessie",
+    label: "Nessie",
+  },
+  {
+    value: "speed",
+    label: "Giao hàng siêu tốc",
+  },
+  {
+    value: "inchiokunet",
+    label: "Inchiokunet",
+  },
+  {
+    value: "mirai",
+    label: "Mirai DOnya",
+  },
+];
+
+export const typeFile = [
+  {
+    value: "ratio",
+    label: "Phân cách bằng dấu phẩy",
+  },
+  {
+    value: "tab",
+    label: "Phân cách bằng tab",
+  },
+];
+
+export const autoLink = [
+  {
+    value: "no",
+    label:
+      'Không có (Nếu "BẬT/TẮT" và "Số lượng" không được bao gồm, hãy chọn "Không có")',
+  },
+  {
+    value: "yes",
+    label: "Có thể là",
+  },
+];
+
+export const typeUpload = [
+  {
+    value: "full",
+    label:
+      "Tải lên tất cả các mục (Xóa tất cả các mục trong cơ sở dữ liệu và đăng ký lại từ mục đầu tiên trong CSV)",
+  },
+  {
+    value: "additional",
+    label:
+      "Tải lên bổ sung (Giữ nguyên các đăng ký hiện tại và thêm các đăng ký mới từ mục đầu tiên trong CSV)",
   },
 ];

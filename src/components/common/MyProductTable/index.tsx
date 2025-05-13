@@ -15,6 +15,7 @@ import MyLink from "../MyLink";
 import MyTypography from "../MyTypography";
 import ModalListingEpay from "@/pages/ProductsPage/compoents/ModalListingEpay";
 import { useRef } from "react";
+import ModalChangeProduct from "@/pages/ProductsPage/compoents/ModalChangeProduct";
 
 interface Product {
   id: number;
@@ -38,6 +39,8 @@ interface Props {
 export default function MyProductTable({ products }: Props) {
   const { t, i18n } = useTranslation();
   const refModal = useRef(null);
+  const refModalChangeProduct = useRef(null);
+
   return (
     <TableContainer
       component={Paper}
@@ -92,7 +95,23 @@ export default function MyProductTable({ products }: Props) {
           {products.map((item, i) => (
             <TableRow key={item.id}>
               <TableCell>
-                <MyTypography>{i + 1}</MyTypography>
+                <MyTypography>
+                  {i + 1}{" "}
+                  <MyLink
+                    onClick={() => {
+                      refModalChangeProduct.current.openModal();
+                    }}
+                  >
+                    [Thay đổi]
+                  </MyLink>
+                  <MyLink
+                    onClick={() => {
+                      refModalChangeProduct.current.openModal();
+                    }}
+                  >
+                    [Xoá]
+                  </MyLink>
+                </MyTypography>
               </TableCell>
               <TableCell>
                 <Checkbox />
@@ -103,7 +122,7 @@ export default function MyProductTable({ products }: Props) {
               <TableCell>
                 <MyTypography>
                   {item.name}
-                  <ModalListingEpay ref={refModal} />
+
                   <MyLink
                     onClick={() => {
                       refModal.current.openModal();
@@ -150,6 +169,8 @@ export default function MyProductTable({ products }: Props) {
           ))}
         </TableBody>
       </Table>
+      <ModalListingEpay ref={refModal} />
+      <ModalChangeProduct ref={refModalChangeProduct} />
     </TableContainer>
   );
 }

@@ -1,5 +1,5 @@
 import MySelectDropdow from "@/components/common/MySelectDropdow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 const options = [
@@ -10,6 +10,9 @@ const options = [
 const Language = ({ ...rest }) => {
   const [language, setLanguage] = useState("vi");
   const { t, i18n } = useTranslation();
+  useEffect(() => {
+    setLanguage(i18n.language);
+  }, []);
   const handleChange = (event) => {
     setLanguage(event.target.value);
     i18n.changeLanguage(event.target.value);

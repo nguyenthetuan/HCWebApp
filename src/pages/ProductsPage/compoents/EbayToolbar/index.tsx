@@ -7,35 +7,70 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Box, IconButton, Stack } from "@mui/material";
 import styles from "./styles.module.scss";
+import ModalChooseFile from "../ModalChooseFile";
+import { useRef } from "react";
 
 export default function EbayToolbar() {
+  const refModalChooseFile = useRef(null);
+
   const links = [
-    "Cách sử dụng (Hướng dẫn đơn giản)",
-    "Kiểm tra từ vựng hàng tồn kho",
-    "Tải xuống CSV",
-    "Tải lên CSV",
-    "Cài đặt tài khoản người dùng HARU",
-    "Mở album lưu trữ/Mở album giám sát khách hàng",
-    "Đăng nhập eBay",
-    "Đăng xuất",
-    "Chức năng liên kết tự động eBay đang hoạt động",
-    "Nhật ký liên kết tự động eBay",
-    "Cài đặt chức năng niêm yết eBay",
+    {
+      key: "0",
+      value: "Tải xuống CSV",
+    },
+    {
+      key: "1",
+      value: "Tải lên CSV",
+    },
+    {
+      key: "2",
+      value: "Mở album lưu trữ/Mở album giám sát khách hàng",
+    },
+    {
+      key: "3",
+      value: "Đăng nhập eBay",
+    },
+    {
+      key: "4",
+      value: "Đăng xuất",
+    },
+    {
+      key: "5",
+      value: "Chức năng liên kết tự động eBay đang hoạt động",
+    },
+    {
+      key: "6",
+      value: "Nhật ký liên kết tự động eBay",
+    },
+    {
+      key: "7",
+      value: "Cài đặt chức năng niêm yết eBay",
+    },
   ];
 
+  const handleClick = (text) => {
+    switch (text) {
+      case "0":
+        break;
+      case "1":
+        refModalChooseFile?.current?.openModal();
+      default:
+        break;
+    }
+  };
   return (
     <Box className={styles.container}>
       <Box className={styles.boxLink}>
-        {links.map((text, idx) => (
+        {links.map((item, idx) => (
           <MyLink
             key={idx}
             component="button"
             variant="body2"
             underline="always"
             sx={{ cursor: "pointer", fontSize: 12 }}
-            onClick={() => alert(`Clicked: ${text}`)}
+            onClick={() => handleClick(item.key)}
           >
-            {text}
+            {item.value}
           </MyLink>
         ))}
         <Stack direction="row">
@@ -59,6 +94,7 @@ export default function EbayToolbar() {
           </IconButton>
         </Stack>
       </Box>
+      <ModalChooseFile ref={refModalChooseFile} />
     </Box>
   );
 }
