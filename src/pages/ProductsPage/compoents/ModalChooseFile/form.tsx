@@ -1,6 +1,6 @@
 import MyTypography from "@/components/common/MyTypography";
 import { Box, Grid } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import MyButton from "@/components/common/MyButton";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
@@ -8,10 +8,10 @@ import { typeFile, autoLink, typeUpload } from "../../../../untils/dataMockup";
 
 const FormChooseFile = () => {
   const fileInputRef = useRef(null);
-
+  const [fileInfor, setFileInfor] = useState(null);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    console.log(file);
+    setFileInfor(file);
     // Handle the file here (e.g., upload it)
   };
   return (
@@ -87,6 +87,7 @@ const FormChooseFile = () => {
           >
             Chọn tệp
           </MyButton>
+          <MyTypography>{fileInfor?.name}</MyTypography>
           <input
             type="file"
             accept=".csv"

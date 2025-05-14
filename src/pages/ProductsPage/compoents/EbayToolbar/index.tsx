@@ -11,11 +11,14 @@ import styles from "./styles.module.scss";
 import ModalChooseFile from "../ModalChooseFile";
 import { useRef } from "react";
 import ModalSetupUser from "../ModalSetupUser";
+import ModalSetUpEbay from "../ModalSetupEbay";
+import { useNavigate } from "react-router-dom";
 
 export default function EbayToolbar() {
   const refModalChooseFile = useRef(null);
   const refModalSetupUser = useRef(null);
-
+  const refModalSetupEbay = useRef(null);
+  const navigate = useNavigate();
   const links = [
     {
       key: "0",
@@ -57,12 +60,48 @@ export default function EbayToolbar() {
   const setupUser = () => {
     refModalSetupUser?.current?.openModal();
   };
+  const setupEbay = () => {
+    refModalSetupEbay?.current?.openModal();
+  };
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+  const handleDownload = () => {
+    const data = [
+      ["Tên", "Tuổi", "Email"],
+      ["Nguyễn Văn A", 25, "a@example.com"],
+      ["Trần Thị B", 30, "b@example.com"],
+    ];
+
+    const csvContent =
+      "\uFEFF" + // BOM để Excel nhận UTF-8
+      data.map((row) => row.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "du_lieu.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleClick = (text) => {
     switch (text) {
       case "0":
+        handleDownload();
         break;
       case "1":
         chooseFile();
+        break;
+      case "7":
+        setupEbay();
+        break;
+      case "4":
+        logout();
+        break;
       default:
         break;
     }
@@ -77,13 +116,13 @@ export default function EbayToolbar() {
             variant="body2"
             underline="always"
             sx={{ cursor: "pointer", fontSize: 12 }}
-            onClick={handleClick}
+            onClick={() => handleClick(item.key)}
           >
             {item.value}
           </MyLink>
         ))}
         <Stack direction="row">
-          <IconButton>
+          <IconButton onClick={handleDownload}>
             <SaveIcon />
           </IconButton>
           <IconButton onClick={chooseFile}>
@@ -98,16 +137,11 @@ export default function EbayToolbar() {
           <IconButton>
             <LoginIcon />
           </IconButton>
-          <IconButton>
-            <ExitToAppIcon />
-          </IconButton>
-          <IconButton>
-            <EmailIcon />
-          </IconButton>
         </Stack>
       </Box>
       <ModalChooseFile ref={refModalChooseFile} />
       <ModalSetupUser ref={refModalSetupUser} />
+      <ModalSetUpEbay ref={refModalSetupEbay} />
     </Box>
   );
 }

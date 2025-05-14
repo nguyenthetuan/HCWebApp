@@ -4,8 +4,15 @@ import MyTypography from "@/components/common/MyTypography";
 import { Box } from "@mui/material";
 import Language from "../Language";
 import styles from "./styles.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const HeaderProductPage = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <Box className={styles.container}>
       <Box className={styles.leftHeader}>
@@ -24,7 +31,9 @@ const HeaderProductPage = () => {
       </Box>
       <Box className={styles.rightHeader}>
         <MyTypography fontSize={14}>Tên người dùng: Tokio Oyama</MyTypography>
-        <MyLink fontSize={14}>[Đăng xuất]</MyLink>
+        <MyLink onClick={logout} fontSize={14}>
+          [Đăng xuất]
+        </MyLink>
         <Box className={styles.language}>
           <Language className={styles.selectLanguage} />
         </Box>

@@ -5,6 +5,7 @@ interface ModalProps {
   open?: boolean;
   onClose?: () => void;
   title?: never;
+  className?: any;
 }
 const MyModal = ({ open, onClose, title, children, ...rest }: ModalProps) => {
   return (

@@ -1,22 +1,43 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.2.59:8000"; // Thay bằng base URL của bạn
+const BASE_URL = "http://192.168.2.59:8000";
 
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
-    // 'Authorization': `Bearer ${token}`, // Thêm nếu cần auth
   },
 });
 
-// Hàm xử lý lỗi chung (tùy chọn)
+// Thêm token vào header mỗi lần request
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Bắt lỗi token hết hạn
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      window.location.href = "/"; // redirect về login
+    }
+    return Promise.reject(error);
+  }
+);
+
 const handleError = (error) => {
   console.error("API Error:", error);
-  throw error; // ném ra để bên ngoài xử lý nếu cần
+  throw error;
 };
 
-// Các phương thức chuẩn
 const request = {
   get: async (url, params = {}, config = {}) => {
     try {

@@ -11,6 +11,20 @@ import styles from "./styles.module.scss";
 import MyTypography from "../MyTypography";
 import Tooltip from "@mui/material/Tooltip";
 
+interface propsDropdowTooltip {
+  id?: string;
+  name?: string;
+  label?: string;
+  value?: string;
+  onChange?: (value) => void;
+  options: any[];
+  error?: boolean;
+  helperText?: string;
+  fullWidth?: boolean;
+  toolTip?: any;
+  className?: any;
+  size?: string;
+}
 const MySelectDropdowTooltip = ({
   id,
   name,
@@ -23,7 +37,7 @@ const MySelectDropdowTooltip = ({
   fullWidth = true,
   toolTip = "",
   ...rest
-}) => {
+}: propsDropdowTooltip) => {
   return (
     <Tooltip title={toolTip} placement="top" arrow>
       <FormControl

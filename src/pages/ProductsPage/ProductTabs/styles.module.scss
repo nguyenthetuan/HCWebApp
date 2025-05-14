@@ -1,0 +1,27 @@
+.Container {
+  padding: 1rem 2rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.CustomTabs {
+  border-bottom: 1px solid #ddd;
+  .MuiTab-root {
+    font-weight: 600;
+    text-transform: none;
+    font-size: 16px;
+    color: white;
+    transition: all 0.3s ease;
+    &.Mui-selected {
+      color: #1976d2;
+      background-color: #f0f7ff;
+      border-radius: 6px 6px 0 0;
+    }
+  }
+
+  .MuiTabs-indicator {
+    height: 3px;
+    border-radius: 2px;
+    background-color: #1976d2;
+  }
+}

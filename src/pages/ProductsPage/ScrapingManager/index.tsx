@@ -8,12 +8,12 @@ import {
   commercialPlatform,
   categoryProductSurugara,
   categoryProductNetsea,
-} from "../../../../untils/dataMockup";
+} from "../../../untils/dataMockup";
 import MyButton from "@/components/common/MyButton";
 import request from "@/services/Request";
 import TableSearch from "./TableSearch";
 
-const FormSearchProduct = () => {
+const ScrapingManager = () => {
   const [foundation, setFoundation] = useState("netsea");
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
@@ -111,4 +111,4 @@ const FormSearchProduct = () => {
   );
 };
 
-export default FormSearchProduct;
+export default ScrapingManager;

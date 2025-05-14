@@ -108,7 +108,7 @@ export default function EBaySetting() {
             flexWrap="wrap"
             className={styles.rate}
           >
-            <MyTypography fontSize={14}>Mã bưu chính</MyTypography>
+            <MyTypography fontSize={14}>phí vận chuyển bên japan</MyTypography>
             <TextField
               size="small"
               type="number"

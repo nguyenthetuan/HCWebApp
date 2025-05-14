@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateName } from "../../feature/userSlice";
 import { useProductPage } from "@/hook/ProductPage";
 import ScrollButtons from "@/components/common/ScrollButton";
+
 const mockData = [
   {
     id: 1,
@@ -404,7 +405,7 @@ export default function ProductPage() {
   const { gender, setGender, page, setPage } = useProductPage();
   return (
     <Box className={styles.Container}>
-      <HeaderProductPage />
+      {/* <HeaderProductPage /> */}
       <Box className={styles.wrapCenter}>
         <Box className={styles.leftPane}>
           <EBaySetting />

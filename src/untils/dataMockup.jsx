@@ -127,6 +127,15 @@ export const TOOLTIP = {
     </>
   ),
   RATIO: <>(0,01 đến 1,0)</>,
+  IdEbayApplication: (
+    <>*Vui lòng nhập ID ứng dụng của tài khoản nhà phát triển eBay của bạn.</>
+  ),
+  IdEbayDevelop: (
+    <>*Vui lòng nhập Dev ID của tài khoản nhà phát triển eBay của bạn.</>
+  ),
+  codeEbay: (
+    <>*Vui lòng nhập Cert ID của tài khoản nhà phát triển eBay của bạn.</>
+  ),
 };
 
 export const optionStatus = [
@@ -385,5 +394,16 @@ export const duplicateUrl = [
   {
     value: "disabled",
     label: "Đã tắt",
+  },
+];
+
+export const monitor = [
+  {
+    value: "server",
+    label: "Giám sát máy chủ",
+  },
+  {
+    value: "client",
+    label: "Giám sát máy khách",
   },
 ];

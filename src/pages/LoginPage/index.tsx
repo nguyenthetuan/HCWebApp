@@ -1,27 +1,26 @@
 // src/pages/LoginPage.tsx
-import { Box, Paper, TextField, Typography, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import styles from './style.module.scss';
-import request from '@/services/Request';
+import { Box, Paper, TextField, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import styles from "./style.module.scss";
+import request from "@/services/Request";
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await request.get('https://reqres.in/signup');
-      console.log('Đăng nhập thành công:', response);
-      alert('Đăng nhập thành công!');
-      navigate('/products');
+      const response = await request.get("https://reqres.in/signup");
+      console.log("Đăng nhập thành công:", response);
+      localStorage.setItem("token", "123456");
+      navigate("/products", { replace: true });
     } catch (error) {
-      console.log('Lỗi đăng nhập:', error);
-      alert('Sai tài khoản hoặc mật khẩu');
+      console.log("Lỗi đăng nhập:", error);
+      alert("Sai tài khoản hoặc mật khẩu");
     }
   };
-  
 
   return (
     <Box className={styles.container}>
