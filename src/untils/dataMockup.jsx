@@ -366,3 +366,24 @@ export const typeUpload = [
       "Tải lên bổ sung (Giữ nguyên các đăng ký hiện tại và thêm các đăng ký mới từ mục đầu tiên trong CSV)",
   },
 ];
+
+export const notificationEmail = [
+  {
+    value: "full",
+    label: "Thông báo tất cả",
+  },
+  {
+    value: "change",
+    label: "Chỉ khi có thay đổi",
+  },
+];
+export const duplicateUrl = [
+  {
+    value: "valid",
+    label: "Có hiệu lực",
+  },
+  {
+    value: "disabled",
+    label: "Đã tắt",
+  },
+];

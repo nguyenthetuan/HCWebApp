@@ -24,7 +24,7 @@ const FormSearchProduct = () => {
   };
 
   const getProductLocal = async () => {
-    console.log("SSSSS", await localStorage.getItem("PRODUCT_SEARCH"));
+    setProduct(JSON.parse(localStorage.getItem("PRODUCT_SEARCH")));
   };
   useEffect(() => {
     getProductLocal();
@@ -38,7 +38,8 @@ const FormSearchProduct = () => {
     });
     if (response) {
       setProduct(response);
-      localStorage.setItem("PRODUCT_SEARCH", response);
+
+      localStorage.setItem("PRODUCT_SEARCH", JSON.stringify(response));
     }
   }, [foundation, keyword, category]);
 

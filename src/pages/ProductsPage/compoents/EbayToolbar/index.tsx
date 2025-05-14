@@ -4,14 +4,17 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import LoginIcon from "@mui/icons-material/Login";
 import SaveIcon from "@mui/icons-material/Save";
 import SettingsIcon from "@mui/icons-material/Settings";
+import PersonIcon from "@mui/icons-material/Person";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { Box, IconButton, Stack } from "@mui/material";
+import { Box, Icon, IconButton, Stack } from "@mui/material";
 import styles from "./styles.module.scss";
 import ModalChooseFile from "../ModalChooseFile";
 import { useRef } from "react";
+import ModalSetupUser from "../ModalSetupUser";
 
 export default function EbayToolbar() {
   const refModalChooseFile = useRef(null);
+  const refModalSetupUser = useRef(null);
 
   const links = [
     {
@@ -48,12 +51,18 @@ export default function EbayToolbar() {
     },
   ];
 
+  const chooseFile = () => {
+    refModalChooseFile?.current?.openModal();
+  };
+  const setupUser = () => {
+    refModalSetupUser?.current?.openModal();
+  };
   const handleClick = (text) => {
     switch (text) {
       case "0":
         break;
       case "1":
-        refModalChooseFile?.current?.openModal();
+        chooseFile();
       default:
         break;
     }
@@ -68,7 +77,7 @@ export default function EbayToolbar() {
             variant="body2"
             underline="always"
             sx={{ cursor: "pointer", fontSize: 12 }}
-            onClick={() => handleClick(item.key)}
+            onClick={handleClick}
           >
             {item.value}
           </MyLink>
@@ -77,8 +86,11 @@ export default function EbayToolbar() {
           <IconButton>
             <SaveIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={chooseFile}>
             <UploadFileIcon />
+          </IconButton>
+          <IconButton onClick={setupUser}>
+            <PersonIcon />
           </IconButton>
           <IconButton>
             <SettingsIcon />
@@ -95,6 +107,7 @@ export default function EbayToolbar() {
         </Stack>
       </Box>
       <ModalChooseFile ref={refModalChooseFile} />
+      <ModalSetupUser ref={refModalSetupUser} />
     </Box>
   );
 }

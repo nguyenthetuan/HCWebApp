@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.2.227:8000"; // Thay bằng base URL của bạn
+const BASE_URL = "http://192.168.2.59:8000"; // Thay bằng base URL của bạn
 
 const instance = axios.create({
   baseURL: BASE_URL,
