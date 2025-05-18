@@ -5,9 +5,11 @@ import { Box } from "@mui/material";
 import Language from "../Language";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HeaderProductPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -18,21 +20,23 @@ const HeaderProductPage = () => {
       <Box className={styles.leftHeader}>
         <Box className={styles.version}>
           <MyTypography fontSize={14} className={styles.txtVersion}>
-            Phiên bản chuẩn
+            {t("label_standard_version")}
           </MyTypography>
         </Box>
         <Box className={styles.link}>
-          <MyLink fontSize={14}>Danh sách quản lý hàng tồn kho HARU</MyLink>
-          <MyLink fontSize={14}>[Đăng ký mới]</MyLink>
+          <MyLink fontSize={14}>{t("link_inventory_management_list")}</MyLink>
+          <MyLink fontSize={14}>{t("link_register_new")}</MyLink>
         </Box>
         <Box className={styles.search}>
           <MySearchInput />
         </Box>
       </Box>
       <Box className={styles.rightHeader}>
-        <MyTypography fontSize={14}>Tên người dùng: Tokio Oyama</MyTypography>
+        <MyTypography fontSize={14}>
+          {t("label_username")} Tokio Oyama
+        </MyTypography>
         <MyLink onClick={logout} fontSize={14}>
-          [Đăng xuất]
+          {t("link_logout")}
         </MyLink>
         <Box className={styles.language}>
           <Language className={styles.selectLanguage} />

@@ -1,23 +1,30 @@
 import MyButton from "@/components/common/MyButton";
 import MyInput from "@/components/common/MyInput";
 import MyTypography from "@/components/common/MyTypography";
-import request from "@/services/Request";
-import { Box, Grid, Stack } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { Box, Stack } from "@mui/material";
+import { useCallback, useState } from "react";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 const FormCheapProduct = () => {
   const [keyword, setKeyword] = useState("");
   const search = useCallback(async () => {}, []);
+  const { t } = useTranslation();
   return (
     <Box>
-      <MyTypography className={styles.title}>Thông tin sản phẩm</MyTypography>
+      <MyTypography className={styles.title}>
+        {t("title_product_infor_title")}
+      </MyTypography>
       <Stack spacing={2}>
-        <MyTypography>Tên sản phẩm: Phần mềm Fantasic</MyTypography>
-        <MyTypography>Mã số sản phẩm: Phần mềm Fantasic</MyTypography>
+        <MyTypography>
+          {t("title_product_infor_name")} Phần mềm Fantasic
+        </MyTypography>
+        <MyTypography>
+          {t("title_product_infor_code")} Phần mềm Fantasic
+        </MyTypography>
         <MyInput
           fullWidth
-          label="Thay đổi giá Ebay ($)"
+          label={t("title_product_infor_change_ebay_price")}
           name="title"
           className={styles.status}
           size="small"
@@ -32,7 +39,7 @@ const FormCheapProduct = () => {
         className={styles.buttons}
         onClick={search}
       >
-        Thay đổi
+        {t("buttn_product_infor_change")}
       </MyButton>
     </Box>
   );

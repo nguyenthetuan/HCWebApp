@@ -200,8 +200,8 @@ export const commercialPlatform = [
     label: "netsea",
   },
   {
-    value: "suruyaga",
-    label: "suruyaga",
+    value: "surugaya",
+    label: "surugaya",
   },
 ];
 

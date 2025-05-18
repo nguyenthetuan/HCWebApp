@@ -28,8 +28,8 @@ const MySelectDropdow = ({
       error={error}
       className={styles.wrapSelect}
     >
-      <CustomInputLabel id={`${id}-label`} className={styles.label}>
-        <MyTypography>{label}</MyTypography>
+      <CustomInputLabel id={`${id}-label`}>
+        <MyTypography className={styles.label}>{label}</MyTypography>
       </CustomInputLabel>
       <SelectCustom
         labelId={`${id}-label`}

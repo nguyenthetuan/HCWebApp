@@ -7,18 +7,26 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { optionOnOff, mode, TOOLTIP } from "../../../../untils/dataMockup";
 import MyInputToolTip from "@/components/common/MyInputToolTip";
-const FormChangeProduct = () => {
+import { useTranslation } from "react-i18next";
+import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
+interface props {
+  itemSelect?: any;
+}
+const FormChangeProduct = (props: props) => {
   const [formData, setFormData] = useState({
+    name: props.itemSelect?.name,
+    url: props.itemSelect?.url,
+    price: props.itemSelect?.price,
     title: "",
     description: "",
     category: "",
     condition: "",
-    price: "",
     quantity: 1,
     returnPolicy: "",
     paymentPolicy: "",
     location: "",
   });
+  const { t } = useTranslation();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
@@ -30,8 +38,8 @@ const FormChangeProduct = () => {
   return (
     <Box>
       <Box className={styles.header}>
-        <MyTypography variant="h5" mb={2}>
-          [Số 1] Đăng ký/Thay đổi
+        <MyTypography className={styles.title}>
+          {t("title_register_change")}
         </MyTypography>
       </Box>
       <Stack spacing={2}>
@@ -39,7 +47,7 @@ const FormChangeProduct = () => {
           <Grid className={styles.row} container spacing={2}>
             <MyInput
               fullWidth
-              label="Tên cửa hàng"
+              label={t("label_store_name")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -48,9 +56,9 @@ const FormChangeProduct = () => {
             />
             <MyInput
               fullWidth
-              label="Tên sản phẩm"
+              label={t("label_product_name")}
               name="title"
-              value={formData.title}
+              value={formData.name}
               onChange={handleChange}
               className={styles.status}
               size="small"
@@ -59,16 +67,16 @@ const FormChangeProduct = () => {
           <Grid container spacing={2}>
             <MyInput
               fullWidth
-              label="Url mua hàng"
+              label={t("label_purchase_url")}
               name="title"
-              value={formData.title}
+              value={formData.url}
               onChange={handleChange}
               className={styles.status}
               size="small"
             />
             <MyInput
               fullWidth
-              label="Địa chỉ Ebay"
+              label={t("label_ebay_address")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -77,10 +85,11 @@ const FormChangeProduct = () => {
             />
           </Grid>
         </Stack>
+
         <Stack spacing={2} className={styles.frame}>
           <MyInput
             fullWidth
-            label="Số mặt hàng eBay"
+            label={t("label_ebay_item_number")}
             name="title"
             value={formData.title}
             onChange={handleChange}
@@ -88,7 +97,7 @@ const FormChangeProduct = () => {
             size="small"
           />
           <MyRadioGroup
-            label="Chức năng liên kết tự động của eBay"
+            label={t("label_ebay_auto_link")}
             name="gender"
             value={"on"}
             onChange={() => {}}
@@ -96,11 +105,12 @@ const FormChangeProduct = () => {
           />
           <MyTypography>{TOOLTIP.EBAY}</MyTypography>
         </Stack>
+
         <Stack spacing={2} className={styles.frame}>
           <Grid className={styles.row} container spacing={2}>
             <MyInputToolTip
               fullWidth
-              label="Giá mua (yên)"
+              label={t("label_purchase_price")}
               name="price"
               type="number"
               value={formData.price}
@@ -111,7 +121,7 @@ const FormChangeProduct = () => {
             />
             <MyInputToolTip
               fullWidth
-              label="Mua chi phí vận chuyển (yên)"
+              label={t("label_shipping_fee")}
               name="price"
               type="number"
               value={formData.price}
@@ -122,11 +132,12 @@ const FormChangeProduct = () => {
             />
           </Grid>
         </Stack>
+
         <Stack className={styles.frame}>
-          <MyTypography>Từ khóa chứng khoán</MyTypography>
+          <MyTypography>{t("label_stock_keyword")}</MyTypography>
           <MyInputToolTip
             fullWidth
-            label="Mua chi phí vận chuyển (yên)"
+            label={t("label_shipping_fee")}
             name="price"
             value={formData.price}
             onChange={handleChange}
@@ -143,8 +154,9 @@ const FormChangeProduct = () => {
           />
           <MyTypography>{TOOLTIP.MODE}</MyTypography>
         </Stack>
+
         <Stack className={styles.frame}>
-          <MyTypography>Kiểm tra logic</MyTypography>
+          <MyTypography>{t("label_check_logic")}</MyTypography>
           <MyRadioGroup
             label=""
             name="gender"
@@ -154,11 +166,12 @@ const FormChangeProduct = () => {
           />
           <MyTypography>{TOOLTIP.LOGIC}</MyTypography>
         </Stack>
+
         <Stack className={styles.frame}>
           <Grid className={styles.row} container spacing={2}>
             <MyInputToolTip
               fullWidth
-              label="Phí vận chuyển eBay(yên)"
+              label={t("label_ebay_shipping_fee")}
               name="price"
               value={formData.price}
               onChange={handleChange}
@@ -168,7 +181,7 @@ const FormChangeProduct = () => {
             />
             <MyInputToolTip
               fullWidth
-              label="Lợi nhuận dự kiến ​​(yên)"
+              label={t("label_expected_profit")}
               name="price"
               value={formData.price}
               onChange={handleChange}
@@ -178,7 +191,7 @@ const FormChangeProduct = () => {
             />
             <MyInputToolTip
               fullWidth
-              label="Hệ số phí eBay & Các loại phí khác"
+              label={t("label_fee_ratio")}
               name="price"
               value={formData.price}
               onChange={handleChange}
@@ -188,7 +201,7 @@ const FormChangeProduct = () => {
             />
           </Grid>
           <MyInput
-            label="Ghi chú"
+            label={t("label_note")}
             name="description"
             multiline
             rows={4}
@@ -197,9 +210,10 @@ const FormChangeProduct = () => {
             className={styles.status}
           />
         </Stack>
+
         <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
-            Đăng ký/Đặt lại cảnh báo
+            {t("button_register_reset")}
           </MyButton>
         </Grid>
       </Stack>

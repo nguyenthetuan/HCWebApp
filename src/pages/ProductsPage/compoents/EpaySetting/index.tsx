@@ -3,11 +3,12 @@ import { Box, Button, Grid, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import styles from "./styles.module.scss";
 import MyButton from "@/components/common/MyButton";
+import { useTranslation } from "react-i18next";
 
 export default function EBaySetting() {
   const [exchangeRate, setExchangeRate] = useState(149);
   const [feeMultiplier, setFeeMultiplier] = useState(0.87);
-
+  const { t } = useTranslation();
   const handleRegister = (type: "rate" | "fee") => {
     alert(
       type === "rate"
@@ -22,7 +23,7 @@ export default function EBaySetting() {
         {/* Bên trái */}
         <Stack item xs={12} md={7} spacing={2}>
           <MyTypography fontSize={14} className={styles.textEpay}>
-            Để tính giá eBay
+            {t("label_calculate_ebay_price")}
           </MyTypography>
           <Stack
             direction="row"
@@ -32,7 +33,7 @@ export default function EBaySetting() {
             className={styles.rate}
           >
             <MyTypography fontSize={14} className={styles.textEpay}>
-              • Tỷ giá hối đoái (yên):
+              {t("label_exchange_rate")}
             </MyTypography>
             <Stack
               direction="row"
@@ -52,7 +53,7 @@ export default function EBaySetting() {
                 className={styles.btnRegistry}
                 sx={style.registry}
               >
-                Đăng ký/Thay đổi
+                {t("label_register_change")}
               </MyButton>
             </Stack>
           </Stack>
@@ -62,7 +63,9 @@ export default function EBaySetting() {
             flexWrap="wrap"
             className={styles.rate}
           >
-            <MyTypography fontSize={14}>Hệ số hoa hồng</MyTypography>
+            <MyTypography fontSize={14}>
+              {t("label_fee_multiplier")}
+            </MyTypography>
             <TextField
               size="small"
               type="number"
@@ -76,7 +79,7 @@ export default function EBaySetting() {
               className={styles.btnRegistry}
               onClick={() => handleRegister("fee")}
             >
-              Đăng ký/Thay đổi
+              {t("label_register_change")}
             </Button>
           </Stack>
           <Stack
@@ -85,7 +88,9 @@ export default function EBaySetting() {
             flexWrap="wrap"
             className={styles.rate}
           >
-            <MyTypography fontSize={14}>Tỉ lệ lợi nhuận mong muốn</MyTypography>
+            <MyTypography fontSize={14}>
+              {t("label_expected_profit_margin")}
+            </MyTypography>
             <TextField
               size="small"
               type="number"
@@ -99,7 +104,7 @@ export default function EBaySetting() {
               className={styles.btnRegistry}
               onClick={() => handleRegister("fee")}
             >
-              Đăng ký/Thay đổi
+              {t("label_register_change")}
             </Button>
           </Stack>
           <Stack
@@ -108,7 +113,9 @@ export default function EBaySetting() {
             flexWrap="wrap"
             className={styles.rate}
           >
-            <MyTypography fontSize={14}>phí vận chuyển bên japan</MyTypography>
+            <MyTypography fontSize={14}>
+              {t("label_japan_shipping_fee")}
+            </MyTypography>
             <TextField
               size="small"
               type="number"
@@ -122,7 +129,7 @@ export default function EBaySetting() {
               className={styles.btnRegistry}
               onClick={() => handleRegister("fee")}
             >
-              Đăng ký/Thay đổi
+              {t("label_register_change")}
             </Button>
           </Stack>
         </Stack>

@@ -11,14 +11,14 @@ import {
 import styles from "./styles.module.scss";
 import TableSearch from "./TableSearch";
 
-const FormSearchProduct = (props) => {
+const FormSearchProductScraping = (props) => {
   return (
     <Box>
       <MyTypography className={styles.textHeader}>
-        Tìm kiếm sản phẩm
+        Các sản phẩm đã cào
       </MyTypography>
       <Stack spacing={2} className={styles.stack}>
-        <Grid className={styles.row} container spacing={2}>
+        {/* <Grid className={styles.row} container spacing={2}>
           <MySelectDropdow
             id="foundation-select"
             name="foundation"
@@ -62,19 +62,19 @@ const FormSearchProduct = (props) => {
           >
             Tìm kiếm
           </MyButton>
-        </Grid>
+        </Grid> */}
         <MyButton
           variant="contained"
           sx={{ backgroundColor: "orange" }}
           size="small"
           className={styles.btnSave}
-          onClick={props?.addProduct}
-          loading={props?.loadingSaveProduct}
+          onClick={props?.addProductToManager}
+          loading={props?.loadingAddProduct}
         >
-          Lưu sang bảng cào dữ liệu
+          Lưu sang bảng quản lý sản phẩm
         </MyButton>
         <TableSearch
-          products={props?.product}
+          products={props?.productAll}
           handleCheckboxChange={props?.handleCheckboxChange}
           selectedIds={props?.selectedIds}
           handleSelectAll={props?.handleSelectAll}
@@ -84,4 +84,4 @@ const FormSearchProduct = (props) => {
   );
 };
 
-export default FormSearchProduct;
+export default FormSearchProductScraping;

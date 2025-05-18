@@ -11,22 +11,31 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import MyImage from "@/components/common/MyImage";
 import MyTypography from "@/components/common/MyTypography";
-
+import MyLink from "@/components/common/MyLink";
 interface Product {
   url?: string;
   name?: string;
   price?: string;
-  imageSrc?: string;
+  avatar_url?: string;
+  scrape_status?: string;
 }
 
 interface Props {
   products: Product[];
+  handleCheckboxChange?: any;
+  selectedIds?: any;
+  handleSelectAll?: () => void;
 }
 
-export default function TableSearch({ products }: Props) {
+export default function TableSearch({
+  products,
+  handleCheckboxChange,
+  selectedIds,
+  handleSelectAll,
+}: Props) {
   const { t, i18n } = useTranslation();
   return (
     <TableContainer
@@ -38,10 +47,16 @@ export default function TableSearch({ products }: Props) {
         <TableHead>
           <TableRow>
             <TableCell>
-              <MyTypography>Chọn</MyTypography>
+              <MyTypography>
+                Chọn
+                <Checkbox onClick={handleSelectAll} />
+              </MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>Url</MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography>Trạng thái</MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>Tên</MyTypography>
@@ -58,10 +73,16 @@ export default function TableSearch({ products }: Props) {
           {products.map((item, i) => (
             <TableRow key={item.id}>
               <TableCell>
-                <Checkbox />
+                <Checkbox
+                  onClick={(e) => handleCheckboxChange(i, e)}
+                  checked={selectedIds.includes(i)}
+                />
               </TableCell>
               <TableCell>
-                <MyTypography>{item.url}</MyTypography>
+                <MyLink>{item.url}</MyLink>
+              </TableCell>
+              <TableCell>
+                <MyTypography>{item.scrape_status}</MyTypography>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.name}</MyTypography>
@@ -70,7 +91,7 @@ export default function TableSearch({ products }: Props) {
                 <MyTypography>{item.price}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyImage source={item.imageSrc} />
+                <MyImage source={item.avatar_url} />
               </TableCell>
             </TableRow>
           ))}

@@ -22,11 +22,11 @@ const Language = ({ ...rest }) => {
     <MySelectDropdow
       id="language-select"
       name="language"
-      label="Chọn ngôn ngữ"
+      label={t("title_choose_language")}
       value={language}
       onChange={handleChange}
       options={options}
-      helperText="Vui lòng chọn ngôn ngữ"
+      helperText={t("title_validate_language")}
       className={styles.container}
     />
   );

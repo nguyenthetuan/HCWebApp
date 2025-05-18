@@ -3,9 +3,10 @@ import { useState } from "react";
 import HeaderProductPage from "../compoents/HeaderProductPage";
 import styles from "./styles.module.scss";
 import ProductPage from "../ProductsPage";
-import ScrapingManager from "../ScrapingManager";
+import ScrapingManagerPage from "../ScrapingManagerPage";
+import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
 
-export default function ProductTab() {
+const ProductTab = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
@@ -39,8 +40,10 @@ export default function ProductTab() {
       </Tabs>
       <Box sx={{ mt: 2 }}>
         {tabIndex === 0 && <ProductPage />}
-        {tabIndex === 1 && <ScrapingManager />}
+        {tabIndex === 1 && <ScrapingManagerPage />}
       </Box>
     </Box>
   );
-}
+};
+
+export default ProductTab;

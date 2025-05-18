@@ -27,7 +27,6 @@ const FormSetupUser = () => {
   const [category, setCategory] = useState("");
   const [product, setProduct] = useState([]);
   const [alignment, setAlignment] = useState("configured");
-  console.log("alignment", alignment);
 
   const handleChangeToggle = (event, newAlignment) => {
     if (newAlignment !== null) {

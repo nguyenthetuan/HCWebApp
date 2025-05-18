@@ -5,10 +5,12 @@ import styles from "./styles.module.scss";
 import MyButton from "@/components/common/MyButton";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
 import { typeFile, autoLink, typeUpload } from "../../../../untils/dataMockup";
+import { useTranslation } from "react-i18next";
 
 const FormChooseFile = () => {
   const fileInputRef = useRef(null);
   const [fileInfor, setFileInfor] = useState(null);
+  const { t } = useTranslation();
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileInfor(file);
@@ -16,49 +18,32 @@ const FormChooseFile = () => {
   };
   return (
     <Box>
-      <MyTypography className={styles.title}>Lựa chọn tập tin</MyTypography>
+      <MyTypography className={styles.title}>
+        {t("upload_file_title")}
+      </MyTypography>
       <Box className={styles.header}>
         <MyTypography variant="h5" className={styles.text}>
-          Trước khi tải lên, vui lòng sao lưu bằng "Tải xuống CVS" (phân cách
-          bằng dấu phẩy hoặc phân cách bằng TAB) để phòng ngừa.
+          {t("upload_file_instruction_1")}
           <br />
-          Vui lòng sử dụng định dạng lấy từ "Tải xuống CVS"
+          {t("upload_file_instruction_2")}
         </MyTypography>
         <MyTypography variant="h5" className={styles.text}>
-          Trước khi tải lên, hãy mở tệp CSV trong Notepad và đảm bảo rằng tệp có
+          {t("upload_file_instruction_3")}
           <br />
-          định dạng sau:
+          {t("upload_file_instruction_4")}
           <br />
-          &nbsp;&nbsp;- Ký tự bao quanh cột: dấu ngoặc kép " " (bắt buộc
+          &nbsp;&nbsp; {t("upload_file_column_wrap")}
           <br />
-          &nbsp;&nbsp; đối với các mục có chứa dấu phẩy trong dữ liệu)
-          <br />
-          &nbsp;&nbsp;- Phân cách cột: "," dấu phẩy
+          &nbsp;&nbsp;{t("upload_file_column_separator")}
         </MyTypography>
-        <MyTypography>
-          "Ví dụ về định dạng đúng cho tệp CSV (phân tách bằng dấu phẩy)"
-          Rakuten Ichiba, SONY Walkman 32GB, URL, URL, "15.700", 1, 0, Số lượng,
-          1, ... Waiwai Honpo, Mô hình giới hạn One Piece, URL, URL, "9,550", 1,
-          0, Thêm vào giỏ hàng, 1, ... *Chúng tôi khuyên bạn nên sử dụng Google
-          Spreadsheets hoặc Open Office để chỉnh sửa và lưu tệp CSV. (Không nên
-          chỉnh sửa tệp CSV trong Excel vì nó thường dẫn đến hỏng dữ liệu.)
-        </MyTypography>
-        <MyTypography>
-          * Vui lòng tải lên với tiêu đề dòng đầu tiên được bao gồm (dòng đầu
-          tiên sẽ bị xóa)
-        </MyTypography>
-        <MyTypography>
-          * Bạn có thể tải lên tối đa 1500 mục cùng một lúc (các mục từ 1501 trở
-          lên sẽ bị xóa)
-        </MyTypography>
-        <MyTypography>
-          * Sau khi tải lên, tất cả các mục sẽ được kiểm tra theo thời gian kiểm
-          tra tự động cứ sau 6 giờ.
-        </MyTypography>
+        <MyTypography>{t("upload_file_csv_example")}</MyTypography>
+        <MyTypography>{t("upload_file_note_1")}</MyTypography>
+        <MyTypography>{t("upload_file_note_2")}</MyTypography>
+        <MyTypography>{t("upload_file_note_3")}</MyTypography>
 
         <MyRadioGroup
           name={"type_file"}
-          label={"Kiểu File"}
+          label={t("upload_file_file_type")}
           options={typeFile}
           value={"ratio"}
           onChange={() => {}}
@@ -66,7 +51,7 @@ const FormChooseFile = () => {
         />
         <MyRadioGroup
           name={"type_file"}
-          label={"Các mục chức năng liên kết tự động của eBay"}
+          label={t("upload_file_ebay_auto_link")}
           options={autoLink}
           value={"ratio"}
           onChange={() => {}}
@@ -74,7 +59,7 @@ const FormChooseFile = () => {
         />
         <MyRadioGroup
           name={"type_file"}
-          label={"・Cách tải lên:"}
+          label={t("upload_file_upload_method")}
           options={typeUpload}
           value={"ratio"}
           onChange={() => {}}
@@ -85,7 +70,7 @@ const FormChooseFile = () => {
             variant="contained"
             onClick={() => fileInputRef.current.click()}
           >
-            Chọn tệp
+            {t("upload_file_choose_file")}
           </MyButton>
           <MyTypography>{fileInfor?.name}</MyTypography>
           <input

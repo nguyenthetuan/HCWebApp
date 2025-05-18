@@ -19,82 +19,47 @@ import ModalChangeProduct from "@/pages/ProductsPage/compoents/ModalChangeProduc
 import ModalCheapProduct from "@/pages/ProductsPage/compoents/ModalCheapProduct";
 import ModalStopSellingProduct from "@/pages/ProductsPage/compoents/ModalStopSelingProduct";
 import ModadalUpdateQuantity from "@/pages/ProductsPage/compoents/ModalUpdateQuantityProduct";
+import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
 
 interface Product {
-  id: number;
-  store: string;
-  name: string;
-  ebayMyLink: string;
-  url: string;
-  quantity: number;
-  price: number;
-  shipping: number;
-  stock: string;
-  profit: number;
-  registeredDate: string;
-  note?: string;
+  _id?: string;
+  url?: string;
+  name?: string;
+  price?: string;
+  out_of_stock?: boolean;
+  avatar_url?: boolean;
+  image_urls: [];
+  __v: 0;
+  content?: boolean;
 }
 
 interface Props {
   products: Product[];
+  handleCheckboxChange?: any;
+  handleSelectAll: () => void;
+  selectedIds?: any;
+  checkAll?: boolean;
+  setCheckAll?: any;
+  onChange?: (item) => void;
+  itemSelect?: any;
 }
 
-export default function MyProductTable({ products }: Props) {
+export default function MyProductTable({
+  products,
+  handleCheckboxChange,
+  handleSelectAll,
+  selectedIds,
+  checkAll,
+  setCheckAll,
+  onChange,
+  itemSelect,
+}: Props) {
   const { t, i18n } = useTranslation();
   const refModal = useRef(null);
   const refModalChangeProduct = useRef(null);
   const refModalCheapProduct = useRef(null);
   const refModalStopSellingProduct = useRef(null);
   const refModalUpdateQuantity = useRef(null);
-
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
-    null
-  );
-
-  const handleSelectAll = () => {
-    if (selectedIds.length === products.length) {
-      // Bỏ chọn tất cả nếu đã chọn hết
-      setSelectedIds([]);
-    } else {
-      // Chọn tất cả
-      setSelectedIds(products.map((item, index) => index));
-    }
-  };
-
-  const handleCheckboxChange = (index: number, e: React.MouseEvent) => {
-    const shiftKey = e.shiftKey;
-    setSelectedIds((prev) => {
-      if (shiftKey && lastSelectedIndex !== null) {
-        // SHIFT + CLICK → chọn từ lastSelectedIndex đến index
-        const [start, end] = [lastSelectedIndex, index].sort((a, b) => a - b);
-        const range = Array.from(
-          { length: end - start + 1 },
-          (_, i) => start + i
-        );
-        const merged = Array.from(new Set([...prev, ...range]));
-        return merged;
-      }
-      // CLICK thường → toggle item
-      const isSelected = prev.includes(index);
-      const newSelected = isSelected
-        ? prev.filter((id) => id !== index)
-        : [...prev, index];
-      // Nếu đang unselect (bỏ chọn) thì reset lastSelectedIndex
-      if (isSelected) {
-        setLastSelectedIndex(null);
-      } else {
-        setLastSelectedIndex(index);
-      }
-
-      return newSelected;
-    });
-
-    // ✅ Nếu shift đang được giữ, vẫn phải cập nhật lastSelectedIndex mới
-    if (shiftKey) {
-      setLastSelectedIndex(index);
-    }
-  };
 
   return (
     <TableContainer
@@ -109,43 +74,46 @@ export default function MyProductTable({ products }: Props) {
               <MyTypography>{t("title_MyProudctPage_no")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>
-                Chọn
-                <Checkbox onClick={handleSelectAll} />
+              <MyTypography className={styles.row}>
+                {t("title_select")}
+                <Checkbox
+                  checked={checkAll}
+                  onClick={() => {
+                    handleSelectAll();
+                    setCheckAll(!checkAll);
+                  }}
+                />
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Tên cửa hàng</MyTypography>
+              <MyTypography>{t("title_store_name")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>
-                Tên sản phẩm eBay Số mặt hàng/Số lượng/Chức năng liên kết tự
-                động
-              </MyTypography>
+              <MyTypography>{t("title_product_info")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>URL mua hàng</MyTypography>
+              <MyTypography>{t("title_purchase_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>MyLink eBay</MyTypography>
+              <MyTypography>{t("title_ebay_link")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Giá mua</MyTypography>
+              <MyTypography>{t("title_purchase_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Phí vận chuyển</MyTypography>
+              <MyTypography>{t("title_shipping_fee")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Từ khoá chứng khoán</MyTypography>
+              <MyTypography>{t("title_stock_keywords")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Lợi nhuận dự kiến</MyTypography>
+              <MyTypography>{t("title_expected_profit")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Ngày đăng</MyTypography>
+              <MyTypography>{t("title_registered_date")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Ghi chú</MyTypography>
+              <MyTypography>{t("title_note")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -159,16 +127,17 @@ export default function MyProductTable({ products }: Props) {
                     <MyLink
                       onClick={() => {
                         refModalChangeProduct.current.openModal();
+                        onChange(item);
                       }}
                     >
-                      [Thay đổi]
+                      {t("action_change")}
                     </MyLink>
                     <MyLink
                       onClick={() => {
                         refModalChangeProduct.current.openModal();
                       }}
                     >
-                      [Xoá]
+                      {t("action_delete")}
                     </MyLink>
                   </MyTypography>
                 </TableCell>
@@ -179,74 +148,77 @@ export default function MyProductTable({ products }: Props) {
                   />
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.store}</MyTypography>
+                  <MyTypography>{item?.store}</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>
-                    {item.name}
-
+                    {item?.name}
                     <MyLink
                       onClick={() => {
                         refModal.current.openModal();
                       }}
                     >
-                      Danh sách Epay
+                      {t("action_epay_list")}
                     </MyLink>
                     <MyLink
                       onClick={() => {
                         alert("ssss");
                       }}
                     >
-                      [Xoá dữ liệu danh sách]
+                      {t("action_delete_epay_data")}
                     </MyLink>
                   </MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyLink>{item.url}</MyLink>
+                  <MyLink>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyLink href={item.ebayMyLink} target="_blank" rel="noopener">
-                    Xem eBay
+                  <MyLink
+                    href={item?.ebayMyLink}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {t("action_view_ebay")}
                   </MyLink>
                   <MyLink
                     onClick={() => {
                       refModalCheapProduct.current.openModal();
                     }}
                   >
-                    Rẻ nhất
+                    {t("action_cheap_product")}
                   </MyLink>
                   <MyLink
                     onClick={() => {
                       refModalStopSellingProduct.current.openModal();
                     }}
                   >
-                    Danh sách sản phẩm dừng bán
+                    {t("action_stop_selling_list")}
                   </MyLink>
                   <MyLink
                     onClick={() => {
                       refModalUpdateQuantity.current.openModal();
                     }}
                   >
-                    Số lượng thay đổi
+                    {t("action_update_quantity")}
                   </MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.price.toLocaleString()} ¥</MyTypography>
+                  <MyTypography>{item?.price} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.shipping} ¥</MyTypography>
+                  <MyTypography>{item?.shipping} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.stock}</MyTypography>
+                  <MyTypography>{item?.stock}</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.profit.toLocaleString()} ¥</MyTypography>
+                  <MyTypography>{item?.profi?.toLocaleString()} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.registeredDate}</MyTypography>
+                  <MyTypography>{item?.registeredDate}</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item.note || "-"}</MyTypography>
+                  <MyTypography>{item?.note || "-"}</MyTypography>
                 </TableCell>
               </TableRow>
             );
@@ -254,7 +226,7 @@ export default function MyProductTable({ products }: Props) {
         </TableBody>
       </Table>
       <ModalListingEpay ref={refModal} />
-      <ModalChangeProduct ref={refModalChangeProduct} />
+      <ModalChangeProduct ref={refModalChangeProduct} itemSelect={itemSelect} />
       <ModalCheapProduct ref={refModalCheapProduct} />
       <ModalStopSellingProduct ref={refModalStopSellingProduct} />
       <ModadalUpdateQuantity ref={refModalUpdateQuantity} />

@@ -13,44 +13,46 @@ import { useRef } from "react";
 import ModalSetupUser from "../ModalSetupUser";
 import ModalSetUpEbay from "../ModalSetupEbay";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function EbayToolbar() {
   const refModalChooseFile = useRef(null);
   const refModalSetupUser = useRef(null);
   const refModalSetupEbay = useRef(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const links = [
     {
       key: "0",
-      value: "Tải xuống CSV",
+      value: t("action_dowload_csv"),
     },
     {
       key: "1",
-      value: "Tải lên CSV",
+      value: t("action_upload_csv"),
     },
     {
       key: "2",
-      value: "Mở album lưu trữ/Mở album giám sát khách hàng",
+      value: t("action_open_album_tracking_customer"),
     },
     {
       key: "3",
-      value: "Đăng nhập eBay",
+      value: t("action_login_ebay"),
     },
     {
       key: "4",
-      value: "Đăng xuất",
+      value: t("action_logout"),
     },
     {
       key: "5",
-      value: "Chức năng liên kết tự động eBay đang hoạt động",
+      value: t("action_auto_link"),
     },
     {
       key: "6",
-      value: "Nhật ký liên kết tự động eBay",
+      value: t("action_automatic_link_log"),
     },
     {
       key: "7",
-      value: "Cài đặt chức năng niêm yết eBay",
+      value: t("action_ebay_settiong"),
     },
   ];
 

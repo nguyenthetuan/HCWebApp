@@ -13,374 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateName } from "../../feature/userSlice";
 import { useProductPage } from "@/hook/ProductPage";
 import ScrollButtons from "@/components/common/ScrollButton";
-
-const mockData = [
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-  {
-    id: 1,
-    store: "Surugaya",
-    name: "Phần mềm Famicom Final Fantasy",
-    ebayLink: "https://example.com",
-    url: "google.com",
-    quantity: 1,
-    price: 24800,
-    shipping: 0,
-    stock: "VSI",
-    profit: 25134,
-    registeredDate: "2025-04-12",
-    note: "123456789",
-  },
-];
+import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
+import EventBus from "@/components/common/EventBus";
 
 const options = [
   {
@@ -401,17 +35,43 @@ const options = [
   },
 ];
 
-export default function ProductPage() {
+const ProductPage = (props: any) => {
+  const {
+    getProduct,
+    products,
+    deleteProduct,
+    selectedIds,
+    handleCheckboxChange,
+    handleSelectAll,
+    loadingDelProduct,
+    checkAll,
+    setCheckAll,
+    setItemSelect,
+    itemSelect,
+  } = userManagerProduct();
+  console.log("qqqqqq", itemSelect);
+
   const { gender, setGender, page, setPage } = useProductPage();
+  useEffect(() => {
+    getProduct();
+  }, []);
+  useEffect(() => {
+    EventBus.addEventListener("getProduct", getProduct);
+    return () => {
+      EventBus.removeEventListener("getProduct", getProduct);
+    };
+  }, []);
   return (
     <Box className={styles.Container}>
-      {/* <HeaderProductPage /> */}
       <Box className={styles.wrapCenter}>
         <Box className={styles.leftPane}>
           <EBaySetting />
         </Box>
         <Box className={styles.centerPane}>
-          <MultileButton />
+          <MultileButton
+            deleteProduct={deleteProduct}
+            loadingDelProduct={loadingDelProduct}
+          />
         </Box>
         <Box className={styles.rightPane}>
           <EbayToolbar />
@@ -436,7 +96,16 @@ export default function ProductPage() {
         </Box>
       </Box>
       <Box className={styles.table}>
-        <MyProductTable products={mockData} />
+        <MyProductTable
+          products={products}
+          handleCheckboxChange={handleCheckboxChange}
+          handleSelectAll={handleSelectAll}
+          selectedIds={selectedIds}
+          checkAll={checkAll}
+          setCheckAll={setCheckAll}
+          onChange={(value) => setItemSelect(value)}
+          itemSelect={itemSelect}
+        />
       </Box>
       <Box className={styles.wrapFooterPagination}>
         <MyRadioGroup
@@ -457,4 +126,6 @@ export default function ProductPage() {
       <ScrollButtons />
     </Box>
   );
-}
+};
+
+export default ProductPage;

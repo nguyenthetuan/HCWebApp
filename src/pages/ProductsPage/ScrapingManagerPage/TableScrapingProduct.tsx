@@ -11,24 +11,31 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useRef, useState } from "react";
 import MyImage from "@/components/common/MyImage";
 import MyTypography from "@/components/common/MyTypography";
+
 interface Product {
+  _id?: string;
   url?: string;
   name?: string;
   price?: string;
-  imageSrc?: string;
+  content?: string;
+  avatar_url?: string;
+  image_urls: any[];
+  scrape_status?: string;
+  __v?: number;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface Props {
   products: Product[];
-  handleCheckboxChange?: any;
-  selectedIds?: any;
+  handleCheckboxChange?: (i, e) => void;
+  selectedIds?: any[];
   handleSelectAll?: () => void;
 }
 
-export default function TableSearch({
+export default function TableScrapingProduct({
   products,
   handleCheckboxChange,
   selectedIds,
@@ -54,6 +61,9 @@ export default function TableSearch({
               <MyTypography>Url</MyTypography>
             </TableCell>
             <TableCell>
+              <MyTypography>Trạng thái</MyTypography>
+            </TableCell>
+            <TableCell>
               <MyTypography>Tên</MyTypography>
             </TableCell>
             <TableCell>
@@ -70,11 +80,14 @@ export default function TableSearch({
               <TableCell>
                 <Checkbox
                   onClick={(e) => handleCheckboxChange(i, e)}
-                  checked={selectedIds.includes(i)}
+                  checked={selectedIds?.includes(i)}
                 />
               </TableCell>
               <TableCell>
                 <MyTypography>{item.url}</MyTypography>
+              </TableCell>
+              <TableCell>
+                <MyTypography>{item.scrape_status}</MyTypography>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.name}</MyTypography>
@@ -83,7 +96,7 @@ export default function TableSearch({
                 <MyTypography>{item.price}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyImage source={item.imageSrc} />
+                <MyImage source={item.avatar_url} />
               </TableCell>
             </TableRow>
           ))}

@@ -4,9 +4,11 @@ import styles from "./styles.module.scss";
 import FormChangeProduct from "./form";
 
 // forwardRef để parent có thể gọi hàm trong component này
-const ModalChangeProduct = forwardRef((props, ref) => {
+interface props {
+  itemSelect?: any;
+}
+const ModalChangeProduct = forwardRef((props: props, ref) => {
   const [open, setOpen] = useState(false);
-
   // expose các hàm ra ngoài qua ref
   useImperativeHandle(ref, () => ({
     openModal: () => setOpen(true),
@@ -19,7 +21,7 @@ const ModalChangeProduct = forwardRef((props, ref) => {
       onClose={() => setOpen(false)}
       className={styles.container}
     >
-      <FormChangeProduct />
+      <FormChangeProduct itemSelect={props.itemSelect} />
     </MyModal>
   );
 });

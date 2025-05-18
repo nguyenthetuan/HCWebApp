@@ -4,7 +4,7 @@
 }
 
 @mixin button {
-  font-size: 8px !important;
+  font-size: 10px !important;
   @media (max-width: 768px) {
     font-size: 6px !important;
   }

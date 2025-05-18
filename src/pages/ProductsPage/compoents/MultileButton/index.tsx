@@ -4,11 +4,16 @@ import styles from "./styles.module.scss";
 import ModalSearchProduct from "../ModalSearchProduct";
 import { useRef } from "react";
 import ModalListingEpay from "../ModalListingEpay";
+import ModalSearchProductScraping from "../ModalSearchProductScraping";
+import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
 
-export default function MultileButton() {
+interface propsMutiButton {
+  deleteProduct?: () => void;
+  loadingDelProduct?: boolean;
+}
+export default function MultileButton(props: propsMutiButton) {
   const refModal = useRef(null);
   const refModalListingEbay = useRef(null);
-
   const openModalSearch = () => {
     refModal?.current?.openModal();
   };
@@ -35,6 +40,8 @@ export default function MultileButton() {
           sx={{ backgroundColor: "orange", fontSize: 8 }}
           size="small"
           className={styles.buttons}
+          onClick={props.deleteProduct}
+          loading={props?.loadingDelProduct}
         >
           Xóa tất cả các mục đã
         </MyButton>
@@ -57,7 +64,7 @@ export default function MultileButton() {
           Tìm kiếm
         </MyButton>
       </Stack>
-      <ModalSearchProduct ref={refModal} />
+      <ModalSearchProductScraping ref={refModal} />
       <ModalListingEpay ref={refModalListingEbay} />
     </Box>
   );
