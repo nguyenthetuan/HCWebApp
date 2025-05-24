@@ -5,23 +5,22 @@ import request from "@/services/Request";
 import { Box, Grid, Stack } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 const FormStopSellingProduct = () => {
+  const { t } = useTranslation();
   const [keyword, setKeyword] = useState("");
   const search = useCallback(async () => {}, []);
   return (
     <Box>
       <MyTypography className={styles.title}>
-        Danh sách sản phẩm eBay đã dừng
+        {t("list_product_bought")}
       </MyTypography>
       <Stack spacing={2}>
-        <MyTypography>
-          Vui lòng xác nhận số mặt hàng bạn muốn ngừng niêm yết. Nhấp vào "Dừng
-          danh sách eBay" sẽ dừng danh sách eBay của bạn.
-        </MyTypography>
+        <MyTypography>{t("description")}</MyTypography>
         <MyInput
           fullWidth
-          label="Số mặt hàng eBay"
+          label={t("inputLabel")}
           name="title"
           className={styles.status}
           size="small"
@@ -36,7 +35,7 @@ const FormStopSellingProduct = () => {
         className={styles.buttons}
         onClick={search}
       >
-        Tạm dừng niêm yết trên eBay
+        {t("button_pause")}
       </MyButton>
     </Box>
   );

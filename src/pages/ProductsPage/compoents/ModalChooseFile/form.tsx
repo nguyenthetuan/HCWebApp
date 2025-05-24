@@ -4,13 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.scss";
 import MyButton from "@/components/common/MyButton";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
-import { typeFile, autoLink, typeUpload } from "../../../../untils/dataMockup";
+import {
+  getTypeFile,
+  autoLink,
+  getTypeUpload,
+} from "../../../../untils/dataMockup";
 import { useTranslation } from "react-i18next";
 
 const FormChooseFile = () => {
   const fileInputRef = useRef(null);
   const [fileInfor, setFileInfor] = useState(null);
   const { t } = useTranslation();
+  const typeFile = getTypeFile(t);
+  const typeUpload = getTypeUpload(t);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileInfor(file);

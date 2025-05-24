@@ -13,12 +13,14 @@ import MyButtonTooltip from "@/components/common/MyButtonTooltip";
 import MySelectDropdowTooltip from "@/components/common/MySelectDropdowTooltip";
 import {
   TOOLTIP,
-  optionStatus,
-  optionEcommerce,
-  optionHtml,
-  endDow,
+  getOptionStatus,
+  getOptionEcommerce,
+  getOptionHtml,
+  getEndDow,
 } from "@/untils/dataMockup";
+import { useTranslation } from "react-i18next";
 const FormEpay = () => {
+  const tooltips = TOOLTIP();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -31,6 +33,12 @@ const FormEpay = () => {
     location: "",
   });
   const [status, setStatus] = useState("new");
+  const { t } = useTranslation();
+  const optionHtml = getOptionHtml(t);
+  const optionStatus = getOptionStatus(t);
+  const optionEcommerce = getOptionEcommerce(t);
+  const endDow = getEndDow(t);
+
   const [statusEbay, setStatusEbay] = useState("1");
   const handleChangeStatus = (event) => {
     setStatus(event.target.value);
@@ -60,21 +68,20 @@ const FormEpay = () => {
     <Box>
       <Box className={styles.header}>
         <MyTypography variant="h5" mb={2}>
-          Nhập dữ liệu niêm yết eBay ( Vui lòng tham khảo Hướng dẫn sử dụng để
-          biết các trang web mới nhất hỗ trợ [Lấy thông tin trang web] ). 　
+          {t("title")}
           <MyLink>
             URL nhà cung cấp: https://www.suruga-ya.jp/product/detail/174000517
           </MyLink>
         </MyTypography>
         <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" className={styles.btn}>
-            Lấy thông tin trang website
+            {t("btn_getWebsiteInfo")}
           </MyButton>
           <MyButton variant="contained" color="primary" className={styles.btn}>
-            Sao chép thông tin vào bảng tạm
+            {t("btn_copyToClipboard")}
           </MyButton>
           <MyButton variant="contained" color="primary" className={styles.btn}>
-            gọi mẫu niêm yết
+            {t("btn_callListingTemplate")}
           </MyButton>
         </Grid>
       </Box>
@@ -90,7 +97,7 @@ const FormEpay = () => {
           <Grid className={styles.row} container spacing={2}>
             <MyInput
               fullWidth
-              label="Tiêu đề(Tiếng nhật)"
+              label={t("title_japanese")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -103,12 +110,12 @@ const FormEpay = () => {
               variant="contained"
               className={styles.btn}
             >
-              Tiêu đề bản dịch
+              {t("btn_translateTitle")}
             </MyButton>
             <KeyboardDoubleArrowRightIcon />
             <MyInput
               fullWidth
-              label="Tiêu đề"
+              label={t("title_translate")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -120,7 +127,7 @@ const FormEpay = () => {
           <Grid className={styles.row} container spacing={2}>
             <TextField
               fullWidth
-              label="Mô tả sản phẩm"
+              label={t("product_description")}
               name="description"
               multiline
               rows={4}
@@ -135,12 +142,12 @@ const FormEpay = () => {
               variant="contained"
               className={styles.btn}
             >
-              Bản dịch mô tả sản phẩm
+              {t("btn_translateDescription")}
             </MyButton>
             <KeyboardDoubleArrowRightIcon />
             <TextField
               fullWidth
-              label="Mô tả sản phẩm"
+              label={t("product_description")}
               name="description"
               multiline
               rows={4}
@@ -163,78 +170,79 @@ const FormEpay = () => {
               color="primary"
               className={styles.btn}
             >
-              Xem trước màn hình
+              {t("btn_preview")}
             </MyButton>
             <MyButtonTooltip
               variant="contained"
               color="primary"
               className={styles.btn}
-              toolTip="Vui lòng thiết lập mẫu HTML sẽ sử dụng cho Mô tả eBay trước trong"
+              toolTip={t("tooltipHtml")}
             >
-              Cài đặt chức năng niêm yết Ebay
+              {t("btn_ebaySetting")}
             </MyButtonTooltip>
           </Grid>
           <Grid className={styles.row} container spacing={2}>
             <MyInputToolTip
               fullWidth
-              label="Nhãn tùy chỉnh (SKU)"
+              label={t("sku")}
               name="price"
               type="number"
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.SKU}
+              toolTip={tooltips.SKU}
               size="small"
             />
             <MyInputToolTip
               fullWidth
-              label="Mã danh mục"
+              label={t("categoryId")}
               name="quantity"
               type="number"
               value={formData.quantity}
               onChange={handleChange}
               className={styles.status}
               size="small"
-              toolTip={<MyTypography>{TOOLTIP.CATEGORY_ID}</MyTypography>}
+              toolTip={<MyTypography>{tooltips.CATEGORY_ID}</MyTypography>}
             />
             <MyInputToolTip
               fullWidth
-              label="StoreCategoryID"
+              label={t("storeCategoryId")}
               name="returnPolicy"
               size="small"
               value={formData.returnPolicy}
               onChange={handleChange}
               className={styles.status}
-              toolTip={<MyTypography>{TOOLTIP.STORE_CATEGORY_ID}</MyTypography>}
+              toolTip={
+                <MyTypography>{tooltips.STORE_CATEGORY_ID}</MyTypography>
+              }
             />
             <MySelectDropdowTooltip
               id="status"
               name="status"
-              label="Trạng thái"
+              label={t("status")}
               value={"1"}
               onChange={handleChange}
               options={optionStatus}
-              helperText="Vui lòng chọn ngôn ngữ"
               className={styles.dropdow}
               size="small"
-              toolTip={<MyTypography>{TOOLTIP.STATUS}</MyTypography>}
+              toolTip={<MyTypography>{tooltips.STATUS}</MyTypography>}
             />
           </Grid>
           <MyInputToolTip
             fullWidth
-            label="Mô tả tình trạng"
+            label={t("condition_description")}
             name="condition"
             multiline
             rows={4}
             value={formData.description}
             onChange={handleChange}
             className={styles.status}
-            toolTip={TOOLTIP.CONDITION}
+            toolTip={tooltips.CONDITION}
           />
           <Grid className={styles.row} container spacing={2}>
             <MyInput
               fullWidth
-              label="Mã bưu chính"
+              label={t("postalCode")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -243,7 +251,7 @@ const FormEpay = () => {
             />
             <MyInput
               fullWidth
-              label="Mã số MPN"
+              label={t("mpn")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -252,7 +260,7 @@ const FormEpay = () => {
             />
             <MyInput
               fullWidth
-              label="Thương hiệu"
+              label={t("brand")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -274,15 +282,15 @@ const FormEpay = () => {
               variant="contained"
               color="primary"
               className={styles.btn}
-              toolTip={TOOLTIP.SPECIFICS}
+              toolTip={tooltips.SPECIFICS}
             >
-              Nhận thông tin ItemSpecifics
+              {t("btn_getItemSpecifics")}
             </MyButtonTooltip>
           </Grid>
         </Stack>
 
         <Box className={styles.frame}>
-          <Typography marginBottom={1}>Chi tiết sản phẩm</Typography>
+          <Typography marginBottom={1}>{t("productDetails")}</Typography>
           <Grid className={styles.row} container spacing={42}>
             <Stack className={styles.Box} spacing={2}>
               {inputs.map((value, index) => (
@@ -299,12 +307,12 @@ const FormEpay = () => {
                 onClick={handleAdd}
                 className={styles.btnAdd}
               >
-                Add
+                {t("btn_add")}
               </Button>
             </Stack>
             <Stack className={styles.Box} spacing={2}>
               <MyInput
-                label="Yêu cầu"
+                label={t("requirement")}
                 name="description"
                 multiline
                 rows={2}
@@ -313,7 +321,7 @@ const FormEpay = () => {
                 className={styles.status}
               />
               <MyInput
-                label="Giới thiệu"
+                label={t("introduction")}
                 name="description"
                 multiline
                 rows={2}
@@ -322,7 +330,7 @@ const FormEpay = () => {
                 className={styles.status}
               />
               <MyInput
-                label="Lựa chọn"
+                label={t("options")}
                 name="description"
                 multiline
                 rows={4}
@@ -330,13 +338,13 @@ const FormEpay = () => {
                 onChange={handleChange}
                 className={styles.status}
               />
-              <MyTypography>{TOOLTIP.DETAIL_PRODUCT}</MyTypography>
+              <MyTypography>{tooltips.DETAIL_PRODUCT}</MyTypography>
             </Stack>
           </Grid>
         </Box>
         <Grid className={styles.frameRow}>
           <Stack className={styles.frame} spacing={2}>
-            <MyTypography marginBottom={1}>Ưu đãi tốt nhất</MyTypography>
+            <MyTypography marginBottom={1}>{t("bestOffer")}</MyTypography>
             <MyRadioGroup
               label=""
               name="gender"
@@ -346,7 +354,7 @@ const FormEpay = () => {
             />
             <MyInput
               fullWidth
-              label="Tự động chấp nhận các ưu đãi ít nhất là"
+              label={t("autoAccept")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -355,7 +363,7 @@ const FormEpay = () => {
             />
             <MyInput
               fullWidth
-              label="Tự động từ chối các ưu đãi thấp hơn"
+              label={t("autoReject")}
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -364,7 +372,7 @@ const FormEpay = () => {
             />
           </Stack>
           <Stack className={styles.frame} spacing={2}>
-            <MyTypography marginBottom={1}>Danh sách riêng tư</MyTypography>
+            <MyTypography marginBottom={1}>{t("privateList")}</MyTypography>
             <MyRadioGroup
               label=""
               name="gender"
@@ -377,7 +385,7 @@ const FormEpay = () => {
         <Grid className={styles.frameRow}>
           <MyInputToolTip
             fullWidth
-            label="Số lượng"
+            label={t("quantity")}
             name="title"
             value={formData.title}
             onChange={handleChange}
@@ -387,42 +395,39 @@ const FormEpay = () => {
           <MySelectDropdowTooltip
             id="status"
             name="status"
-            label="Chính sách vận chuyển"
+            label={t("shippingPolicy")}
             value={"1"}
             onChange={handleChange}
             options={optionStatus}
-            helperText="Vui lòng chọn ngôn ngữ"
             className={styles.dropdow}
             size="small"
-            toolTip={<MyTypography>{TOOLTIP.STATUS}</MyTypography>}
+            toolTip={<MyTypography>{tooltips.STATUS}</MyTypography>}
           />
           <MySelectDropdowTooltip
             id="status"
             name="status"
-            label="Chính sách trả hàng"
+            label={t("returnPolicy")}
             value={"1"}
             onChange={handleChange}
             options={optionStatus}
-            helperText="Vui lòng chọn ngôn ngữ"
             className={styles.dropdow}
             size="small"
-            toolTip={<MyTypography>{TOOLTIP.STATUS}</MyTypography>}
+            toolTip={<MyTypography>{tooltips.STATUS}</MyTypography>}
           />
           <MySelectDropdowTooltip
             id="status"
             name="status"
-            label="Chính thanh toán"
+            label={t("returnPolicy")}
             value={"1"}
             onChange={handleChange}
             options={optionStatus}
-            helperText="Vui lòng chọn ngôn ngữ"
             className={styles.dropdow}
             size="small"
-            toolTip={<MyTypography>{TOOLTIP.STATUS}</MyTypography>}
+            toolTip={<MyTypography>{tooltips.STATUS}</MyTypography>}
           />
           <MyInputToolTip
             fullWidth
-            label="Vị trí"
+            label={t("location")}
             name="title"
             value={formData.title}
             onChange={handleChange}
@@ -430,15 +435,15 @@ const FormEpay = () => {
             size="small"
           />
         </Grid>
-        <Grid xs={12} container spacing={2}>
+        <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
-            Gửi thông tin sản phẩm
+            {t("btn_submit")}
           </MyButton>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
-            Lưu dữ liệu danh sách
+            {t("btn_saveList")}
           </MyButton>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
-            Lưu dưới dạng mẫu danh sách
+            {t("btn_saveAsTemplate")}
           </MyButton>
         </Grid>
       </Stack>

@@ -5,7 +5,11 @@ import MyTypography from "@/components/common/MyTypography";
 import { Box, Grid, Stack } from "@mui/material";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { optionOnOff, mode, TOOLTIP } from "../../../../untils/dataMockup";
+import {
+  getOptionOnOff,
+  getMode,
+  TOOLTIP,
+} from "../../../../untils/dataMockup";
 import MyInputToolTip from "@/components/common/MyInputToolTip";
 import { useTranslation } from "react-i18next";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
@@ -13,6 +17,7 @@ interface props {
   itemSelect?: any;
 }
 const FormChangeProduct = (props: props) => {
+  const tooltips = TOOLTIP();
   const [formData, setFormData] = useState({
     name: props.itemSelect?.name,
     url: props.itemSelect?.url,
@@ -27,6 +32,8 @@ const FormChangeProduct = (props: props) => {
     location: "",
   });
   const { t } = useTranslation();
+  const optionOnOff = getOptionOnOff(t);
+  const mode = getMode(t);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
@@ -103,7 +110,7 @@ const FormChangeProduct = (props: props) => {
             onChange={() => {}}
             options={optionOnOff}
           />
-          <MyTypography>{TOOLTIP.EBAY}</MyTypography>
+          <MyTypography>{tooltips.EBAY}</MyTypography>
         </Stack>
 
         <Stack spacing={2} className={styles.frame}>
@@ -116,7 +123,7 @@ const FormChangeProduct = (props: props) => {
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.PRICE}
+              toolTip={tooltips.PRICE}
               size="small"
             />
             <MyInputToolTip
@@ -127,7 +134,7 @@ const FormChangeProduct = (props: props) => {
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.FEE_BUY_TRANSPORT}
+              toolTip={tooltips.FEE_BUY_TRANSPORT}
               size="small"
             />
           </Grid>
@@ -142,7 +149,7 @@ const FormChangeProduct = (props: props) => {
             value={formData.price}
             onChange={handleChange}
             className={styles.status}
-            toolTip={TOOLTIP.KEY_STOCK}
+            toolTip={tooltips.KEY_STOCK}
             size="small"
           />
           <MyRadioGroup
@@ -152,7 +159,7 @@ const FormChangeProduct = (props: props) => {
             onChange={() => {}}
             options={mode}
           />
-          <MyTypography>{TOOLTIP.MODE}</MyTypography>
+          <MyTypography>{tooltips.MODE}</MyTypography>
         </Stack>
 
         <Stack className={styles.frame}>
@@ -164,7 +171,7 @@ const FormChangeProduct = (props: props) => {
             onChange={() => {}}
             options={mode}
           />
-          <MyTypography>{TOOLTIP.LOGIC}</MyTypography>
+          <MyTypography>{tooltips.LOGIC}</MyTypography>
         </Stack>
 
         <Stack className={styles.frame}>
@@ -176,7 +183,7 @@ const FormChangeProduct = (props: props) => {
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.FEE_BUY_TRANSPORT}
+              toolTip={tooltips.FEE_BUY_TRANSPORT}
               size="small"
             />
             <MyInputToolTip
@@ -186,7 +193,7 @@ const FormChangeProduct = (props: props) => {
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.FEE_BUY_TRANSPORT}
+              toolTip={tooltips.FEE_BUY_TRANSPORT}
               size="small"
             />
             <MyInputToolTip
@@ -196,7 +203,7 @@ const FormChangeProduct = (props: props) => {
               value={formData.price}
               onChange={handleChange}
               className={styles.status}
-              toolTip={TOOLTIP.RATIO}
+              toolTip={tooltips.RATIO}
               size="small"
             />
           </Grid>

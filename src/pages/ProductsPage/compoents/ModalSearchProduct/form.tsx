@@ -4,34 +4,39 @@ import MySelectDropdow from "@/components/common/MySelectDropdow";
 import MyTypography from "@/components/common/MyTypography";
 import { Box, Grid, Stack } from "@mui/material";
 import {
-  categoryProductNetsea,
-  categoryProductSurugara,
-  commercialPlatform,
+  getCategoryProdcutNetSea,
+  getCategoryProductSurugara,
+  getCommercialPlatform,
 } from "../../../../untils/dataMockup";
 import styles from "./styles.module.scss";
 import TableSearch from "./TableSearch";
+import { useTranslation } from "react-i18next";
 
 const FormSearchProduct = (props) => {
+  const { t } = useTranslation();
+  const commercialPlatform = getCommercialPlatform(t);
+  const categoryProductSurugara = getCategoryProductSurugara(t);
+  const categoryProductNetsea = getCategoryProdcutNetSea(t);
   return (
     <Box>
       <MyTypography className={styles.textHeader}>
-        Tìm kiếm sản phẩm
+        {t("product_search_header")}
       </MyTypography>
       <Stack spacing={2} className={styles.stack}>
         <Grid className={styles.row} container spacing={2}>
           <MySelectDropdow
             id="foundation-select"
             name="foundation"
-            label="Chọn nền tảng"
+            label={t("select_platform")}
             value={props?.foundation}
             onChange={props?.handleChange}
             options={commercialPlatform}
-            helperText="Vui lòng chọn ngôn ngữ"
+            helperText={t("select_platform_helper")}
             className={styles.dropdow}
           />
           <MyInput
             fullWidth
-            label="Key Word"
+            label={t("keyword")}
             name="title"
             className={styles.status}
             size="small"
@@ -41,7 +46,7 @@ const FormSearchProduct = (props) => {
           <MySelectDropdow
             id="category-select"
             name="category"
-            label="Danh mục"
+            label={t("select_category")}
             value={props?.category}
             onChange={(e) => props?.setCategory(e.target.value)}
             options={
@@ -49,7 +54,7 @@ const FormSearchProduct = (props) => {
                 ? categoryProductNetsea
                 : categoryProductSurugara
             }
-            helperText="Vui lòng chọn ngôn ngữ"
+            helperText={t("select_category_helper")}
             className={styles.dropdow}
           />
           <MyButton
@@ -60,7 +65,7 @@ const FormSearchProduct = (props) => {
             onClick={props?.search}
             loading={props?.loadingSearch}
           >
-            Tìm kiếm
+            {t("search_button")}
           </MyButton>
         </Grid>
         <MyButton
@@ -71,13 +76,14 @@ const FormSearchProduct = (props) => {
           onClick={props?.addProduct}
           loading={props?.loadingSaveProduct}
         >
-          Lưu sang bảng cào dữ liệu
+          {t("save_to_crawled_table")}
         </MyButton>
         <TableSearch
           products={props?.product}
           handleCheckboxChange={props?.handleCheckboxChange}
           selectedIds={props?.selectedIds}
           handleSelectAll={props?.handleSelectAll}
+          checkAll={props?.checkAll}
         />
       </Stack>
     </Box>

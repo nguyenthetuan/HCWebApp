@@ -5,10 +5,11 @@ import styles from "./styles.module.scss";
 import ProductPage from "../ProductsPage";
 import ScrapingManagerPage from "../ScrapingManagerPage";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
+import { useTranslation } from "react-i18next";
 
 const ProductTab = () => {
+  const { t } = useTranslation();
   const [tabIndex, setTabIndex] = useState(0);
-
   const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
@@ -35,8 +36,8 @@ const ProductTab = () => {
           },
         }}
       >
-        <Tab label="Quản lý sản phẩm" />
-        <Tab label="Quản lý cào dữ liệu" />
+        <Tab label={t("productManagement")} />
+        <Tab label={t("dataScrapingManagement")} />
       </Tabs>
       <Box sx={{ mt: 2 }}>
         {tabIndex === 0 && <ProductPage />}

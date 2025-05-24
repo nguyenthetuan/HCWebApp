@@ -6,6 +6,7 @@ import {
   Select,
   FormHelperText,
   styled,
+  SelectProps,
 } from "@mui/material";
 import styles from "./styles.module.scss";
 import MyTypography from "../MyTypography";
@@ -23,7 +24,7 @@ interface propsDropdowTooltip {
   fullWidth?: boolean;
   toolTip?: any;
   className?: any;
-  size?: string;
+  size?: "small" | "medium";
 }
 const MySelectDropdowTooltip = ({
   id,
@@ -36,6 +37,7 @@ const MySelectDropdowTooltip = ({
   helperText = "",
   fullWidth = true,
   toolTip = "",
+  size,
   ...rest
 }: propsDropdowTooltip) => {
   return (
@@ -49,6 +51,7 @@ const MySelectDropdowTooltip = ({
           <MyTypography>{label}</MyTypography>
         </CustomInputLabel>
         <SelectCustom
+          size={size}
           labelId={`${id}-label`}
           id={id}
           name={name}
@@ -80,7 +83,8 @@ const MenuItemCustom = styled(MenuItem)(({ theme }) => ({
   fontSize: 12,
   color: theme.palette.primary.main,
 }));
-const SelectCustom = styled(Select)(({ theme }) => ({
+
+const SelectCustom = styled(Select)<SelectProps<unknown>>(({ theme }) => ({
   fontSize: 12,
   color: theme.palette.primary.main,
 }));

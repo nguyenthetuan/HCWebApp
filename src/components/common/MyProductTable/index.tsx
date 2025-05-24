@@ -118,7 +118,7 @@ export default function MyProductTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => {
+          {products.map((item: any, i) => {
             return (
               <TableRow key={item.id}>
                 <TableCell>
@@ -143,8 +143,8 @@ export default function MyProductTable({
                 </TableCell>
                 <TableCell>
                   <Checkbox
-                    onClick={(e) => handleCheckboxChange(i, e)}
-                    checked={selectedIds.includes(i)}
+                    onClick={(e) => handleCheckboxChange(item._id, e)}
+                    checked={selectedIds.includes(item._id)}
                   />
                 </TableCell>
                 <TableCell>
@@ -160,17 +160,13 @@ export default function MyProductTable({
                     >
                       {t("action_epay_list")}
                     </MyLink>
-                    <MyLink
-                      onClick={() => {
-                        alert("ssss");
-                      }}
-                    >
+                    <MyLink onClick={() => {}}>
                       {t("action_delete_epay_data")}
                     </MyLink>
                   </MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyLink>{item?.url}</MyLink>
+                  <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
                   <MyLink

@@ -1,68 +1,18 @@
 import MyButton from "@/components/common/MyButton";
-import MyInput from "@/components/common/MyInput";
-import MySelectDropdow from "@/components/common/MySelectDropdow";
 import MyTypography from "@/components/common/MyTypography";
-import { Box, Grid, Stack } from "@mui/material";
-import {
-  categoryProductNetsea,
-  categoryProductSurugara,
-  commercialPlatform,
-} from "../../../../untils/dataMockup";
+import { Box, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 import TableSearch from "./TableSearch";
 
 const FormSearchProductScraping = (props) => {
+  const { t } = useTranslation();
   return (
     <Box>
       <MyTypography className={styles.textHeader}>
-        Các sản phẩm đã cào
+        {t("title_product_scraped")}
       </MyTypography>
       <Stack spacing={2} className={styles.stack}>
-        {/* <Grid className={styles.row} container spacing={2}>
-          <MySelectDropdow
-            id="foundation-select"
-            name="foundation"
-            label="Chọn nền tảng"
-            value={props?.foundation}
-            onChange={props?.handleChange}
-            options={commercialPlatform}
-            helperText="Vui lòng chọn ngôn ngữ"
-            className={styles.dropdow}
-          />
-          <MyInput
-            fullWidth
-            label="Key Word"
-            name="title"
-            className={styles.status}
-            size="small"
-            value={props?.keyword}
-            onChange={(e) => props?.setKeyword(e.target.value)}
-          />
-          <MySelectDropdow
-            id="category-select"
-            name="category"
-            label="Danh mục"
-            value={props?.category}
-            onChange={(e) => props?.setCategory(e.target.value)}
-            options={
-              props?.foundation === "netsea"
-                ? categoryProductNetsea
-                : categoryProductSurugara
-            }
-            helperText="Vui lòng chọn ngôn ngữ"
-            className={styles.dropdow}
-          />
-          <MyButton
-            variant="contained"
-            color="info"
-            size="small"
-            className={styles.buttons}
-            onClick={props?.search}
-            loading={props?.loadingSearch}
-          >
-            Tìm kiếm
-          </MyButton>
-        </Grid> */}
         <MyButton
           variant="contained"
           sx={{ backgroundColor: "orange" }}
@@ -71,7 +21,7 @@ const FormSearchProductScraping = (props) => {
           onClick={props?.addProductToManager}
           loading={props?.loadingAddProduct}
         >
-          Lưu sang bảng quản lý sản phẩm
+          {t("btn_save_to_manage_product")}
         </MyButton>
         <TableSearch
           products={props?.productAll}

@@ -1,15 +1,19 @@
 import request from "@/services/Request";
 import React, { useCallback, useState } from "react";
+import { toast } from "react-toastify";
 
 export const userManagerProduct = () => {
   const [products, setProduct] = useState([]);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
     null
   );
+  console.log("products", products);
+
   const [checkAll, setCheckAll] = useState(false);
   const [loadingDelProduct, setLoadingDelProduct] = useState(false);
   const [itemSelect, setItemSelect] = useState();
+  const [loadingUpebay, setLoadingUpebay] = useState(false);
 
   const handleSelectAll = () => {
     if (checkAll) {
@@ -17,44 +21,49 @@ export const userManagerProduct = () => {
       setSelectedIds([]);
     } else {
       // Chọn tất cả
-      setSelectedIds(products.map((item, index) => index));
+      setSelectedIds(products.map((item, index) => item._id));
     }
   };
-
-  const handleCheckboxChange = (index: number, e: React.MouseEvent) => {
+  const handleCheckboxChange = (idSelect: string, e: React.MouseEvent) => {
     const shiftKey = e.shiftKey;
+    const orderedIds = products.map((item) => item._id); // ✅ Tạo tại chỗ
     setSelectedIds((prev) => {
       if (shiftKey && lastSelectedIndex !== null) {
-        // SHIFT + CLICK → chọn từ lastSelectedIndex đến index
-        const [start, end] = [lastSelectedIndex, index].sort((a, b) => a - b);
-        const range = Array.from(
-          { length: end - start + 1 },
-          (_, i) => start + i
-        );
+        const startIndex = orderedIds.indexOf(lastSelectedIndex);
+        const endIndex = orderedIds.indexOf(idSelect);
+        if (startIndex === -1 || endIndex === -1) return prev;
+        const [start, end] =
+          startIndex < endIndex
+            ? [startIndex, endIndex]
+            : [endIndex, startIndex];
+
+        const range = orderedIds.slice(start, end + 1);
         const merged = Array.from(new Set([...prev, ...range]));
         return merged;
       }
-      // CLICK thường → toggle item
-      const isSelected = prev.includes(index);
+
+      const isSelected = prev.includes(idSelect);
       const newSelected = isSelected
-        ? prev.filter((id) => id !== index)
-        : [...prev, index];
-      // Nếu đang unselect (bỏ chọn) thì reset lastSelectedIndex
+        ? prev.filter((id) => id !== idSelect)
+        : [...prev, idSelect];
+
       if (isSelected) {
         setLastSelectedIndex(null);
       } else {
-        setLastSelectedIndex(index);
+        setLastSelectedIndex(idSelect);
       }
 
       return newSelected;
     });
 
-    // ✅ Nếu shift đang được giữ, vẫn phải cập nhật lastSelectedIndex mới
     if (shiftKey) {
-      setLastSelectedIndex(index);
+      setLastSelectedIndex(idSelect);
     }
   };
-
+  const resetSelect = () => {
+    setSelectedIds([]);
+    setLastSelectedIndex(null);
+  };
   const getProduct = async () => {
     try {
       const response = await request.get("/api/product-upload");
@@ -66,8 +75,8 @@ export const userManagerProduct = () => {
     try {
       if (selectedIds.length !== 0) {
         setLoadingDelProduct(true);
-        const formData = selectedIds.map((index) => {
-          const elm = products[index];
+        const formData = selectedIds.map((id) => {
+          const elm = products.find((elm) => elm._id === id);
           return elm._id;
         });
         const response = await request.delete("/api/product-upload/bulk", {
@@ -80,6 +89,20 @@ export const userManagerProduct = () => {
       setLoadingDelProduct(false);
     }
   }, [selectedIds]);
+
+  const addProductToEbay = async () => {
+    try {
+      setLoadingUpebay(true);
+      const response = await request.post("/api/product-upload/ebay", {
+        product_ids: selectedIds,
+      });
+      setLoadingUpebay(false);
+      toast.success("Đẩy sản phẩm thành công");
+    } catch (error) {
+      setLoadingUpebay(false);
+    }
+  };
+
   return {
     products,
     setProduct,
@@ -93,5 +116,7 @@ export const userManagerProduct = () => {
     setCheckAll,
     setItemSelect,
     itemSelect,
+    addProductToEbay,
+    loadingUpebay,
   };
 };

@@ -1,314 +1,288 @@
 // file: src/constants/tooltip.tsx
 import MyLink from "@/components/common/MyLink";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-export const TOOLTIP = {
-  SKU: (
-    <>
-      * Nếu bạn nhập <code>&lt;ebay_sku&gt;ABC123456&lt;/ebay_sku&gt;</code>,
-      thông tin sẽ được nhập tự động.
-    </>
-  ),
-  CATEGORY_ID: (
-    <>
-      Vui lòng tìm và nhập số danh mục eBay cho mặt hàng này
-      <a target="_blank" href="https://www.isoldwhat.com">
-        {" "}
-        tại đây
-      </a>{" "}
-      . * Vui lòng kiểm tra số danh mục eBay Motors{" "}
-      <a
-        target="_blank"
-        href="https://www.isoldwhat.com/getcats/ebay-motors-categories?1=1&RootID=6000&wv=motorscats"
-      >
-        tại đây
-      </a>
-      . (Ví dụ) 　Nhập "ống kính" vào trường tìm kiếm "Tìm kiếm theo từ khóa
-      trong tên danh mục: Từ khóa:" ở bên phải màn hình và nhấp vào GỬI. Danh
-      sách các danh mục liên quan sẽ được hiển thị. 　Ví dụ, bạn có thể sử dụng
-      "78997" trong Ống kính & Bộ lọc #78997 làm số danh mục. * Nếu bạn nhập
-      thông tin sau vào trường ghi chú trên màn hình danh sách theo định dạng{" "}
-      {"<ebay_cate>123456</ebay_cate>"}, thông tin này sẽ được nhập tự động.
-      động.
-    </>
-  ),
-  STORE_CATEGORY_ID: (
-    <>
-      Vui lòng tìm và nhập số danh mục cửa hàng của bạn{" "}
-      <a
-        target="_blank"
-        href="https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ru=https%3A%2F%2Fwww.ebay.com%2Fsh%2Fstr%2Fcategory&sgfl=sm&smuid=ecc4d679a1924717ab0e0b9cafe47e45"
-      >
-        [tại đây]
-      </a>{" "}
-      nơi bạn sẽ liệt kê sản phẩm này. * Nếu bạn nhập thông tin vào trường ghi
-      chú trên màn hình danh sách theo định dạng "
-      {"<ebay_store>1234567890</ebay_store>"}
-      động nhập.
-    </>
-  ),
-  STATUS: (
-    <>
-      Bằng cách nhập ID danh mục ở trên, bạn sẽ có thể chọn điều kiện theo danh
-      mục. Để biết điều kiện của từng hạng mục, vui lòng nhấp vào{" "}
-      <a
-        target="_blank"
-        href="https://developer.ebay.com/api-docs/user-guides/static/trading-user-guide-landing.html#development/Desc-ItemCondition.html"
-      >
-        [đây]
-      </a>{" "}
-      .
-    </>
-  ),
-  CONDITION: (
-    <>
-      Điều này đúng khi điều kiện không phải là Mới. (Nếu bạn nhập thông tin này
-      khi tạo mục mới, một thông báo cảnh báo sẽ xuất hiện khi bạn cố gắng liệt
-      kê mục đó.)
-    </>
-  ),
-  SPECIFICS: (
-    <>
-      Điều này đúng khi điều kiện không phải là Mới. (Nếu bạn nhập thông tin này
-      khi tạo mục mới, một thông báo cảnh báo sẽ xuất hiện khi bạn cố gắng liệt
-      kê mục đó.)
-    </>
-  ),
-  DETAIL_PRODUCT: (
-    <>
-      Vui lòng đặt tên và giá trị của Chi tiết mặt hàng, phân tách bằng | (một
-      nửa chiều rộng). Có thể thiết lập tối đa tám thông số kỹ thuật của mặt
-      hàng như sau: (Ví dụ) Số sê-ri|A12345 Chất liệu|da Hãy đảm bảo thiết lập
-      thông số kỹ thuật "bắt buộc" được hiển thị ở bên phải. Việc thiết lập
-      "được đề xuất" và "tùy chọn" cũng giúp người mua dễ dàng tìm kiếm sản phẩm
-      của bạn hơn, điều này cũng giúp cải thiện SEO của bạn trên eBay.
-    </>
-  ),
-  TRANSPORT: (
-    <>
-      Vui lòng đặt tên chính sách vận chuyển của bạn trước trong{" "}
-      <MyLink>[Cài đặt chức năng bán hàng trên eBay]</MyLink> , ngăn cách bằng
-      |.
-    </>
-  ),
-  RETURN: (
-    <>
-      Vui lòng đặt tên Chính sách trả hàng của bạn trước trong{" "}
-      <MyLink>[Cài đặt chức năng bán hàng trên eBay]</MyLink> , ngăn cách bằng
-      |. , phân tách chúng bằng dấu |.
-    </>
-  ),
-  EBAY: <>*Nếu giá của nhà cung cấp có dấu phẩy, vui lòng thêm dấu phẩy vào.</>,
-  PRICE: (
-    <>*Nếu giá của nhà cung cấp có dấu phẩy, vui lòng thêm dấu phẩy vào.</>
-  ),
-  FEE_BUY_TRANSPORT: <>(Có dấu phẩy hoặc không có dấu phẩy)</>,
-  KEY_STOCK: (
-    <>
-      *Nhập chuỗi ký tự sẽ biến mất khi hết hàng vào URL nhà cung cấp. * Vui
-      lòng tham khảo <a> hướng dẫn sử dụng </a>để biết từ vựng của từng nhà cung
-      cấp. Chế độ giám sát:
-    </>
-  ),
-  MODE: (
-    <>
-      Chọn giữa chế độ bình thường, chế độ này sẽ cảnh báo bạn khi một từ "biến
-      mất" trong URL của nhà cung cấp hoặc chế độ Theo dõi, chế độ này sẽ cảnh
-      báo bạn khi một từ "xuất hiện" trong URL của nhà cung cấp . Thông thường,
-      hãy sử dụng ở "Chế độ bình thường".
-    </>
-  ),
-  LOGIC: (
-    <>
-      *Nếu giá và thông tin về kho hàng là chính xác nhưng cảnh báo vẫn được đưa
-      ra, vui lòng thử kiểm tra logic 1. *Nếu bạn đang ở trên một trang web cấm
-      truy cập liên tục và muốn thêm thời gian chờ vào khoảng thời gian kiểm
-      tra, vui lòng thử kiểm tra logic 2 (chờ).
-    </>
-  ),
-  RATIO: <>(0,01 đến 1,0)</>,
-  IdEbayApplication: (
-    <>*Vui lòng nhập ID ứng dụng của tài khoản nhà phát triển eBay của bạn.</>
-  ),
-  IdEbayDevelop: (
-    <>*Vui lòng nhập Dev ID của tài khoản nhà phát triển eBay của bạn.</>
-  ),
-  codeEbay: (
-    <>*Vui lòng nhập Cert ID của tài khoản nhà phát triển eBay của bạn.</>
-  ),
-};
-
-export const optionStatus = [
+export const getOptionStatus = (t) => [
   {
     value: "1",
-    label: "Là một phạm trù mà các điều kiện không thể đạt được.",
+    label: t("optionStatus"),
   },
 ];
 
-export const optionEcommerce = [
+export const TOOLTIP = () => {
+  const { t } = useTranslation();
+  return {
+    SKU: <>{t("tooltip_sku")}</>,
+    CATEGORY_ID: (
+      <>
+        {t("category_id")}
+        <a target="_blank" href="https://www.isoldwhat.com">
+          {" "}
+          {t("category_id_one")}
+        </a>{" "}
+        {t("category_id_two")}
+        <a
+          target="_blank"
+          href="https://www.isoldwhat.com/getcats/ebay-motors-categories?1=1&RootID=6000&wv=motorscats"
+        >
+          {t("category_id_one")}
+        </a>
+        {t("category_id_three")}
+      </>
+    ),
+    STORE_CATEGORY_ID: (
+      <>
+        {t("store_category_id")}
+        <a
+          target="_blank"
+          href="https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&ru=https%3A%2F%2Fwww.ebay.com%2Fsh%2Fstr%2Fcategory&sgfl=sm&smuid=ecc4d679a1924717ab0e0b9cafe47e45"
+        >
+          {t("store_category_one")}
+        </a>
+        {t("store_category_two")}
+      </>
+    ),
+    STATUS: (
+      <>
+        {t("tooltip_status")}
+        <a
+          target="_blank"
+          href="https://developer.ebay.com/api-docs/user-guides/static/trading-user-guide-landing.html#development/Desc-ItemCondition.html"
+        >
+          {t("tooltop_status_one")}
+        </a>{" "}
+        .
+      </>
+    ),
+    CONDITION: <>{t("condition")}</>,
+    SPECIFICS: <>{t("specifics")}</>,
+    DETAIL_PRODUCT: <>{t("detail_product")}</>,
+    TRANSPORT: (
+      <>
+        {t("transport")}
+        <MyLink>{t("transport_1")}</MyLink>
+        {t("transport_2")}
+      </>
+    ),
+    RETURN: (
+      <>
+        {t("return")}
+        <MyLink>{t("return_1")}</MyLink> {t("return_2")}
+      </>
+    ),
+    EBAY: <>{t("ebay")}</>,
+    PRICE: <>{t("price")}</>,
+    FEE_BUY_TRANSPORT: <>{t("fee_buy_transport")}</>,
+    KEY_STOCK: (
+      <>
+        {t("key_stock")}
+        <a> {t("key_stock_1")} </a>
+        {t("key_stock_2")}
+      </>
+    ),
+    MODE: <>{t("mode")}</>,
+    LOGIC: <>{t("logic")}</>,
+    RATIO: <>{t("ratio")}</>,
+    IdEbayApplication: <>{t("id_ebay_application")}</>,
+    IdEbayDevelop: <>{t("id_ebay_develop")}</>,
+    codeEbay: <>{t("code_ebay")}</>,
+  };
+};
+export const getOptionEcommerce = (t) => [
   {
-    label: "eBay.com",
+    label: t("optionEcommerce_ebay"),
     value: "1",
   },
   {
-    label: "Động cơ eBay",
+    label: t("ebayEngine"),
     value: "2",
   },
 ];
 
-export const optionHtml = [
+export const getOptionHtml = (t) => [
   {
-    label: "Không có",
+    label: t("none"),
     value: "0",
   },
   {
-    label: "Mẫu HTML 1",
+    label: t("template1"),
     value: "1",
   },
   {
-    label: "Mẫu HTML 2",
+    label: t("template2"),
     value: "2",
   },
   {
-    label: "Mẫu HTML 3",
+    label: t("template3"),
     value: "3",
   },
   {
-    label: "Mẫu HTML 4",
+    label: t("template4"),
     value: "4",
   },
   {
-    label: "Mẫu HTML 5",
+    label: t("template5"),
     value: "5",
   },
 ];
 
-export const endDow = [
+export const getEndDow = (t) => [
   {
     value: "1",
-    label: "Có hiệu lực",
+    label: t("valid"),
   },
   {
     value: "0",
-    label: "Không hợp lệ",
+    label: t("invalid"),
   },
 ];
 
-export const commercialPlatform = [
+export const getCommercialPlatform = (t) => [
   {
     value: "netsea",
-    label: "netsea",
+    label: t("netsea"),
   },
   {
     value: "surugaya",
-    label: "surugaya",
+    label: t("surugaya"),
   },
 ];
 
-export const categoryProductSurugara = [
+export const getCategoryProductSurugara = (t) => [
   {
     value: "3",
-    label: "Movies/Television",
+    label: t("category_surugara_3"),
   },
   {
     value: "4",
-    label: "Music",
+    label: t("category_surugar_4"),
   },
   {
     value: "5",
-    label: "Toy/Hobby",
+    label: t("category_surugar_5"),
   },
   {
     value: "10",
-    label: "Goods/Accessories",
+    label: t("category_surugar_10"),
   },
   {
     value: "2",
-    label: "Video/Game",
+    label: t("category_surugar_2"),
   },
   {
     value: "6",
-    label: "PC",
+    label: t("category_surugar_6"),
   },
   {
     value: "8",
-    label: "Electric appliances",
+    label: t("category_surugar_8"),
   },
   {
     value: "7",
-    label: "Book",
+    label: t("category_surugar_7"),
   },
   {
     value: "11",
-    label: "Doujin",
+    label: t("ccategory_surugar_11"),
   },
 ];
 
-export const categoryProductNetsea = [
+export const getCategoryProdcutNetSea = (t) => [
   {
     value: "1",
-    label: "Trang phục nữa",
+    label: t("categoryProductNetsea1"),
   },
   {
     value: "11",
-    label: "Trang phục nam",
+    label: t("categoryProductNetsea11"),
   },
   {
     value: "4",
-    label: "Hàng thời trang",
+    label: t("categoryProductNetsea4"),
   },
   {
     value: "2",
-    label: "Nhu cầu hàng ngày",
+    label: t("categoryProductNetsea2"),
   },
   {
     value: "12",
-    label: "Sở thích thể thao",
+    label: t("categoryProductNetsea12"),
   },
   {
     value: "3",
-    label: "Làm đẹp/Sức khoẻ",
+    label: t("categoryProductNetsea3"),
   },
   {
     value: "7",
-    label: "Thiết bị gia dụng máy tính, thiết bị AV",
+    label: t("categoryProductNetsea7"),
   },
   {
     value: "5",
-    label: "Nội thất và đồ nội thất",
+    label: t("categoryProductNetsea5"),
   },
   {
     value: "6",
-    label: "Cửa hàng cung cấp vật tư văn phòng phẩm",
+    label: t("categoryProductNetsea6"),
   },
   {
     value: "8",
-    label: "Thực phẩm/Đồ uống",
+    label: t("categoryProductNetsea8"),
   },
 ];
 
-export const optionOnOff = [
+export const getOptionOnOff = (t) => [
   {
     value: "on",
-    label: "On",
+    label: t("on"),
   },
   {
     value: "off",
-    label: "Off",
+    label: t("off"),
   },
 ];
 
-export const mode = [
+export const getMode = (t) => [
   {
     value: "normal",
-    label: "Chế độ bình thường",
+    label: t("normal"),
   },
   {
     value: "tracking",
-    label: "Chế độ theo dõi",
+    label: t("tracking"),
   },
 ];
 
+export const getLogic = (t) => [
+  {
+    value: "normal",
+    label: t("logic_normal"),
+  },
+  {
+    value: "await",
+    label: t("await"),
+  },
+  {
+    value: "logic1",
+    label: "Kiểm tra logic 1",
+  },
+  {
+    value: "Nessie",
+    label: "Nessie",
+  },
+  {
+    value: "speed",
+    label: "Giao hàng siêu tốc",
+  },
+  {
+    value: "inchiokunet",
+    label: "Inchiokunet",
+  },
+  {
+    value: "mirai",
+    label: "Mirai DOnya",
+  },
+];
 export const logic = [
   {
     value: "normal",
@@ -340,14 +314,25 @@ export const logic = [
   },
 ];
 
-export const typeFile = [
+export const getTypeFile = (t) => [
   {
     value: "ratio",
-    label: "Phân cách bằng dấu phẩy",
+    label: t("typeFile_ratio"),
   },
   {
     value: "tab",
-    label: "Phân cách bằng tab",
+    label: t("tab"),
+  },
+];
+
+export const getAutoLink = (t) => [
+  {
+    value: "no",
+    label: t("no"),
+  },
+  {
+    value: "yes",
+    label: t("yes"),
   },
 ];
 
@@ -363,47 +348,46 @@ export const autoLink = [
   },
 ];
 
-export const typeUpload = [
+export const getTypeUpload = (t) => [
   {
     value: "full",
-    label:
-      "Tải lên tất cả các mục (Xóa tất cả các mục trong cơ sở dữ liệu và đăng ký lại từ mục đầu tiên trong CSV)",
+    label: t("full"),
   },
   {
     value: "additional",
-    label:
-      "Tải lên bổ sung (Giữ nguyên các đăng ký hiện tại và thêm các đăng ký mới từ mục đầu tiên trong CSV)",
+    label: t("additional"),
   },
 ];
 
-export const notificationEmail = [
+export const getNotificationEmail = (t) => [
   {
     value: "full",
-    label: "Thông báo tất cả",
+    label: t("notificationEmail_full"),
   },
   {
     value: "change",
-    label: "Chỉ khi có thay đổi",
-  },
-];
-export const duplicateUrl = [
-  {
-    value: "valid",
-    label: "Có hiệu lực",
-  },
-  {
-    value: "disabled",
-    label: "Đã tắt",
+    label: t("change"),
   },
 ];
 
-export const monitor = [
+export const getDulicateUrl = (t) => [
+  {
+    value: "valid",
+    label: t("duplicateUrl_valid"),
+  },
+  {
+    value: "disabled",
+    label: t("disabled"),
+  },
+];
+
+export const getMonitor = (t) => [
   {
     value: "server",
-    label: "Giám sát máy chủ",
+    label: t("server"),
   },
   {
     value: "client",
-    label: "Giám sát máy khách",
+    label: t("client"),
   },
 ];

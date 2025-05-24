@@ -13,6 +13,7 @@ import {
 import { useTranslation } from "react-i18next";
 import MyImage from "@/components/common/MyImage";
 import MyTypography from "@/components/common/MyTypography";
+import MyLink from "@/components/common/MyLink";
 
 interface Product {
   _id?: string;
@@ -30,16 +31,18 @@ interface Product {
 
 interface Props {
   products: Product[];
-  handleCheckboxChange?: (i, e) => void;
+  handleCheckboxChangeScraping?: (i, e) => void;
   selectedIds?: any[];
   handleSelectAll?: () => void;
+  checkAll?: boolean;
 }
 
 export default function TableScrapingProduct({
   products,
-  handleCheckboxChange,
+  handleCheckboxChangeScraping,
   selectedIds,
   handleSelectAll,
+  checkAll,
 }: Props) {
   const { t, i18n } = useTranslation();
   return (
@@ -53,38 +56,38 @@ export default function TableScrapingProduct({
           <TableRow>
             <TableCell>
               <MyTypography>
-                Chọn
-                <Checkbox onClick={handleSelectAll} />
+                {t("common_select")}
+                <Checkbox onClick={handleSelectAll} value={checkAll} />
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Url</MyTypography>
+              <MyTypography>{t("common_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Trạng thái</MyTypography>
+              <MyTypography>{t("common_status")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Tên</MyTypography>
+              <MyTypography>{t("common_name")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Giá</MyTypography>
+              <MyTypography>{t("common_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Hình ảnh</MyTypography>
+              <MyTypography>{t("common_image")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
-            <TableRow key={item.id}>
+          {products.map((item: any, i) => (
+            <TableRow key={item._id}>
               <TableCell>
                 <Checkbox
-                  onClick={(e) => handleCheckboxChange(i, e)}
-                  checked={selectedIds?.includes(i)}
+                  onClick={(e) => handleCheckboxChangeScraping(item._id, e)}
+                  checked={selectedIds?.includes(item._id)}
                 />
               </TableCell>
               <TableCell>
-                <MyTypography>{item.url}</MyTypography>
+                <MyLink href={item.url}>{item.url}</MyLink>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.scrape_status}</MyTypography>

@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useRef, useState } from "react";
 import MyImage from "@/components/common/MyImage";
 import MyTypography from "@/components/common/MyTypography";
+import MyLink from "@/components/common/MyLink";
 interface Product {
   url?: string;
   name?: string;
@@ -26,6 +27,7 @@ interface Props {
   handleCheckboxChange?: any;
   selectedIds?: any;
   handleSelectAll?: () => void;
+  checkAll?: boolean;
 }
 
 export default function TableSearch({
@@ -33,6 +35,7 @@ export default function TableSearch({
   handleCheckboxChange,
   selectedIds,
   handleSelectAll,
+  checkAll,
 }: Props) {
   const { t, i18n } = useTranslation();
   return (
@@ -46,35 +49,35 @@ export default function TableSearch({
           <TableRow>
             <TableCell>
               <MyTypography>
-                Chọn
-                <Checkbox onClick={handleSelectAll} />
+                {t("table_search_select")}
+                <Checkbox onClick={handleSelectAll} value={checkAll} />
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Url</MyTypography>
+              <MyTypography>{t("table_search_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Tên</MyTypography>
+              <MyTypography>{t("table_search_name")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Giá</MyTypography>
+              <MyTypography>{t("table_search_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Hình ảnh</MyTypography>
+              <MyTypography>{t("table_search_image")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
+          {products.map((item: any, i) => (
             <TableRow key={item.id}>
               <TableCell>
                 <Checkbox
-                  onClick={(e) => handleCheckboxChange(i, e)}
-                  checked={selectedIds.includes(i)}
+                  onClick={(e) => handleCheckboxChange(item.url, e)}
+                  checked={selectedIds.includes(item.url)}
                 />
               </TableCell>
               <TableCell>
-                <MyTypography>{item.url}</MyTypography>
+                <MyLink href={item.url}>{item.url}</MyLink>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.name}</MyTypography>

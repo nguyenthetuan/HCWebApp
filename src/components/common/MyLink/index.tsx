@@ -14,7 +14,12 @@ export default function MyLink({
   ...rest
 }: MyTypographyProps) {
   return (
-    <Link className={clsx(className)} {...rest}>
+    <Link
+      target="_blank"
+      rel="noopener noreferrer"
+      className={clsx(className)}
+      {...rest}
+    >
       <MyTypography>{children}</MyTypography>
     </Link>
   );
