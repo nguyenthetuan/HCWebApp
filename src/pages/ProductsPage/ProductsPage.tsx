@@ -15,25 +15,7 @@ import { useProductPage } from "@/hook/ProductPage";
 import ScrollButtons from "@/components/common/ScrollButton";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
 import EventBus from "@/components/common/EventBus";
-
-const options = [
-  {
-    label: "Tất cả các mục",
-    value: "1",
-  },
-  {
-    label: "10",
-    value: "10",
-  },
-  {
-    label: "50",
-    value: "50",
-  },
-  {
-    label: "100",
-    value: "100",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const ProductPage = (props: any) => {
   const {
@@ -48,9 +30,10 @@ const ProductPage = (props: any) => {
     setCheckAll,
     setItemSelect,
     itemSelect,
+    addProductToEbay,
+    loadingUpebay,
   } = userManagerProduct();
-  console.log("qqqqqq", itemSelect);
-
+  const { t } = useTranslation();
   const { gender, setGender, page, setPage } = useProductPage();
   useEffect(() => {
     getProduct();
@@ -61,6 +44,24 @@ const ProductPage = (props: any) => {
       EventBus.removeEventListener("getProduct", getProduct);
     };
   }, []);
+  const options = [
+    {
+      label: t("title_all"),
+      value: "1",
+    },
+    {
+      label: "10",
+      value: "10",
+    },
+    {
+      label: "50",
+      value: "50",
+    },
+    {
+      label: "100",
+      value: "100",
+    },
+  ];
   return (
     <Box className={styles.Container}>
       <Box className={styles.wrapCenter}>
@@ -71,6 +72,8 @@ const ProductPage = (props: any) => {
           <MultileButton
             deleteProduct={deleteProduct}
             loadingDelProduct={loadingDelProduct}
+            addProductToEbay={addProductToEbay}
+            loadingUpebay={loadingUpebay}
           />
         </Box>
         <Box className={styles.rightPane}>
@@ -80,7 +83,7 @@ const ProductPage = (props: any) => {
       <Box className={styles.wrapRadioGroup}>
         <Box className={styles.wrapPagination}>
           <MyRadioGroup
-            label="Trưng bày"
+            label={t("display")}
             name="gender"
             value={gender}
             onChange={setGender}
@@ -109,7 +112,7 @@ const ProductPage = (props: any) => {
       </Box>
       <Box className={styles.wrapFooterPagination}>
         <MyRadioGroup
-          label="Trưng bày"
+          label={t("display")}
           name="gender"
           value={gender}
           onChange={setGender}

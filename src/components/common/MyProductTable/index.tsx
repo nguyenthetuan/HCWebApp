@@ -1,7 +1,13 @@
 import styles from "./styles.module.scss";
 
+import ModalChangeProduct from "@/pages/ProductsPage/compoents/ModalChangeProduct";
+import ModalCheapProduct from "@/pages/ProductsPage/compoents/ModalCheapProduct";
+import ModalListingEpay from "@/pages/ProductsPage/compoents/ModalListingEpay";
+import ModalStopSellingProduct from "@/pages/ProductsPage/compoents/ModalStopSelingProduct";
+import ModadalUpdateQuantity from "@/pages/ProductsPage/compoents/ModalUpdateQuantityProduct";
 import {
   Checkbox,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -10,16 +16,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import IconEdit from "../../../assets/edit.svg?react";
+import IconDelete from "../../../assets/delete.svg?react";
+
 import MyLink from "../MyLink";
 import MyTypography from "../MyTypography";
-import ModalListingEpay from "@/pages/ProductsPage/compoents/ModalListingEpay";
-import { useRef, useState } from "react";
-import ModalChangeProduct from "@/pages/ProductsPage/compoents/ModalChangeProduct";
-import ModalCheapProduct from "@/pages/ProductsPage/compoents/ModalCheapProduct";
-import ModalStopSellingProduct from "@/pages/ProductsPage/compoents/ModalStopSelingProduct";
-import ModadalUpdateQuantity from "@/pages/ProductsPage/compoents/ModalUpdateQuantityProduct";
-import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
+import MyImage from "../MyImage";
 
 interface Product {
   _id?: string;
@@ -35,13 +39,13 @@ interface Product {
 
 interface Props {
   products: Product[];
-  handleCheckboxChange?: any;
-  handleSelectAll: () => void;
-  selectedIds?: any;
+  handleCheckboxChange?: (e: unknown, value: unknown) => void;
+  handleSelectAll?: () => void;
+  selectedIds?: unknown[];
   checkAll?: boolean;
-  setCheckAll?: any;
+  setCheckAll?: (value: unknown) => void;
   onChange?: (item) => void;
-  itemSelect?: any;
+  itemSelect?: unknown;
 }
 
 export default function MyProductTable({
@@ -54,6 +58,8 @@ export default function MyProductTable({
   onChange,
   itemSelect,
 }: Props) {
+  console.log("propsxxx", products);
+
   const { t, i18n } = useTranslation();
   const refModal = useRef(null);
   const refModalChangeProduct = useRef(null);
@@ -86,9 +92,6 @@ export default function MyProductTable({
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_store_name")}</MyTypography>
-            </TableCell>
-            <TableCell>
               <MyTypography>{t("title_product_info")}</MyTypography>
             </TableCell>
             <TableCell>
@@ -101,55 +104,29 @@ export default function MyProductTable({
               <MyTypography>{t("title_purchase_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_shipping_fee")}</MyTypography>
+              <MyTypography>{t("common_image")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_stock_keywords")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("title_expected_profit")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("title_registered_date")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("title_note")}</MyTypography>
+              <MyTypography>{t("title_action")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => {
+          {products.map((item: any, i) => {
             return (
               <TableRow key={item.id}>
                 <TableCell>
-                  <MyTypography>
-                    {i + 1}{" "}
-                    <MyLink
-                      onClick={() => {
-                        refModalChangeProduct.current.openModal();
-                        onChange(item);
-                      }}
-                    >
-                      {t("action_change")}
-                    </MyLink>
-                    <MyLink
-                      onClick={() => {
-                        refModalChangeProduct.current.openModal();
-                      }}
-                    >
-                      {t("action_delete")}
-                    </MyLink>
-                  </MyTypography>
+                  <MyTypography>{i + 1} </MyTypography>
                 </TableCell>
                 <TableCell>
                   <Checkbox
-                    onClick={(e) => handleCheckboxChange(i, e)}
-                    checked={selectedIds.includes(i)}
+                    onClick={(e) => handleCheckboxChange(item._id, e)}
+                    checked={selectedIds?.includes(item._id)}
                   />
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <MyTypography>{item?.store}</MyTypography>
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <MyTypography>
                     {item?.name}
@@ -160,17 +137,13 @@ export default function MyProductTable({
                     >
                       {t("action_epay_list")}
                     </MyLink>
-                    <MyLink
-                      onClick={() => {
-                        alert("ssss");
-                      }}
-                    >
+                    <MyLink onClick={() => {}}>
                       {t("action_delete_epay_data")}
                     </MyLink>
                   </MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyLink>{item?.url}</MyLink>
+                  <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
                   <MyLink
@@ -206,19 +179,20 @@ export default function MyProductTable({
                   <MyTypography>{item?.price} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item?.shipping} ¥</MyTypography>
+                  <MyImage source={item.avatar_url} />
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item?.stock}</MyTypography>
-                </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.profi?.toLocaleString()} ¥</MyTypography>
-                </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.registeredDate}</MyTypography>
-                </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.note || "-"}</MyTypography>
+                  <IconButton
+                    onClick={() => {
+                      refModalChangeProduct.current.openModal();
+                      onChange(item);
+                    }}
+                  >
+                    <IconEdit className={styles.iconEdit} />
+                  </IconButton>
+                  <IconButton>
+                    <IconDelete className={styles.iconEdit} />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             );

@@ -5,8 +5,10 @@ import request from "@/services/Request";
 import { Box, Grid, Stack } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 const FormSetupEbay = () => {
+  const { t } = useTranslation();
   const [foundation, setFoundation] = useState("netsea");
   const [keyword, setKeyword] = useState("");
   const [alignment, setAlignment] = useState("left");
@@ -20,7 +22,7 @@ const FormSetupEbay = () => {
   return (
     <Box>
       <MyTypography className={styles.title}>
-        Cài đặt chứng năng niêm yết Ebay
+        {t("title_setup_ebay")}
       </MyTypography>
       <Grid className={styles.row} container spacing={2}>
         <Stack spacing={2} className={styles.frame}>
@@ -82,80 +84,59 @@ const FormSetupEbay = () => {
         </Stack>
         <Stack className={styles.frame} spacing={2}>
           <MyTypography>
-            Tính năng bán hàng trên eBay Chính sách kinh doanh Thiết lập chính
-            sách kinh doanh của riêng bạn (Vận chuyển, Trả hàng, Thanh toán) mà
-            bạn đã đăng ký với eBay. Nếu bạn đã đăng nhập vào eBay, Bạn cũng có
-            thể tải Chính sách kinh doanh của riêng mình bằng cách nhấn (*Bất kỳ
-            Chính sách kinh doanh nào đã được đăng ký trong HARU sẽ bị ghi đè.)
-            *Lưu ý: Không sử dụng tên chứa ``|'' khi đặt tên Chính sách kinh
-            doanh trên trang eBay. Nếu bạn chưa thiết lập Chính sách kinh doanh,
-            vui lòng tham khảo <a>``motoki-ebay-blog''</a> để thiết lập Chính
-            sách kinh doanh trên trang eBay
+            {t("introduce_setup_ebay")}{" "}
+            <a target="_blank" href="google.com">
+              ``motoki-ebay-blog''
+            </a>{" "}
+            {t("introduce_setup_ebay_one")}
           </MyTypography>
           <Stack spacing={1}>
             <MyInput
               fullWidth
-              label="Tên Chính sách vận chuyển"
+              label={t("shippingPolicyLabel")}
               name="title"
               value={""}
               onChange={handleChange}
               className={styles.status}
               size="small"
             />
-            <MyTypography>
-              *Vui lòng đặt tên chính sách vận chuyển đã đăng ký với eBay, phân
-              cách bằng | (một nửa chiều rộng). (Ví dụ) EMS 500g|EMS
-              1000g|ePacket 500g|ePacket-lite 500g
-            </MyTypography>
+            <MyTypography>{t("shippingPolicyNote")}</MyTypography>
           </Stack>
           <Stack spacing={1}>
             <MyInput
               fullWidth
-              label="Tên Chính sách trả hàng"
+              label={t("returnPolicyLabel")}
               name="title"
               value={""}
               onChange={handleChange}
               className={styles.status}
               size="small"
             />
-            <MyTypography>
-              *Vui lòng đặt tên chính sách trả hàng đã đăng ký với eBay, phân
-              cách bằng | (một nửa chiều rộng). (Ví dụ) Chấp nhận trả lại,Người
-              mua,30 ngày,Hoàn tiền|Chấp nhận trả lại,Người bán,14 ngày,Hoàn
-              tiền|Khác
-            </MyTypography>
+            <MyTypography>{t("returnPolicyNote")}</MyTypography>
           </Stack>
           <Stack spacing={1}>
             <MyInput
               fullWidth
-              label="Tên Chính sách thanh toán"
+              label={t("paymentPolicyLabel")}
               name="title"
               value={""}
               onChange={handleChange}
               className={styles.status}
               size="small"
             />
-            <MyTypography>
-              *Vui lòng đặt tên chính sách trả hàng đã đăng ký với eBay, phân
-              cách bằng | (một nửa chiều rộng). (Ví dụ) Chấp nhận trả lại,Người
-              mua,30 ngày,Hoàn tiền|Chấp nhận trả lại,Người bán,14 ngày,Hoàn
-              tiền|Khác
-            </MyTypography>
+            <MyTypography>{t("paymentPolicyNote")}</MyTypography>
           </Stack>
           <Stack spacing={1}>
             <MyInput
               fullWidth
-              label="Vị trí"
+              label={t("locationLabel")}
               name="title"
               value={""}
               onChange={handleChange}
               className={styles.status}
               size="small"
             />
-            <MyTypography>
-              *Vui lòng đăng ký vị trí bạn đã đặt khi niêm yết trên eBay. (Điều
-              này có thể thay đổi khi liệt kê.) (Ví dụ) Tokyo
-            </MyTypography>
+            <MyTypography>{t("locationNote")}</MyTypography>
           </Stack>
         </Stack>
       </Grid>
@@ -166,7 +147,7 @@ const FormSetupEbay = () => {
         className={styles.buttons}
         onClick={search}
       >
-        Đăng ký/Thay đổi
+        {t("btn_registry_change")}
       </MyButton>
     </Box>
   );

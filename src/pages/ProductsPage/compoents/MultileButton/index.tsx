@@ -6,12 +6,16 @@ import { useRef } from "react";
 import ModalListingEpay from "../ModalListingEpay";
 import ModalSearchProductScraping from "../ModalSearchProductScraping";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
+import { useTranslation } from "react-i18next";
 
 interface propsMutiButton {
   deleteProduct?: () => void;
   loadingDelProduct?: boolean;
+  addProductToEbay?: () => void;
+  loadingUpebay?: boolean;
 }
 export default function MultileButton(props: propsMutiButton) {
+  const { t } = useTranslation();
   const refModal = useRef(null);
   const refModalListingEbay = useRef(null);
   const openModalSearch = () => {
@@ -31,9 +35,10 @@ export default function MultileButton(props: propsMutiButton) {
           color="info"
           size="small"
           className={styles.buttons}
-          onClick={handleReload}
+          onClick={props.addProductToEbay}
+          loading={props.loadingUpebay}
         >
-          Tất cả cập nhật giá eB
+          {t("pushSelectedToEbay")}
         </MyButton>
         <MyButton
           variant="contained"
@@ -43,7 +48,7 @@ export default function MultileButton(props: propsMutiButton) {
           onClick={props.deleteProduct}
           loading={props?.loadingDelProduct}
         >
-          Xóa tất cả các mục đã
+          {t("deleteAllItems")}
         </MyButton>
         <MyButton
           variant="contained"
@@ -52,7 +57,7 @@ export default function MultileButton(props: propsMutiButton) {
           className={styles.buttons}
           onClick={openModleListing}
         >
-          Danh sách eBay trực tiếp
+          {t("ebayLiveListing")}
         </MyButton>
         <MyButton
           variant="contained"
@@ -61,7 +66,7 @@ export default function MultileButton(props: propsMutiButton) {
           className={styles.buttons}
           onClick={openModalSearch}
         >
-          Tìm kiếm
+          {t("search")}
         </MyButton>
       </Stack>
       <ModalSearchProductScraping ref={refModal} />

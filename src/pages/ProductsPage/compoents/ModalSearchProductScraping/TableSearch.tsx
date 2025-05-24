@@ -48,38 +48,38 @@ export default function TableSearch({
           <TableRow>
             <TableCell>
               <MyTypography>
-                Chọn
+                {t("table_search_select")}
                 <Checkbox onClick={handleSelectAll} />
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Url</MyTypography>
+              <MyTypography>{t("table_search_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Trạng thái</MyTypography>
+              <MyTypography>{t("table_search_status")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Tên</MyTypography>
+              <MyTypography>{t("table_search_name")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Giá</MyTypography>
+              <MyTypography>{t("table_search_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Hình ảnh</MyTypography>
+              <MyTypography>{t("table_search_image")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
+          {products.map((item: any, i) => (
             <TableRow key={item.id}>
               <TableCell>
                 <Checkbox
-                  onClick={(e) => handleCheckboxChange(i, e)}
-                  checked={selectedIds.includes(i)}
+                  onClick={(e) => handleCheckboxChange(item._id, e)}
+                  checked={selectedIds.includes(item._id)}
                 />
               </TableCell>
               <TableCell>
-                <MyLink>{item.url}</MyLink>
+                <MyLink href={item.url}>{item.url}</MyLink>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.scrape_status}</MyTypography>

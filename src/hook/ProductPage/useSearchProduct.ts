@@ -10,12 +10,11 @@ export const useSearchProduct = () => {
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
   const [product, setProduct] = useState([]);
-
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingSaveProduct, setSaveLoadingProduct] = useState(false);
-  const [allProduct, setAllProduct] = useState<any[]>([]);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
+  const [checkAll, setCheckAll] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
     null
   );
 
@@ -39,7 +38,7 @@ export const useSearchProduct = () => {
     resetSelect();
     setLoadingSearch(true);
     try {
-      const response = await request.post("/product/search", {
+      const response = await request.post("/api/product/search", {
         platform_type: foundation,
         keyword: keyword,
         category: category,
@@ -54,54 +53,58 @@ export const useSearchProduct = () => {
     }
   }, [foundation, keyword, category]);
 
-  const handleCheckboxChange = (index: number, e: React.MouseEvent) => {
+  const handleCheckboxChange = (idSelect: string, e: React.MouseEvent) => {
     const shiftKey = e.shiftKey;
+    const orderedIds = product.map((item) => item.url); // ✅ Tạo tại chỗ
     setSelectedIds((prev) => {
       if (shiftKey && lastSelectedIndex !== null) {
-        // SHIFT + CLICK → chọn từ lastSelectedIndex đến index
-        const [start, end] = [lastSelectedIndex, index].sort((a, b) => a - b);
-        const range = Array.from(
-          { length: end - start + 1 },
-          (_, i) => start + i
-        );
+        const startIndex = orderedIds.indexOf(lastSelectedIndex);
+        const endIndex = orderedIds.indexOf(idSelect);
+        if (startIndex === -1 || endIndex === -1) return prev;
+        const [start, end] =
+          startIndex < endIndex
+            ? [startIndex, endIndex]
+            : [endIndex, startIndex];
+
+        const range = orderedIds.slice(start, end + 1);
         const merged = Array.from(new Set([...prev, ...range]));
         return merged;
       }
-      // CLICK thường → toggle item
-      const isSelected = prev.includes(index);
+
+      const isSelected = prev.includes(idSelect);
       const newSelected = isSelected
-        ? prev.filter((id) => id !== index)
-        : [...prev, index];
-      // Nếu đang unselect (bỏ chọn) thì reset lastSelectedIndex
+        ? prev.filter((id) => id !== idSelect)
+        : [...prev, idSelect];
+
       if (isSelected) {
         setLastSelectedIndex(null);
       } else {
-        setLastSelectedIndex(index);
+        setLastSelectedIndex(idSelect);
       }
 
       return newSelected;
     });
 
-    // ✅ Nếu shift đang được giữ, vẫn phải cập nhật lastSelectedIndex mới
     if (shiftKey) {
-      setLastSelectedIndex(index);
+      setLastSelectedIndex(idSelect);
     }
   };
   const handleSelectAll = () => {
-    if (selectedIds.length === product.length) {
+    if (checkAll) {
       // Bỏ chọn tất cả nếu đã chọn hết
       setSelectedIds([]);
     } else {
       // Chọn tất cả
-      setSelectedIds(product.map((item, index) => index));
+      setSelectedIds(product.map((item, index) => item.url));
     }
+    setCheckAll(!checkAll);
   };
   const addProduct = useCallback(async () => {
     try {
       if (selectedIds.length !== 0) {
         setSaveLoadingProduct(true);
-        const formData = selectedIds.map((index) => {
-          const elm = product[index];
+        const formData = selectedIds.map((id) => {
+          const elm = product.find((elm) => elm.url == id);
           return {
             url: elm.url,
             name: elm.name,
@@ -144,8 +147,8 @@ export const useSearchProduct = () => {
     getProductLocal,
     addProduct,
     loadingSearch,
-    allProduct,
     loadingSaveProduct,
     handleSelectAll,
+    checkAll,
   };
 };

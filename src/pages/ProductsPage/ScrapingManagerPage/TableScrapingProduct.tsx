@@ -9,10 +9,16 @@ import {
   TableHead,
   TableRow,
   Checkbox,
+  IconButton,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import MyImage from "@/components/common/MyImage";
 import MyTypography from "@/components/common/MyTypography";
+import MyLink from "@/components/common/MyLink";
+import MyButton from "@/components/common/MyButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import ModalDetailProduct from "../compoents/ModalDetailProduct";
+import { useRef } from "react";
 
 interface Product {
   _id?: string;
@@ -30,18 +36,29 @@ interface Product {
 
 interface Props {
   products: Product[];
-  handleCheckboxChange?: (i, e) => void;
+  handleCheckboxChangeScraping?: (i, e) => void;
   selectedIds?: any[];
   handleSelectAll?: () => void;
+  checkAll?: boolean;
+  productShow?: any;
+  setProductShow?: any;
 }
 
 export default function TableScrapingProduct({
   products,
-  handleCheckboxChange,
+  handleCheckboxChangeScraping,
   selectedIds,
   handleSelectAll,
+  checkAll,
+  productShow,
+  setProductShow,
 }: Props) {
   const { t, i18n } = useTranslation();
+  const refModalDetail = useRef(null);
+  const showDetail = (item) => {
+    setProductShow(item);
+    refModalDetail?.current?.openModal();
+  };
   return (
     <TableContainer
       component={Paper}
@@ -53,38 +70,41 @@ export default function TableScrapingProduct({
           <TableRow>
             <TableCell>
               <MyTypography>
-                Chọn
-                <Checkbox onClick={handleSelectAll} />
+                {t("common_select")}
+                <Checkbox onClick={handleSelectAll} value={checkAll} />
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Url</MyTypography>
+              <MyTypography>{t("common_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Trạng thái</MyTypography>
+              <MyTypography>{t("common_status")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Tên</MyTypography>
+              <MyTypography>{t("common_name")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Giá</MyTypography>
+              <MyTypography>{t("common_price")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>Hình ảnh</MyTypography>
+              <MyTypography>{t("common_image")}</MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography>{t("title_action")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
-            <TableRow key={item.id}>
+          {products.map((item: any, i) => (
+            <TableRow key={item._id}>
               <TableCell>
                 <Checkbox
-                  onClick={(e) => handleCheckboxChange(i, e)}
-                  checked={selectedIds?.includes(i)}
+                  onClick={(e) => handleCheckboxChangeScraping(item._id, e)}
+                  checked={selectedIds?.includes(item._id)}
                 />
               </TableCell>
               <TableCell>
-                <MyTypography>{item.url}</MyTypography>
+                <MyLink href={item.url}>{item.url}</MyLink>
               </TableCell>
               <TableCell>
                 <MyTypography>{item.scrape_status}</MyTypography>
@@ -98,10 +118,18 @@ export default function TableScrapingProduct({
               <TableCell>
                 <MyImage source={item.avatar_url} />
               </TableCell>
+              <TableCell>
+                <IconButton onClick={() => showDetail(item)}>
+                  <VisibilityIcon
+                    style={{ cursor: "pointer", color: "#1976d2" }}
+                  />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <ModalDetailProduct ref={refModalDetail} productShow={productShow} />
     </TableContainer>
   );
 }

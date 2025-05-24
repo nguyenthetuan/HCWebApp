@@ -6,7 +6,7 @@ import {
   IconButton,
   Typography,
   Paper,
-  TextField,
+  BoxProps,
   Stack,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -15,12 +15,19 @@ import UploadIcon from "@mui/icons-material/CloudUpload";
 import MyInput from "../MyInput";
 import MyButton from "../MyButton";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 const Input = styled("input")({
   display: "none",
 });
 
-const DropZone = styled(Box)(({ isDragging }) => ({
+interface DropZoneProps extends BoxProps {
+  isDragging?: boolean;
+}
+
+const DropZone = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "isDragging", // Ngăn prop này xuống DOM
+})<DropZoneProps>(({ isDragging, theme }) => ({
   border: "2px dashed #ccc",
   padding: "32px",
   textAlign: "center",
@@ -34,9 +41,9 @@ const ImageUploader = () => {
   const [imageSize, setImageSize] = useState(150);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
-
+  const { t } = useTranslation();
   const handleFiles = (files) => {
-    const newImages = Array.from(files).map((file) => ({
+    const newImages = Array.from(files).map((file: any) => ({
       file,
       preview: URL.createObjectURL(file),
       id: `${file.name}-${Date.now()}`,
@@ -76,12 +83,12 @@ const ImageUploader = () => {
   return (
     <Box>
       <Typography variant="body2" color="textSecondary" gutterBottom>
-        Upload up to 12 images. First image will be the cover (main) image.
+        {t("upload_hint")}
       </Typography>
 
       <Stack direction="row" spacing={2} alignItems="center" mb={2}>
         <MyInput
-          label="Image Size (px)"
+          label={t("image_size_label")}
           type="number"
           value={imageSize}
           onChange={(e) => setImageSize(parseInt(e.target.value) || 150)}
@@ -93,7 +100,7 @@ const ImageUploader = () => {
           onClick={() => fileInputRef.current.click()}
           className={styles.btn}
         >
-          Tăng kích thước image
+          {t("increase_image_size")}
         </MyButton>
         <MyButton
           variant="contained"
@@ -102,7 +109,7 @@ const ImageUploader = () => {
           onClick={() => fileInputRef.current.click()}
           className={styles.btn}
         >
-          Upload Images
+          {t("upload_images")}
         </MyButton>
         <Input
           accept="image/*"
@@ -114,19 +121,18 @@ const ImageUploader = () => {
       </Stack>
 
       <DropZone
-        isDragging={isDragging}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
         <Typography variant="body2" color="textSecondary">
-          Drag and drop images here, or click "Upload Images"
+          {t("drag_drop_hint")}
         </Typography>
       </DropZone>
 
       <Grid container spacing={2} sx={{ mt: 2 }}>
         {images.map((image, index) => (
-          <Grid item xs={6} sm={4} md={3} key={image.id}>
+          <Grid key={image.id}>
             <Paper
               variant="outlined"
               sx={{
@@ -155,7 +161,7 @@ const ImageUploader = () => {
                     fontSize: "12px",
                   }}
                 >
-                  Cover
+                  {t("cover")}
                 </Box>
               )}
               <IconButton
@@ -184,10 +190,10 @@ const ImageUploader = () => {
           alignItems="center"
         >
           <Typography variant="body2" color="textSecondary">
-            {images.length} of 12 images
+            {images.length} {t("image_count")}
           </Typography>
           <Button color="error" onClick={handleClearAll}>
-            Clear all
+            {t("clear_all")}
           </Button>
         </Box>
       )}

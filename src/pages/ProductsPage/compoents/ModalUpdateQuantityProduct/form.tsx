@@ -5,25 +5,22 @@ import request from "@/services/Request";
 import { Box, Grid, Stack } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 const FormUpdateQuantity = () => {
+  const { t } = useTranslation();
   const [keyword, setKeyword] = useState("");
   const search = useCallback(async () => {}, []);
   return (
     <Box>
       <MyTypography className={styles.title}>
-        Thay đổi số lượng mặt hàng eBay
+        {t("ebayChangeQuantity_title")}
       </MyTypography>
       <Stack spacing={2}>
-        <MyTypography>
-          Vui lòng kiểm tra số sản phẩm mà bạn muốn thay đổi số lượng.
-          <br />* Nhập sốlượng bạn muốn thay đổi.
-          <br />* Nhấp vào "Thay đổi số lượng mặt hàng eBay" để thay đổi số
-          lượng mặt hàng eBay.
-        </MyTypography>
+        <MyTypography>{t("ebayChangeQuantity_description")}</MyTypography>
         <MyInput
           fullWidth
-          label="Số mặt hàng eBay"
+          label={t("ebayChangeQuantity_itemLabel")}
           name="title"
           className={styles.status}
           size="small"
@@ -32,7 +29,7 @@ const FormUpdateQuantity = () => {
         />
         <MyInput
           fullWidth
-          label="Số Lượng"
+          label={t("ebayChangeQuantity_quantityLabel")}
           name="title"
           className={styles.status}
           size="small"
@@ -47,7 +44,7 @@ const FormUpdateQuantity = () => {
         className={styles.buttons}
         onClick={search}
       >
-        Thay đổi số lượng mặt hàng Ebay
+        {t("ebayChangeQuantity_button")}
       </MyButton>
     </Box>
   );

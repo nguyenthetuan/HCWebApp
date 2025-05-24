@@ -5,56 +5,101 @@ import { toast } from "react-toastify";
 
 export const useScrapingProduct = () => {
   const [scapingProduct, setScapingProduct] = useState([]);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [lastSelectedIndex, setLastSelectedIndex] = useState<number | null>(
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
     null
   );
   const [loadingScraping, setLoadingScraping] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [loadingAddProduct, setLoadingProduct] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+  const [productShow, setProductShow] = useState(null);
 
-  const handleCheckboxChange = (index: number, e: React.MouseEvent) => {
+  const handleCheckboxChangeScraping = (
+    idSelect: string,
+    e: React.MouseEvent
+  ) => {
     const shiftKey = e.shiftKey;
+    const orderedIds = scapingProduct.map((item) => item._id); // ✅ Tạo tại chỗ
     setSelectedIds((prev) => {
       if (shiftKey && lastSelectedIndex !== null) {
-        // SHIFT + CLICK → chọn từ lastSelectedIndex đến index
-        const [start, end] = [lastSelectedIndex, index].sort((a, b) => a - b);
-        const range = Array.from(
-          { length: end - start + 1 },
-          (_, i) => start + i
-        );
+        const startIndex = orderedIds.indexOf(lastSelectedIndex);
+        const endIndex = orderedIds.indexOf(idSelect);
+        if (startIndex === -1 || endIndex === -1) return prev;
+        const [start, end] =
+          startIndex < endIndex
+            ? [startIndex, endIndex]
+            : [endIndex, startIndex];
+
+        const range = orderedIds.slice(start, end + 1);
         const merged = Array.from(new Set([...prev, ...range]));
         return merged;
       }
-      // CLICK thường → toggle item
-      const isSelected = prev.includes(index);
+
+      const isSelected = prev.includes(idSelect);
       const newSelected = isSelected
-        ? prev.filter((id) => id !== index)
-        : [...prev, index];
-      // Nếu đang unselect (bỏ chọn) thì reset lastSelectedIndex
+        ? prev.filter((id) => id !== idSelect)
+        : [...prev, idSelect];
+
       if (isSelected) {
         setLastSelectedIndex(null);
       } else {
-        setLastSelectedIndex(index);
+        setLastSelectedIndex(idSelect);
       }
 
       return newSelected;
     });
 
-    // ✅ Nếu shift đang được giữ, vẫn phải cập nhật lastSelectedIndex mới
     if (shiftKey) {
-      setLastSelectedIndex(index);
+      setLastSelectedIndex(idSelect);
+    }
+  };
+  const handleCheckboxChange = (idSelect: string, e: React.MouseEvent) => {
+    const shiftKey = e.shiftKey;
+    const orderedIds = scapingProduct
+      .filter((elm) => elm.scrape_status === "success")
+      .map((item) => item._id); // ✅ Tạo tại chỗ
+    setSelectedIds((prev) => {
+      if (shiftKey && lastSelectedIndex !== null) {
+        const startIndex = orderedIds.indexOf(lastSelectedIndex);
+        const endIndex = orderedIds.indexOf(idSelect);
+        if (startIndex === -1 || endIndex === -1) return prev;
+        const [start, end] =
+          startIndex < endIndex
+            ? [startIndex, endIndex]
+            : [endIndex, startIndex];
+
+        const range = orderedIds.slice(start, end + 1);
+        const merged = Array.from(new Set([...prev, ...range]));
+        return merged;
+      }
+
+      const isSelected = prev.includes(idSelect);
+      const newSelected = isSelected
+        ? prev.filter((id) => id !== idSelect)
+        : [...prev, idSelect];
+
+      if (isSelected) {
+        setLastSelectedIndex(null);
+      } else {
+        setLastSelectedIndex(idSelect);
+      }
+
+      return newSelected;
+    });
+
+    if (shiftKey) {
+      setLastSelectedIndex(idSelect);
     }
   };
 
   const handleSelectAll = () => {
-    if (selectedIds.length === scapingProduct.length) {
-      // Bỏ chọn tất cả nếu đã chọn hết
+    if (checkAll) {
       setSelectedIds([]);
     } else {
-      // Chọn tất cả
-      setSelectedIds(scapingProduct.map((item, index) => index));
+      setSelectedIds(scapingProduct.map((item, index) => item._id));
     }
+    setCheckAll(!checkAll);
   };
 
   const resetSelect = () => {
@@ -72,14 +117,10 @@ export const useScrapingProduct = () => {
   const scrapingProduct = useCallback(async () => {
     try {
       setLoadingScraping(true);
-      const formData = selectedIds.map((index) => {
-        const elm = scapingProduct[index];
-        return elm._id;
-      });
       const response = await request.post(
         "/api/scrape-products/status/bulk-queue",
         {
-          ids: formData,
+          ids: selectedIds,
         }
       );
       resetSelect();
@@ -93,12 +134,8 @@ export const useScrapingProduct = () => {
   const deleteScrapingProduct = useCallback(async () => {
     try {
       setLoadingDelete(true);
-      const formData = selectedIds.map((index) => {
-        const elm = scapingProduct[index];
-        return elm._id;
-      });
       const response = await request.delete("/api/scrape-products/bulk", {
-        data: { ids: formData },
+        data: { ids: selectedIds },
       });
       resetSelect();
       getScrapingProduct();
@@ -112,8 +149,8 @@ export const useScrapingProduct = () => {
     try {
       if (selectedIds.length !== 0) {
         setLoadingProduct(true);
-        const formData = selectedIds.map((index) => {
-          const elm = scapingProduct[index];
+        const formData = selectedIds.map((id) => {
+          const elm = scapingProduct.find((elm) => elm._id === id);
           return {
             url: elm.url,
             name: elm.transform_data.name,
@@ -137,6 +174,7 @@ export const useScrapingProduct = () => {
       setLoadingProduct(false);
     }
   }, [selectedIds]);
+
   return {
     selectedIds,
     lastSelectedIndex,
@@ -151,5 +189,10 @@ export const useScrapingProduct = () => {
     handleSelectAll,
     addProductToManager,
     loadingAddProduct,
+    handleCheckboxChangeScraping,
+    setCheckAll,
+    checkAll,
+    setProductShow,
+    productShow,
   };
 };

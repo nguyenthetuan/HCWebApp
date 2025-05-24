@@ -10,23 +10,28 @@ import {
 import MyTypography from "@/components/common/MyTypography";
 import MyInput from "@/components/common/MyInput";
 import {
-  notificationEmail,
-  duplicateUrl,
-  monitor,
+  getDulicateUrl,
+  getMonitor,
   TOOLTIP,
+  getNotificationEmail,
 } from "../../../../untils/dataMockup";
 import MyButton from "@/components/common/MyButton";
 import request from "@/services/Request";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
 import MyInputToolTip from "@/components/common/MyInputToolTip";
 import MyLink from "@/components/common/MyLink";
+import { useTranslation } from "react-i18next";
 
 const FormSetupUser = () => {
+  const { t } = useTranslation();
   const [foundation, setFoundation] = useState("netsea");
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
   const [product, setProduct] = useState([]);
   const [alignment, setAlignment] = useState("configured");
+  const notificationEmail = getNotificationEmail(t);
+  const duplicateUrl = getDulicateUrl(t);
+  const monitor = getMonitor(t);
 
   const handleChangeToggle = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -45,7 +50,7 @@ const FormSetupUser = () => {
   }, []);
 
   const search = useCallback(async () => {
-    const response = await request.post("/product/search", {
+    const response = await request.post("/api/product/search", {
       platform_type: foundation,
       keyword: keyword,
       category: category,
@@ -60,13 +65,13 @@ const FormSetupUser = () => {
   return (
     <Box>
       <MyTypography className={styles.title}>
-        Cài đặt tài khoản người dùng
+        {t("accountSettings_title")}
       </MyTypography>
       <Stack spacing={3}>
         <Grid className={styles.row} container spacing={3}>
           <MyInput
             fullWidth
-            label="Tên người dùng HARU"
+            label={t("accountSettings_username_haru")}
             name="title"
             className={styles.status}
             size="small"
@@ -75,7 +80,7 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="ID ứng dụng eBay"
+            label={t("accountSettings_app_id_ebay")}
             name="title"
             className={styles.status}
             size="small"
@@ -87,7 +92,7 @@ const FormSetupUser = () => {
         <Grid className={styles.row} container spacing={3}>
           <MyInput
             fullWidth
-            label="ID đăng nhập HARU"
+            label={t("accountSettings_login_id_haru")}
             name="title"
             className={styles.status}
             size="small"
@@ -96,7 +101,7 @@ const FormSetupUser = () => {
           />
           <MyInput
             fullWidth
-            label="Mật khẩu HARU"
+            label={t("accountSettings_password_haru")}
             name="title"
             className={styles.status}
             size="small"
@@ -105,29 +110,7 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="ID nhà phát triển eBay"
-            name="title"
-            className={styles.status}
-            size="small"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            toolTip={TOOLTIP.IdEbayDevelop}
-          />
-          <MyInputToolTip
-            fullWidth
-            label="Mã số chứng thực eBay"
-            name="title"
-            className={styles.status}
-            size="small"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            toolTip={TOOLTIP.IdEbayDevelop}
-          />
-        </Grid>
-        <Grid className={styles.row} container spacing={3}>
-          <MyInputToolTip
-            fullWidth
-            label="ID đăng nhập Nessie"
+            label={t("accountSettings_dev_id_ebay")}
             name="title"
             className={styles.status}
             size="small"
@@ -137,27 +120,7 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="Mật khẩu Nessie"
-            name="title"
-            className={styles.status}
-            size="small"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            toolTip={TOOLTIP.IdEbayDevelop}
-          />
-          <MyInputToolTip
-            fullWidth
-            label="ID đăng nhập Super Delivery"
-            name="title"
-            className={styles.status}
-            size="small"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            toolTip={TOOLTIP.IdEbayDevelop}
-          />
-          <MyInputToolTip
-            fullWidth
-            label="Mật khẩu giao hàng siêu tốc"
+            label={t("accountSettings_cert_id_ebay")}
             name="title"
             className={styles.status}
             size="small"
@@ -169,7 +132,7 @@ const FormSetupUser = () => {
         <Grid className={styles.row} container spacing={3}>
           <MyInputToolTip
             fullWidth
-            label="ID đăng nhập Ichiokunet"
+            label={t("accountSettings_login_id_nessie")}
             name="title"
             className={styles.status}
             size="small"
@@ -179,7 +142,7 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="Mật khẩu Ichiokunet"
+            label={t("accountSettings_password_nessie")}
             name="title"
             className={styles.status}
             size="small"
@@ -189,7 +152,7 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="ID đăng nhập Mirai Donya"
+            label={t("accountSettings_login_id_superdelivery")}
             name="title"
             className={styles.status}
             size="small"
@@ -199,7 +162,49 @@ const FormSetupUser = () => {
           />
           <MyInputToolTip
             fullWidth
-            label="Mật khẩu Mirai Donya"
+            label={t("accountSettings_password_superdelivery")}
+            name="title"
+            className={styles.status}
+            size="small"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            toolTip={TOOLTIP.IdEbayDevelop}
+          />
+        </Grid>
+        <Grid className={styles.row} container spacing={3}>
+          <MyInputToolTip
+            fullWidth
+            label={t("accountSettings_login_id_ichiokunet")}
+            name="title"
+            className={styles.status}
+            size="small"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            toolTip={TOOLTIP.IdEbayDevelop}
+          />
+          <MyInputToolTip
+            fullWidth
+            label={t("accountSettings_password_ichiokunet")}
+            name="title"
+            className={styles.status}
+            size="small"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            toolTip={TOOLTIP.IdEbayDevelop}
+          />
+          <MyInputToolTip
+            fullWidth
+            label={t("accountSettings_login_id_mirai")}
+            name="title"
+            className={styles.status}
+            size="small"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            toolTip={TOOLTIP.IdEbayDevelop}
+          />
+          <MyInputToolTip
+            fullWidth
+            label={t("accountSettings_password_mirai")}
             name="title"
             className={styles.status}
             size="small"
@@ -213,29 +218,27 @@ const FormSetupUser = () => {
             <Grid className={styles.frame}>
               <MyRadioGroup
                 name={"type_file"}
-                label={"Cài đặt thông báo qua email"}
+                label={t("accountSettings_email_notify_label")}
                 options={notificationEmail}
                 value={"ratio"}
                 onChange={() => {}}
                 rowWrapperClassName={styles.rowWrapperClassName}
               />
               <MyTypography>
-                * Cài đặt này xác định liệu có thông báo cho tất cả kết quả kiểm
-                tra tự động hay chỉ những kết quả đã thay đổi.
+                {t("accountSettings_email_notify_desc")}
               </MyTypography>
             </Grid>
             <Grid className={styles.frame}>
               <MyRadioGroup
                 name={"type_file"}
-                label={"Kiểm tra trùng lặp URL"}
+                label={t("accountSettings_check_duplicate_url_label")}
                 options={duplicateUrl}
                 value={"ratio"}
                 onChange={() => {}}
                 rowWrapperClassName={styles.rowWrapperClassName}
               />
               <MyTypography>
-                * Cài đặt này xác định có kiểm tra URL trùng lặp khi đăng
-                ký/chỉnh sửa hay không.
+                {t("accountSettings_check_duplicate_url_desc")}
               </MyTypography>
             </Grid>
           </Grid>
@@ -243,33 +246,27 @@ const FormSetupUser = () => {
             <Grid className={styles.frame}>
               <MyRadioGroup
                 name={"type_file"}
-                label={"Cách theo dõi Rakuten Ichiba"}
+                label={t("accountSettings_monitor_rakuten_label")}
                 options={notificationEmail}
                 value={"ratio"}
                 onChange={() => {}}
                 rowWrapperClassName={styles.rowWrapperClassName}
               />
               <MyTypography>
-                *Cài đặt này xác định liệu Rakuten Market được giám sát bởi máy
-                chủ hay máy khách. Nếu bạn muốn giám sát một máy khách, vui lòng
-                chạy " Mô-đun thường trú/Mô-đun giám sát máy khách " theo cách
-                thủ công.
+                {t("accountSettings_monitor_rakuten_desc")}
               </MyTypography>
             </Grid>
             <Grid className={styles.frame}>
               <MyRadioGroup
                 name={"type_file"}
-                label={"Làm thế nào để theo dõi Yahoo! Đấu giá"}
+                label={t("accountSettings_monitor_yahoo_auction_label")}
                 options={duplicateUrl}
                 value={"ratio"}
                 onChange={() => {}}
                 rowWrapperClassName={styles.rowWrapperClassName}
               />
               <MyTypography>
-                *Thiết lập này xác định xem Yahoo! Các cuộc đấu giá được theo
-                dõi trên máy chủ hoặc trên máy khách. Nếu bạn muốn giám sát một
-                máy khách, vui lòng chạy " Mô-đun thường trú/Mô-đun giám sát máy
-                khách " theo cách thủ công.
+                {t("accountSettings_monitor_yahoo_auction_desc")}
               </MyTypography>
             </Grid>
           </Grid>
@@ -284,32 +281,28 @@ const FormSetupUser = () => {
               className={styles.toggleBtn}
             >
               <ToggleButton value="notConfigured" aria-label="left aligned">
-                Chưa thiết lập
+                {t("accountSettings_app_key_toggle_not_configured")}
               </ToggleButton>
               <ToggleButton value="configured" aria-label="center aligned">
-                Đã cấu hình
+                {t("accountSettings_app_key_toggle_configured")}
               </ToggleButton>
             </ToggleButtonGroup>
             <MyTypography>
-              　* Nếu Khóa ứng dụng ở trên (ID ứng dụng/nhà phát triển/chứng
-              chỉ) đã được thiết lập trong cài đặt thông báo xóa/đóng tài khoản
-              Marketplace trong <a>chương trình nhà phát triển eBay</a> của bạn
-              , vui lòng chọn "Đã thiết lập". (Vui lòng kiểm tra điều này ngay
-              cả khi bạn đã thiết lập bằng phiên bản MWS, máy chủ bổ sung hoặc
-              các công cụ khác.)
+              {t("accountSettings_app_key_desc")}{" "}
+              <a>{t("accountSettings_app_key_desc_one")}</a>
+              {t("accountSettings_app_key_desc_two")}
             </MyTypography>
             {alignment !== "configured" && (
               <Stack spacing={2}>
                 <MyTypography>
-                  *Nếu bạn chưa thực hiện, hãy truy cập{" "}
-                  <a>chương trình dành cho nhà phát triển eBay</a> và nhập điểm
-                  cuối thông báo xóa/đóng tài khoản Marketplace và mã thông báo
-                  xác minh để thiết lập. (Để biết hướng dẫn thiết lập, hãy xem{" "}
-                  <a>tại đây</a>
+                  {t("accountSettings_app_key_setup_reminder")}{" "}
+                  <a>{t("accountSettings_app_key_setup_reminder_one")}</a>
+                  {t("accountSettings_app_key_setup_reminder_two")}{" "}
+                  <a>{t("accountSettings_app_key_setup_reminder_three")}</a>
                 </MyTypography>
                 <MyInputToolTip
                   fullWidth
-                  label=" Điểm cuối thông báo xóa/đóng tài khoản Marketplace"
+                  label={t("accountSettings_app_key_endpoint_1")}
                   name="title"
                   className={styles.status}
                   size="small"
@@ -320,7 +313,7 @@ const FormSetupUser = () => {
                 />
                 <MyInputToolTip
                   fullWidth
-                  label=" Điểm cuối thông báo xóa/đóng tài khoản Marketplace"
+                  label={t("accountSettings_app_key_endpoint_2")}
                   name="title"
                   className={styles.status}
                   size="small"
@@ -329,31 +322,21 @@ const FormSetupUser = () => {
                   toolTip={TOOLTIP.IdEbayDevelop}
                   disabled
                 />
-                <MyTypography>
-                  *Hai cài đặt này chỉ có hiệu lực nếu bạn có hợp đồng sử dụng
-                  chức năng liên kết tự động của eBay/chức năng niêm yết trên
-                  eBay. 　Nếu bạn hủy tính năng này, tính năng đó sẽ bị vô hiệu
-                  hóa và tài khoản nhà phát triển eBay của bạn (eBay API) 　sẽ
-                  không sử dụng được trong vòng khoảng một tháng trừ khi bạn
-                  nhập cài đặt khác. Xin hãy cẩn thận
-                </MyTypography>
+                <MyTypography>{t("accountSettings_app_key_note")}</MyTypography>
               </Stack>
             )}
           </Grid>
           <Grid className={styles.frame} container>
             <MyRadioGroup
               name={"type_file"}
-              label={"Làm thế nào để theo dõi Yahoo! Mua sắm"}
+              label={t("accountSettings_monitor_yahoo_shopping_label")}
               options={monitor}
               value={"ratio"}
               onChange={() => {}}
               rowWrapperClassName={styles.rowWrapperClassName}
             />
             <MyTypography>
-              *Thiết lập này xác định xem Yahoo! Hoạt động mua sắm được theo dõi
-              bởi máy chủ hoặc máy khách. Nếu bạn muốn giám sát một máy khách,
-              vui lòng chạy " Mô-đun thường trú/Mô-đun giám sát máy khách " theo
-              cách thủ công.
+              {t("accountSettings_monitor_yahoo_shopping_desc")}
             </MyTypography>
           </Grid>
         </Grid>
@@ -365,7 +348,7 @@ const FormSetupUser = () => {
         className={styles.buttons}
         onClick={search}
       >
-        Đăng ký/Thay đổi
+        {t("accountSettings_submit_button")}
       </MyButton>
     </Box>
   );

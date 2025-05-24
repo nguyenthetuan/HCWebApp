@@ -1,6 +1,5 @@
 import MyButton from "@/components/common/MyButton";
 import MyTypography from "@/components/common/MyTypography";
-import { useSearchProduct } from "@/hook/ProductPage/useSearchProduct";
 import { Box, Grid, Stack } from "@mui/material";
 import { useEffect, useRef } from "react";
 import ModalSearchProduct from "../compoents/ModalSearchProduct";
@@ -8,6 +7,7 @@ import styles from "./styles.module.scss";
 import TableScrapingProduct from "./TableScrapingProduct";
 import { useScrapingProduct } from "@/hook/ProductPage/useScrapingProduct";
 import EventBus from "@/components/common/EventBus";
+import { useTranslation } from "react-i18next";
 
 const ScrapingManagerPage = () => {
   const {
@@ -20,8 +20,13 @@ const ScrapingManagerPage = () => {
     loadingDelete,
     deleteScrapingProduct,
     handleSelectAll,
+    handleCheckboxChangeScraping,
+    checkAll,
+    productShow,
+    setProductShow,
   } = useScrapingProduct();
   const refModalSearch = useRef(null);
+  const { t } = useTranslation();
   const search = () => {
     refModalSearch?.current?.openModal();
   };
@@ -54,7 +59,7 @@ const ScrapingManagerPage = () => {
   return (
     <Box>
       <MyTypography className={styles.textHeader}>
-        Dữ liệu Sản phẩm
+        {t("productData_title")}
       </MyTypography>
       <Stack spacing={2} className={styles.stack}>
         <Grid spacing={2} container>
@@ -65,7 +70,7 @@ const ScrapingManagerPage = () => {
             className={styles.btnSave}
             onClick={search}
           >
-            Tìm kiếm sản phẩm
+            {t("searchProduct")}
           </MyButton>
           <MyButton
             variant="contained"
@@ -75,7 +80,7 @@ const ScrapingManagerPage = () => {
             onClick={scrapingProduct}
             loading={loadingScraping}
           >
-            Bắt đầu cào dữ liệu
+            {t("startScraping")}
           </MyButton>
           <MyButton
             variant="contained"
@@ -85,14 +90,17 @@ const ScrapingManagerPage = () => {
             onClick={deleteScrapingProduct}
             loading={loadingDelete}
           >
-            Xoá sản phẩm đã chọn
+            {t("deleteSelected")}
           </MyButton>
         </Grid>
         <TableScrapingProduct
           products={scapingProduct}
-          handleCheckboxChange={handleCheckboxChange}
+          handleCheckboxChangeScraping={handleCheckboxChangeScraping}
           selectedIds={selectedIds}
           handleSelectAll={handleSelectAll}
+          checkAll={checkAll}
+          productShow={productShow}
+          setProductShow={setProductShow}
         />
       </Stack>
       <ModalSearchProduct ref={refModalSearch} />

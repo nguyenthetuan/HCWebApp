@@ -1,14 +1,25 @@
 {
-  "compilerOptions": {
-    "jsx": "react-jsx", // 👈 hoặc "react" nếu dùng React cũ
+   "compilerOptions": {
+    "jsx": "react-jsx",
     "module": "ESNext",
     "target": "ESNext",
     "esModuleInterop": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler", // Đã thay đổi từ "Node"
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    }
-  }
+    },
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true, // Thường được khuyến nghị
+    "skipLibCheck": true // Thường được khuyến nghị để tránh lỗi từ type definition của thư viện
+  },
+  "include": [
+    "src/**/*",
+    "node_modules/react-router-dom/dist/index.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+    "noEmit": true,
 }

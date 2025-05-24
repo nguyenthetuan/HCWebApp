@@ -21,7 +21,7 @@ export default function EBaySetting() {
     <Box className={styles.container}>
       <Grid container spacing={4} justifyContent="space-between">
         {/* Bên trái */}
-        <Stack item xs={12} md={7} spacing={2}>
+        <Stack spacing={2}>
           <MyTypography fontSize={14} className={styles.textEpay}>
             {t("label_calculate_ebay_price")}
           </MyTypography>

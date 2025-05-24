@@ -23,6 +23,7 @@ const ModalSearchProduct = forwardRef((props, ref) => {
     loadingSearch,
     loadingSaveProduct,
     handleSelectAll,
+    checkAll,
   } = useSearchProduct();
   // expose các hàm ra ngoài qua ref
   useImperativeHandle(ref, () => ({
@@ -53,6 +54,7 @@ const ModalSearchProduct = forwardRef((props, ref) => {
         loadingSearch={loadingSearch}
         loadingSaveProduct={loadingSaveProduct}
         handleSelectAll={handleSelectAll}
+        checkAll={checkAll}
       />
     </MyModal>
   );

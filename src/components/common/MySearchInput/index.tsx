@@ -3,11 +3,13 @@ import { useState } from "react";
 import MyButton from "../MyButton";
 import MyTypography from "../MyTypography";
 import styles from "./styles.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface propsMySearchInput {
   value?: string;
 }
 const MySearchInput = (props: propsMySearchInput) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState("");
   const onChangeText = (e) => setValue(e.target.value);
   return (
@@ -19,7 +21,7 @@ const MySearchInput = (props: propsMySearchInput) => {
       />
       <MyButton className={styles.buttonSearch}>
         <MyTypography fontSize={11} className={styles.txtSearch}>
-          Tìm kiếm
+          {t("btn_search")}
         </MyTypography>
       </MyButton>
     </Box>
