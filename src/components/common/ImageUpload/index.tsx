@@ -36,7 +36,7 @@ const ImageUploader = () => {
   const fileInputRef = useRef(null);
 
   const handleFiles = (files) => {
-    const newImages = Array.from(files).map((file) => ({
+    const newImages = Array.from(files).map((file: any) => ({
       file,
       preview: URL.createObjectURL(file),
       id: `${file.name}-${Date.now()}`,
@@ -126,7 +126,7 @@ const ImageUploader = () => {
 
       <Grid container spacing={2} sx={{ mt: 2 }}>
         {images.map((image, index) => (
-          <Grid item xs={6} sm={4} md={3} key={image.id}>
+          <Grid key={image.id}>
             <Paper
               variant="outlined"
               sx={{

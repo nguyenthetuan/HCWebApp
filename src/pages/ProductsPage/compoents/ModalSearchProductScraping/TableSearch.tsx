@@ -70,7 +70,7 @@ export default function TableSearch({
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
+          {products.map((item: any, i) => (
             <TableRow key={item.id}>
               <TableCell>
                 <Checkbox

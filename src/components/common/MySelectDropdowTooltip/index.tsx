@@ -6,6 +6,7 @@ import {
   Select,
   FormHelperText,
   styled,
+  SelectProps,
 } from "@mui/material";
 import styles from "./styles.module.scss";
 import MyTypography from "../MyTypography";
@@ -81,7 +82,7 @@ const MenuItemCustom = styled(MenuItem)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 const SelectCustom = styled(Select)(({ theme }) => ({
-  fontSize: 12,
+  fontSize: 16,
   color: theme.palette.primary.main,
 }));
 export default MySelectDropdowTooltip;

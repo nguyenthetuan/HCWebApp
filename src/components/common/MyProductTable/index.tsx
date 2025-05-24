@@ -118,7 +118,7 @@ export default function MyProductTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => {
+          {products.map((item: any, i) => {
             return (
               <TableRow key={item.id}>
                 <TableCell>

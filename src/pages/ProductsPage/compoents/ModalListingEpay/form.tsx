@@ -430,7 +430,7 @@ const FormEpay = () => {
             size="small"
           />
         </Grid>
-        <Grid xs={12} container spacing={2}>
+        <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
             Gửi thông tin sản phẩm
           </MyButton>

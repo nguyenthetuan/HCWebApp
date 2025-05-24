@@ -75,7 +75,7 @@ export default function TableScrapingProduct({
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((item, i) => (
+          {products.map((item: any, i) => (
             <TableRow key={item.id}>
               <TableCell>
                 <Checkbox
