@@ -1,85 +1,58 @@
-import MyLink from "@/components/common/MyLink";
-import EmailIcon from "@mui/icons-material/Email";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import LoginIcon from "@mui/icons-material/Login";
+import React, { useRef } from "react";
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import SettingsIcon from "@mui/icons-material/Settings";
-import PersonIcon from "@mui/icons-material/Person";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { Box, Icon, IconButton, Stack } from "@mui/material";
-import styles from "./styles.module.scss";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LoginIcon from "@mui/icons-material/Login";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ModalChooseFile from "../ModalChooseFile";
-import { useRef } from "react";
 import ModalSetupUser from "../ModalSetupUser";
 import ModalSetUpEbay from "../ModalSetupEbay";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import styles from "./styles.module.scss";
+import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
 
 export default function EbayToolbar() {
+  const {
+    fulfillmentPolicy,
+    returnPolicy,
+    paymentPolicy,
+    getfulfillmentPolicy,
+    getReturnPolicies,
+    getPaymentPolicy,
+  } = useSetupEbay();
   const refModalChooseFile = useRef(null);
   const refModalSetupUser = useRef(null);
   const refModalSetupEbay = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const links = [
-    {
-      key: "0",
-      value: t("action_dowload_csv"),
-    },
-    {
-      key: "1",
-      value: t("action_upload_csv"),
-    },
-    {
-      key: "2",
-      value: t("action_open_album_tracking_customer"),
-    },
-    {
-      key: "3",
-      value: t("action_login_ebay"),
-    },
-    {
-      key: "4",
-      value: t("action_logout"),
-    },
-    {
-      key: "5",
-      value: t("action_auto_link"),
-    },
-    {
-      key: "6",
-      value: t("action_automatic_link_log"),
-    },
-    {
-      key: "7",
-      value: t("action_ebay_settiong"),
-    },
-  ];
 
   const chooseFile = () => {
     refModalChooseFile?.current?.openModal();
   };
+
   const setupUser = () => {
     refModalSetupUser?.current?.openModal();
   };
+
   const setupEbay = () => {
     refModalSetupEbay?.current?.openModal();
   };
+
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
+
   const handleDownload = () => {
     const data = [
       ["Tên", "Tuổi", "Email"],
       ["Nguyễn Văn A", 25, "a@example.com"],
       ["Trần Thị B", 30, "b@example.com"],
     ];
-
-    const csvContent =
-      "\uFEFF" + // BOM để Excel nhận UTF-8
-      data.map((row) => row.join(",")).join("\n");
-
+    const csvContent = "\uFEFF" + data.map((row) => row.join(",")).join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -90,40 +63,79 @@ export default function EbayToolbar() {
     document.body.removeChild(link);
   };
 
-  const handleClick = (text) => {
-    switch (text) {
-      case "0":
+  const handleClick = (key) => {
+    switch (key) {
+      case "download":
         handleDownload();
         break;
-      case "1":
+      case "upload":
         chooseFile();
         break;
-      case "7":
+      case "setup-ebay":
         setupEbay();
         break;
-      case "4":
+      case "logout":
         logout();
         break;
       default:
         break;
     }
   };
+
   return (
     <Box className={styles.container}>
-      <Box className={styles.boxLink}>
-        {links.map((item, idx) => (
-          <MyLink
-            key={idx}
-            component="button"
-            variant="body2"
-            underline="always"
-            sx={{ cursor: "pointer", fontSize: 12 }}
-            onClick={() => handleClick(item.key)}
+      <Box className={styles.topInfo}>
+        <Typography variant="body2" className={styles.infoText}>
+          Số lượng mặt hàng đã đăng ký: Surugaya: <b>100/220</b> &nbsp; NETSEA:{" "}
+          <b>50/130</b>
+        </Typography>
+        <Typography variant="body2" className={styles.infoText}>
+          Số lượng danh sách eBay: <b>1000</b> (Số lượng không nhất quán:{" "}
+          <b>5</b> được hiển thị)
+        </Typography>
+      </Box>
+
+      <Box className={styles.actionsRow}>
+        <Stack direction="row" spacing={1} className={styles.actionButtons}>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => handleClick("download")}
           >
-            {item.value}
-          </MyLink>
-        ))}
-        <Stack direction="row">
+            Tải xuống CSV
+          </Button>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => handleClick("upload")}
+          >
+            Tải lên CSV
+          </Button>
+          {/* <Button size="small" variant="outlined" onClick={setupUser}>
+            Thiết lập người dùng
+          </Button> */}
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => {
+              getPaymentPolicy();
+              getReturnPolicies();
+              getfulfillmentPolicy();
+              handleClick("setup-ebay");
+            }}
+          >
+            Thiết lập eBay
+          </Button>
+          {/* <Button
+            size="small"
+            variant="outlined"
+            onClick={() => handleClick("logout")}
+          >
+            Đăng xuất
+          </Button> */}
+        </Stack>
+
+        {/* <Stack direction="row" spacing={1}>
           <IconButton onClick={handleDownload}>
             <SaveIcon />
           </IconButton>
@@ -139,19 +151,20 @@ export default function EbayToolbar() {
           <IconButton>
             <LoginIcon />
           </IconButton>
-        </Stack>
+          <IconButton onClick={logout}>
+            <ExitToAppIcon />
+          </IconButton>
+        </Stack> */}
       </Box>
+
       <ModalChooseFile ref={refModalChooseFile} />
       <ModalSetupUser ref={refModalSetupUser} />
-      <ModalSetUpEbay ref={refModalSetupEbay} />
+      <ModalSetUpEbay
+        ref={refModalSetupEbay}
+        fulfillmentPolicy={fulfillmentPolicy}
+        returnPolicy={returnPolicy}
+        paymentPolicy={paymentPolicy}
+      />
     </Box>
   );
 }
-
-const style = {
-  boxLink: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: 0.5,
-  },
-};

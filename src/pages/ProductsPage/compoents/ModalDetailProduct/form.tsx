@@ -18,6 +18,7 @@ const DetailProduct = (props: any) => {
   const [product, setProduct] = useState<Product | null>(
     props?.productShow || null
   );
+  console.log("propductsss", product);
 
   if (!product) return null;
 
@@ -70,6 +71,7 @@ const DetailProduct = (props: any) => {
         </Box>
       </Box>
       <Box className={styles.information}>
+        <MyTypography>{t("title_origin")}</MyTypography>
         <Typography variant="h5" fontWeight="bold">
           {product.name}
         </Typography>
@@ -78,6 +80,18 @@ const DetailProduct = (props: any) => {
           {product.content}
         </Typography>
       </Box>
+      {!!product?.transform_data && (
+        <Box className={styles.information}>
+          <MyTypography>{t("title_transform")}</MyTypography>
+          <Typography variant="h5" fontWeight="bold">
+            {product?.transform_data.name}
+          </Typography>
+
+          <Typography variant="body1" color="text.secondary">
+            {product?.transform_data.content}
+          </Typography>
+        </Box>
+      )}
       {product.image_urls?.length > 0 && (
         <Box mt={4}>
           <Typography variant="h6" gutterBottom>

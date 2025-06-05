@@ -10,4 +10,7 @@ export interface Product {
   __v?: number;
   createdAt?: string;
   updatedAt?: string;
+  platform_type?: string;
+  out_of_stock?: boolean;
+  transform_data?: any;
 }

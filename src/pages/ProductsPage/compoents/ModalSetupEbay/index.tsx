@@ -4,7 +4,12 @@ import styles from "./styles.module.scss";
 import FormSetupEbay from "./form";
 
 // forwardRef để parent có thể gọi hàm trong component này
-const ModalSetUpEbay = forwardRef((props, ref) => {
+interface propsModalSetupEbay {
+  fulfillmentPolicy?: any[];
+  returnPolicy?: any[];
+  paymentPolicy?: any[];
+}
+const ModalSetUpEbay = forwardRef((props: propsModalSetupEbay, ref) => {
   const [open, setOpen] = useState(false);
 
   // expose các hàm ra ngoài qua ref
@@ -19,7 +24,11 @@ const ModalSetUpEbay = forwardRef((props, ref) => {
       onClose={() => setOpen(false)}
       className={styles.container}
     >
-      <FormSetupEbay />
+      <FormSetupEbay
+        fulfillmentPolicy={props?.fulfillmentPolicy}
+        returnPolicy={props?.returnPolicy}
+        paymentPolicy={props?.paymentPolicy}
+      />
     </MyModal>
   );
 });

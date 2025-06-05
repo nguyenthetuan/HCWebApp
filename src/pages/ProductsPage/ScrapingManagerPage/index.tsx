@@ -1,7 +1,7 @@
 import MyButton from "@/components/common/MyButton";
 import MyTypography from "@/components/common/MyTypography";
 import { Box, Grid, Stack } from "@mui/material";
-import { useEffect, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import ModalSearchProduct from "../compoents/ModalSearchProduct";
 import styles from "./styles.module.scss";
 import TableScrapingProduct from "./TableScrapingProduct";
@@ -25,8 +25,8 @@ const ScrapingManagerPage = () => {
     productShow,
     setProductShow,
   } = useScrapingProduct();
-  const refModalSearch = useRef(null);
   const { t } = useTranslation();
+  const refModalSearch = useRef(null);
   const search = () => {
     refModalSearch?.current?.openModal();
   };

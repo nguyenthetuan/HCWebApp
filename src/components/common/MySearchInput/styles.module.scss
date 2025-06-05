@@ -4,20 +4,24 @@
   @include container;
   align-items: center;
 }
+
 .TextFieldSearch {
   @include container;
   font-size: 8px;
   flex-direction: row;
+
   :global {
     .MuiOutlinedInput-root {
       height: 2.36em;
       min-width: 0 !important;
-      border-radius: 0 !important;
+      border-radius: 8px !important; // Border radius mới
+      background-color: #fff; // Nền trắng
       font-size: 14px;
     }
+
     .MuiInputBase-input {
       padding: 6px 10px;
-      min-width: 0 !important;
+      min-width: 0;
     }
 
     .MuiInputLabel-root {
@@ -30,6 +34,11 @@
 .buttonSearch {
   align-self: center;
   background-color: #deb887 !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important; // Bo tròn nút tìm kiếm
   height: 2.36em;
+  margin-left: 1rem;
+}
+
+.txtSearch {
+  color: white;
 }

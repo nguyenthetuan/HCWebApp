@@ -1,21 +1,17 @@
+import EventBus from "@/components/common/EventBus";
+import MyPagination from "@/components/common/MyPagination";
 import MyProductTable from "@/components/common/MyProductTable";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
-import { useEffect, useState } from "react";
-import styles from "./style.module.scss";
-import MyPagination from "@/components/common/MyPagination";
-import EBaySetting from "./compoents/EpaySetting";
-import EbayToolbar from "./compoents/EbayToolbar";
-import MultileButton from "./compoents/MultileButton";
-import MoreInfor from "./compoents/MoreInfor";
-import HeaderProductPage from "./compoents/HeaderProductPage";
-import { Box } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-import { updateName } from "../../feature/userSlice";
-import { useProductPage } from "@/hook/ProductPage";
 import ScrollButtons from "@/components/common/ScrollButton";
+import { useProductPage } from "@/hook/ProductPage";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
-import EventBus from "@/components/common/EventBus";
+import { Box } from "@mui/material";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import EbayToolbar from "./compoents/EbayToolbar";
+import EBaySetting from "./compoents/EpaySetting";
+import MultileButton from "./compoents/MultileButton";
+import styles from "./style.module.scss";
 
 const ProductPage = (props: any) => {
   const {
@@ -32,6 +28,23 @@ const ProductPage = (props: any) => {
     itemSelect,
     addProductToEbay,
     loadingUpebay,
+    editProduct,
+    handleDeleteProduct,
+    getCategoryTree,
+    getItemAspectsForCategory,
+    getCategorySuggestions,
+    getfulfillmentPolicy,
+    getReturnPolicies,
+    getInventoryLocations,
+    invertoryLocation,
+    aspects,
+    categoryTree,
+    isLoadingAspects,
+    categorySuggestion,
+    fulfillmentPolicy,
+    returnPolicy,
+    getPaymentPolicy,
+    paymentPolicy,
   } = userManagerProduct();
   const { t } = useTranslation();
   const { gender, setGender, page, setPage } = useProductPage();
@@ -106,8 +119,28 @@ const ProductPage = (props: any) => {
           selectedIds={selectedIds}
           checkAll={checkAll}
           setCheckAll={setCheckAll}
-          onChange={(value) => setItemSelect(value)}
+          onChange={(value) => {
+            setItemSelect(value);
+            getCategoryTree();
+            getfulfillmentPolicy();
+            getReturnPolicies();
+            getPaymentPolicy();
+            getInventoryLocations();
+            getCategorySuggestions(value.name);
+          }}
           itemSelect={itemSelect}
+          editProduct={editProduct}
+          handleDeleteProduct={handleDeleteProduct}
+          categoryTree={categoryTree}
+          getItemAspectsForCategory={getItemAspectsForCategory}
+          getCategorySuggestions={getCategorySuggestions}
+          aspects={aspects}
+          isLoadingAspects={isLoadingAspects}
+          categorySuggestion={categorySuggestion}
+          fulfillmentPolicy={fulfillmentPolicy}
+          returnPolicy={returnPolicy}
+          paymentPolicy={paymentPolicy}
+          invertoryLocation={invertoryLocation}
         />
       </Box>
       <Box className={styles.wrapFooterPagination}>
