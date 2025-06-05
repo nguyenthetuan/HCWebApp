@@ -20,6 +20,7 @@ const DeleteDialog = (props, ref) => {
   };
 
   const handleDelete = () => {
+    if (props?.onConfirm) props?.onConfirm();
     handleClose();
   };
 

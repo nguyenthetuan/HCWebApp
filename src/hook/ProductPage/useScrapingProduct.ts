@@ -1,9 +1,11 @@
 import EventBus from "@/components/common/EventBus";
 import request from "@/services/Request";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 export const useScrapingProduct = () => {
+  const { t } = useTranslation();
   const [scapingProduct, setScapingProduct] = useState([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
@@ -105,6 +107,7 @@ export const useScrapingProduct = () => {
   const resetSelect = () => {
     setSelectedIds([]);
     setLastSelectedIndex(null);
+    setCheckAll(false);
   };
 
   const getScrapingProduct = useCallback(async () => {
@@ -145,35 +148,39 @@ export const useScrapingProduct = () => {
     }
   }, [selectedIds]);
 
-  const addProductToManager = useCallback(async () => {
-    try {
-      if (selectedIds.length !== 0) {
-        setLoadingProduct(true);
-        const formData = selectedIds.map((id) => {
-          const elm = scapingProduct.find((elm) => elm._id === id);
-          return {
-            url: elm.url,
-            name: elm.transform_data.name,
-            price: elm.price,
-            content: elm.transform_data.content,
-            avatar_url: elm.avatar_url,
-            image_urls: elm.image_urls,
-            out_of_stock: true,
-          };
-        });
-        const response = await request.post(
-          "/api/product-upload/bulk",
-          formData
-        );
+  const addProductToManager = useCallback(
+    async (closeModal) => {
+      try {
+        if (selectedIds.length !== 0) {
+          setLoadingProduct(true);
+          const formData = selectedIds.map((id) => {
+            const elm = scapingProduct.find((elm) => elm._id === id);
+            return {
+              url: elm.url,
+              name: elm.transform_data.name,
+              price: elm.price,
+              content: elm.transform_data.content,
+              avatar_url: elm.avatar_url,
+              image_urls: elm.image_urls,
+              out_of_stock: true,
+            };
+          });
+          const response = await request.post(
+            "/api/product-upload/bulk",
+            formData
+          );
+          setLoadingProduct(false);
+          resetSelect();
+          closeModal();
+          toast.success(t("save_product"));
+          EventBus.dispatchEvent(new CustomEvent("getProduct"));
+        }
+      } catch (error) {
         setLoadingProduct(false);
-        resetSelect();
-        toast.success("Lưu sản phẩm thành công!");
-        EventBus.dispatchEvent(new CustomEvent("getProduct"));
       }
-    } catch (error) {
-      setLoadingProduct(false);
-    }
-  }, [selectedIds]);
+    },
+    [selectedIds]
+  );
 
   return {
     selectedIds,

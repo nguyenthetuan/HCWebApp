@@ -1,19 +1,31 @@
 import request from "@/services/Request";
 import React, { useCallback, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useContextDialog } from "@/context";
 
 export const userManagerProduct = () => {
+  const { t } = useTranslation();
+  const { openModalDelete } = useContextDialog();
   const [products, setProduct] = useState([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
     null
   );
-  console.log("products", products);
 
   const [checkAll, setCheckAll] = useState(false);
   const [loadingDelProduct, setLoadingDelProduct] = useState(false);
   const [itemSelect, setItemSelect] = useState();
   const [loadingUpebay, setLoadingUpebay] = useState(false);
+  const [isLoadingAspects, setLoadingAspects] = useState(false);
+
+  const [categoryTree, setCategoryTree] = useState<any[]>([]);
+  const [aspects, setAspects] = useState<any[]>([]);
+  const [categorySuggestion, setCategorySuggestion] = useState<any[]>([]);
+  const [fulfillmentPolicy, setFullFillmentPolicy] = useState<any[]>([]);
+  const [returnPolicy, setReturnPolicy] = useState<any[]>([]);
+  const [paymentPolicy, setPalymentPolicy] = useState<any[]>([]);
+  const [invertoryLocation, setInventoryLocation] = useState<any[]>([]);
 
   const handleSelectAll = () => {
     if (checkAll) {
@@ -63,6 +75,7 @@ export const userManagerProduct = () => {
   const resetSelect = () => {
     setSelectedIds([]);
     setLastSelectedIndex(null);
+    setCheckAll(false);
   };
   const getProduct = async () => {
     try {
@@ -83,6 +96,7 @@ export const userManagerProduct = () => {
           data: { ids: formData },
         });
         getProduct();
+        resetSelect();
         setLoadingDelProduct(false);
       }
     } catch (error) {
@@ -96,11 +110,90 @@ export const userManagerProduct = () => {
       const response = await request.post("/api/product-upload/ebay", {
         product_ids: selectedIds,
       });
+      resetSelect();
       setLoadingUpebay(false);
-      toast.success("Đẩy sản phẩm thành công");
+      toast.success(t("upload_success"));
     } catch (error) {
       setLoadingUpebay(false);
     }
+  };
+
+  const editProduct = useCallback(
+    async (formData, id) => {
+      try {
+        const response = await request.put(`/api/product-upload/${id}`, {
+          ...formData,
+        });
+        toast.success(t("edit_success"));
+        getProduct();
+      } catch (error) {}
+    },
+    [selectedIds]
+  );
+
+  const handleDeleteProduct = async (item) => {
+    openModalDelete(item, async (item) => {
+      const response = await request.delete("/api/product-upload/bulk", {
+        data: { ids: item._id },
+      });
+      getProduct();
+      resetSelect();
+    });
+  };
+
+  const getCategoryTree = async () => {
+    try {
+      const response = await request.get("/api/ebay/category_tree");
+      setCategoryTree(response);
+    } catch (error) {}
+  };
+
+  const getItemAspectsForCategory = async (idCategory) => {
+    try {
+      setLoadingAspects(true);
+      const response = await request.get(
+        `/api/ebay/get_item_aspects_for_category?category_id=${idCategory}`
+      );
+      setLoadingAspects(false);
+      setAspects(response.aspects);
+    } catch (error) {}
+  };
+
+  const getCategorySuggestions = async (nameProduct) => {
+    try {
+      const response = await request.get(
+        `/api/ebay/get_category_suggestions?keyword=${nameProduct}`
+      );
+      setCategorySuggestion(response.categorySuggestions);
+    } catch (error) {}
+  };
+
+  const getfulfillmentPolicy = async () => {
+    try {
+      const response = await request.get(`/api/ebay/fulfillment_policy`);
+      setFullFillmentPolicy(response.fulfillmentPolicies);
+    } catch (error) {}
+  };
+
+  const getReturnPolicies = async () => {
+    try {
+      const response = await request.get(`/api/ebay/return_policy`);
+      setReturnPolicy(response.returnPolicies);
+    } catch (error) {}
+  };
+
+  const getPaymentPolicy = async () => {
+    try {
+      const response = await request.get(`/api/ebay/payment_policy`);
+      setPalymentPolicy(response.paymentPolicies);
+    } catch (error) {}
+  };
+
+  const getInventoryLocations = async () => {
+    try {
+      const response = await request.get(`/api/ebay/inventory_location`);
+      setInventoryLocation(response.locations);
+    } catch (error) {}
   };
 
   return {
@@ -118,5 +211,22 @@ export const userManagerProduct = () => {
     itemSelect,
     addProductToEbay,
     loadingUpebay,
+    editProduct,
+    handleDeleteProduct,
+    getCategoryTree,
+    getItemAspectsForCategory,
+    categoryTree,
+    aspects,
+    getCategorySuggestions,
+    isLoadingAspects,
+    categorySuggestion,
+    getfulfillmentPolicy,
+    fulfillmentPolicy,
+    getReturnPolicies,
+    getPaymentPolicy,
+    returnPolicy,
+    paymentPolicy,
+    getInventoryLocations,
+    invertoryLocation,
   };
 };

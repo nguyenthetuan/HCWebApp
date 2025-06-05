@@ -50,7 +50,7 @@ export default function MultileButton(props: propsMutiButton) {
         >
           {t("deleteAllItems")}
         </MyButton>
-        <MyButton
+        {/* <MyButton
           variant="contained"
           sx={{ backgroundColor: "violet", fontSize: 8 }}
           size="small"
@@ -58,7 +58,7 @@ export default function MultileButton(props: propsMutiButton) {
           onClick={openModleListing}
         >
           {t("ebayLiveListing")}
-        </MyButton>
+        </MyButton> */}
         <MyButton
           variant="contained"
           sx={{ backgroundColor: "chocolate", fontSize: 8 }}

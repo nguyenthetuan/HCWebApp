@@ -1,46 +1,62 @@
-@use "../../../../styles/mixins" as *;
-
 .container {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 3rem 15rem 3rem 15rem;
+  padding: 3rem;
 }
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+
+.title {
+  text-align: center;
+  font-size: 20px !important;
+  text-transform: uppercase;
 }
-.btn {
-}
+
 .row {
   display: flex;
   flex-direction: row;
   flex: 1;
   align-items: center;
 }
+
 .status {
   display: flex;
   flex: 1;
   font-size: 14px !important;
 }
-.title {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-}
-.btnTranslate {
-  @include button;
-}
+
 .dropdow {
-  height: 2.5rem;
+  height: 3rem;
 }
-.Box {
-  // display: flex;
-  // flex-direction: column;
-  flex: 1;
-}
+
 .frame {
+  // margin: 2rem auto;
+  // padding: 2rem;
+  // background-color: #ffffff;
+  // border-radius: 12px;
+  // box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  // gap: 1rem;
+  flex: 1;
+}
+
+.toggleBtn {
+  height: 2rem !important;
+}
+
+.leftColumn {
+  flex: 2.5;
+  height: 650px;
+  background-color: aqua;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  gap: 1rem;
+}
+
+.rightColumn {
+  flex: 1;
+  background-color: aqua;
   margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
@@ -49,22 +65,7 @@
   gap: 1rem;
   flex: 1;
 }
-.frameRow {
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  gap: 1rem;
-  flex: 1;
-  display: flex;
-}
-.btnAdd {
-  width: 50%;
-  align-self: center;
-}
-.title {
-  text-align: center;
-  font-size: 20px !important;
-  text-transform: uppercase;
+
+.txtChooseNormal {
+  font-size: 10;
 }

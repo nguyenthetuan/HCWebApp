@@ -1,11 +1,13 @@
 import request from "@/services/Request";
 import { log } from "node:console";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useScrapingProduct } from "./useScrapingProduct";
 import EventBus from "@/components/common/EventBus";
+import { useTranslation } from "react-i18next";
 
 export const useSearchProduct = () => {
+  const { t } = useTranslation();
   const [foundation, setFoundation] = useState("netsea");
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
@@ -17,6 +19,7 @@ export const useSearchProduct = () => {
   const [lastSelectedIndex, setLastSelectedIndex] = useState<string | null>(
     null
   );
+  const refModalSearch = useRef(null);
 
   const handleChange = (e) => {
     setFoundation(e.target.value);
@@ -32,6 +35,7 @@ export const useSearchProduct = () => {
   const resetSelect = () => {
     setSelectedIds([]);
     setLastSelectedIndex(null);
+    setCheckAll(false);
   };
 
   const search = useCallback(async () => {
@@ -99,34 +103,38 @@ export const useSearchProduct = () => {
     }
     setCheckAll(!checkAll);
   };
-  const addProduct = useCallback(async () => {
-    try {
-      if (selectedIds.length !== 0) {
-        setSaveLoadingProduct(true);
-        const formData = selectedIds.map((id) => {
-          const elm = product.find((elm) => elm.url == id);
-          return {
-            url: elm.url,
-            name: elm.name,
-            price: elm.price,
-            content: "",
-            avatar_url: elm.imageSrc,
-            platform_type: elm.platform_type,
-          };
-        });
-        const response = await request.post(
-          "/api/scrape-products/bulk",
-          formData
-        );
+  const addProduct = useCallback(
+    async (closeModal) => {
+      try {
+        if (selectedIds.length !== 0) {
+          setSaveLoadingProduct(true);
+          const formData = selectedIds.map((id) => {
+            const elm = product.find((elm) => elm.url == id);
+            return {
+              url: elm.url,
+              name: elm.name,
+              price: elm.price,
+              content: "",
+              avatar_url: elm.imageSrc,
+              platform_type: elm.platform_type,
+            };
+          });
+          const response = await request.post(
+            "/api/scrape-products/bulk",
+            formData
+          );
+          closeModal();
+          setSaveLoadingProduct(false);
+          toast.success(t("save_product"));
+          EventBus.dispatchEvent(new CustomEvent("getScrapingProduct"));
+          resetSelect();
+        }
+      } catch (error) {
         setSaveLoadingProduct(false);
-        toast.success("Lưu sản phẩm thành công!");
-        EventBus.dispatchEvent(new CustomEvent("getScrapingProduct"));
-        resetSelect();
       }
-    } catch (error) {
-      setSaveLoadingProduct(false);
-    }
-  }, [selectedIds]);
+    },
+    [selectedIds]
+  );
 
   return {
     foundation,
@@ -150,5 +158,6 @@ export const useSearchProduct = () => {
     loadingSaveProduct,
     handleSelectAll,
     checkAll,
+    refModalSearch,
   };
 };

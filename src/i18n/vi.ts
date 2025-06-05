@@ -410,4 +410,17 @@ export default {
 
   title_action: "Hành động",
   title_all: "Tất cả các mục",
+  title_change_product: "Thay đổi thông tin sản phẩm",
+  title_out_of_stock: "Hết hàng",
+  title_in_of_stock: "Còn hàng",
+
+  upload_success: "Đẩy sản phẩm thành công",
+  edit_success: "Chỉnh sửa thành công",
+  save_product: "Lưu sản phẩm thành công",
+  platform: "Nền tảng",
+
+  title_price_Sell: "Giá bán",
+
+  title_origin: "Dữ liệu nguyên bản",
+  title_transform: "Dữ liệu chuyển đổi",
 };

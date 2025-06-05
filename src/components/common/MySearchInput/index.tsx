@@ -13,14 +13,14 @@ const MySearchInput = (props: propsMySearchInput) => {
   const [value, setValue] = useState("");
   const onChangeText = (e) => setValue(e.target.value);
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} gap={1}>
       <TextField
         value={value}
         onChange={onChangeText}
         className={styles.TextFieldSearch}
       />
       <MyButton className={styles.buttonSearch}>
-        <MyTypography fontSize={11} className={styles.txtSearch}>
+        <MyTypography fontSize={12} className={styles.txtSearch}>
           {t("btn_search")}
         </MyTypography>
       </MyButton>

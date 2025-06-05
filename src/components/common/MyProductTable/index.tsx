@@ -46,6 +46,18 @@ interface Props {
   setCheckAll?: (value: unknown) => void;
   onChange?: (item) => void;
   itemSelect?: unknown;
+  editProduct?: (FormData, id) => void;
+  handleDeleteProduct?: (item) => void;
+  categoryTree?: any[];
+  getItemAspectsForCategory?: (id_category: string) => void;
+  aspects?: any[];
+  getCategorySuggestions?: (name?: string) => void;
+  isLoadingAspects?: boolean;
+  categorySuggestion?: any[];
+  fulfillmentPolicy?: any[];
+  returnPolicy?: any[];
+  paymentPolicy?: any[];
+  invertoryLocation?: any[];
 }
 
 export default function MyProductTable({
@@ -57,9 +69,18 @@ export default function MyProductTable({
   setCheckAll,
   onChange,
   itemSelect,
+  editProduct,
+  handleDeleteProduct,
+  categoryTree,
+  getItemAspectsForCategory,
+  aspects,
+  isLoadingAspects,
+  categorySuggestion,
+  fulfillmentPolicy,
+  returnPolicy,
+  paymentPolicy,
+  invertoryLocation,
 }: Props) {
-  console.log("propsxxx", products);
-
   const { t, i18n } = useTranslation();
   const refModal = useRef(null);
   const refModalChangeProduct = useRef(null);
@@ -98,10 +119,10 @@ export default function MyProductTable({
               <MyTypography>{t("title_purchase_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_ebay_link")}</MyTypography>
+              <MyTypography>{t("status")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_purchase_price")}</MyTypography>
+              <MyTypography>{t("title_price_Sell")}</MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>{t("common_image")}</MyTypography>
@@ -124,56 +145,18 @@ export default function MyProductTable({
                     checked={selectedIds?.includes(item._id)}
                   />
                 </TableCell>
-                {/* <TableCell>
-                  <MyTypography>{item?.store}</MyTypography>
-                </TableCell> */}
                 <TableCell>
-                  <MyTypography>
-                    {item?.name}
-                    <MyLink
-                      onClick={() => {
-                        refModal.current.openModal();
-                      }}
-                    >
-                      {t("action_epay_list")}
-                    </MyLink>
-                    <MyLink onClick={() => {}}>
-                      {t("action_delete_epay_data")}
-                    </MyLink>
-                  </MyTypography>
+                  <MyTypography>{item?.name}</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyLink
-                    href={item?.ebayMyLink}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    {t("action_view_ebay")}
-                  </MyLink>
-                  <MyLink
-                    onClick={() => {
-                      refModalCheapProduct.current.openModal();
-                    }}
-                  >
-                    {t("action_cheap_product")}
-                  </MyLink>
-                  <MyLink
-                    onClick={() => {
-                      refModalStopSellingProduct.current.openModal();
-                    }}
-                  >
-                    {t("action_stop_selling_list")}
-                  </MyLink>
-                  <MyLink
-                    onClick={() => {
-                      refModalUpdateQuantity.current.openModal();
-                    }}
-                  >
-                    {t("action_update_quantity")}
-                  </MyLink>
+                  <MyTypography>
+                    {item?.out_of_stock
+                      ? t("title_out_of_stock")
+                      : t("title_in_of_stock")}
+                  </MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>{item?.price} ¥</MyTypography>
@@ -190,8 +173,12 @@ export default function MyProductTable({
                   >
                     <IconEdit className={styles.iconEdit} />
                   </IconButton>
-                  <IconButton>
-                    <IconDelete className={styles.iconEdit} />
+                  <IconButton
+                    onClick={() => {
+                      handleDeleteProduct(item);
+                    }}
+                  >
+                    <IconDelete className={styles.iconDelete} />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -200,7 +187,20 @@ export default function MyProductTable({
         </TableBody>
       </Table>
       <ModalListingEpay ref={refModal} />
-      <ModalChangeProduct ref={refModalChangeProduct} itemSelect={itemSelect} />
+      <ModalChangeProduct
+        ref={refModalChangeProduct}
+        itemSelect={itemSelect}
+        editProduct={editProduct}
+        categoryTree={categoryTree}
+        getItemAspectsForCategory={getItemAspectsForCategory}
+        aspects={aspects}
+        isLoadingAspects={isLoadingAspects}
+        categorySuggestion={categorySuggestion}
+        fulfillmentPolicy={fulfillmentPolicy}
+        returnPolicy={returnPolicy}
+        paymentPolicy={paymentPolicy}
+        invertoryLocation={invertoryLocation}
+      />
       <ModalCheapProduct ref={refModalCheapProduct} />
       <ModalStopSellingProduct ref={refModalStopSellingProduct} />
       <ModadalUpdateQuantity ref={refModalUpdateQuantity} />

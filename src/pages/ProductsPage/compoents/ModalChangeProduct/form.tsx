@@ -2,7 +2,13 @@ import MyButton from "@/components/common/MyButton";
 import MyInput from "@/components/common/MyInput";
 import MyRadioGroup from "@/components/common/MyRadioGroup";
 import MyTypography from "@/components/common/MyTypography";
-import { Box, Grid, Stack } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import {
@@ -13,210 +19,373 @@ import {
 import MyInputToolTip from "@/components/common/MyInputToolTip";
 import { useTranslation } from "react-i18next";
 import { userManagerProduct } from "@/hook/ProductPage/useManagerProduct";
-interface props {
+import MySelectDropdow from "@/components/common/MySelectDropdow";
+import CategorySelect from "../CategorySelect";
+import { AspectFormLoading } from "./loading";
+
+interface Props {
   itemSelect?: any;
+  editProduct?: (FormData, id) => void;
+  categoryTree?: any;
+  getItemAspectsForCategory?: (id_category: string) => void;
+  aspects?: any[];
+  isLoadingAspects?: boolean;
+  categorySuggestion?: any[];
+  fulfillmentPolicy?: any[];
+  returnPolicy?: any[];
+  paymentPolicy?: any[];
+  invertoryLocation?: any[];
+  closeModal?: () => void;
 }
-const FormChangeProduct = (props: props) => {
+
+const FormChangeProduct = ({
+  itemSelect,
+  editProduct,
+  categoryTree,
+  getItemAspectsForCategory,
+  aspects,
+  isLoadingAspects,
+  categorySuggestion,
+  fulfillmentPolicy,
+  returnPolicy,
+  paymentPolicy,
+  invertoryLocation,
+  closeModal,
+}: Props) => {
   const tooltips = TOOLTIP();
-  const [formData, setFormData] = useState({
-    name: props.itemSelect?.name,
-    url: props.itemSelect?.url,
-    price: props.itemSelect?.price,
-    title: "",
-    description: "",
-    category: "",
-    condition: "",
-    quantity: 1,
-    returnPolicy: "",
-    paymentPolicy: "",
-    location: "",
-  });
   const { t } = useTranslation();
-  const optionOnOff = getOptionOnOff(t);
-  const mode = getMode(t);
+  const [alignment, setAlignment] = useState("NORMAL");
+
+  const handleChangeToggle = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
+  };
+  const [formData, setFormData] = useState<any>({
+    name: itemSelect?.name || "",
+    url: itemSelect?.url || "",
+    price: itemSelect?.price || "",
+    content: itemSelect?.content || "",
+    avatar_url: itemSelect?.avatar_url || "",
+    listingPolicies: {
+      fulfillmentPolicyId:
+        itemSelect?.listingPolicies?.fulfillmentPolicyId || "",
+      paymentPolicyId: itemSelect?.listingPolicies?.paymentPolicyId || "",
+      returnPolicyId: itemSelect?.listingPolicies?.returnPolicyId || "",
+    },
+    categoryId: itemSelect?.categoryId || "",
+    merchantLocationKey: itemSelect?.merchantLocationKey || "",
+    availableQuantity: itemSelect?.availableQuantity || "",
+    quantityLimitPerBuyer: itemSelect?.quantityLimitPerBuyer || "",
+    aspects: itemSelect?.aspects || {},
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name.includes(".")) {
+      const keys = name.split(".");
+      setFormData((prevData) => {
+        const updatedNested = {
+          ...prevData[keys[0]],
+          [keys[1]]: value,
+        };
+        return {
+          ...prevData,
+          [keys[0]]: updatedNested,
+        };
+      });
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    if (isLoadingAspects) {
+      alert("Thuộc tính theo danh mục chưa được loading thành công ");
+    } else {
+      const missingRequiredAspects = aspects
+        .filter((aspect) => aspect.aspectConstraint?.aspectRequired) // chỉ lấy những field bắt buộc
+        .filter((requiredAspect) => {
+          const value = formData.aspects?.[requiredAspect.localizedAspectName];
+          return !value || value.length === 0; // chưa có giá trị hoặc rỗng
+        })
+        .map((aspect) => aspect.localizedAspectName); // chỉ lấy tên để thông báo
+
+      if (missingRequiredAspects.length > 0) {
+        alert(
+          `Vui lòng nhập các trường bắt buộc: ${missingRequiredAspects.join(
+            ", "
+          )}`
+        );
+        return;
+      }
+      closeModal();
+      editProduct(formData, itemSelect?._id);
+    }
+  };
+
+  const optionCategorySuggestion = categorySuggestion.map((elm) => {
+    return {
+      label: elm.category.categoryName,
+      value: elm.category.categoryId,
+    };
+  });
+  const optionFullfimentPolicy = fulfillmentPolicy.map((elm) => {
+    return {
+      label: `${elm.name}`,
+      value: elm.fulfillmentPolicyId,
+    };
+  });
+  const optionReturnPolicy = returnPolicy?.map((elm) => {
+    return {
+      label: `${elm.name}`,
+      value: elm.returnPolicyId,
+    };
+  });
+  const optionPaymentPolicy = paymentPolicy.map((elm) => {
+    return {
+      label: `${elm.name}`,
+      value: elm.paymentPolicyId,
+    };
+  });
+  const optionInvertoryLocation = invertoryLocation.map((elm) => {
+    return {
+      label: `${elm?.location?.address?.country}- ${elm?.location?.address?.city} - ${elm?.location?.address?.addressLine1}`,
+      value: elm.merchantLocationKey,
+    };
+  });
+  console.log("returnPolicy", returnPolicy);
 
   return (
-    <Box>
-      <Box className={styles.header}>
-        <MyTypography className={styles.title}>
-          {t("title_register_change")}
-        </MyTypography>
-      </Box>
+    <Box className={styles.container}>
+      <MyTypography className={styles.title}>
+        {t("title_register_change")}
+      </MyTypography>
+
       <Stack spacing={2}>
-        <Stack spacing={2} className={styles.frame}>
-          <Grid className={styles.row} container spacing={2}>
-            <MyInput
-              fullWidth
-              label={t("label_store_name")}
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className={styles.status}
-              size="small"
-            />
-            <MyInput
-              fullWidth
-              label={t("label_product_name")}
-              name="title"
-              value={formData.name}
-              onChange={handleChange}
-              className={styles.status}
-              size="small"
-            />
+        <Grid container spacing={2}>
+          {/* Cột trái - 2 phần */}
+          <Grid className={styles.leftColumn}>
+            <Stack spacing={2} className={styles.frame}>
+              <Grid container spacing={2}>
+                <MyInput
+                  fullWidth
+                  label={t("label_product_name")}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+                <MyInputToolTip
+                  fullWidth
+                  label={t("label_purchase_price")}
+                  name="price"
+                  type="number"
+                  value={formData.price}
+                  onChange={handleChange}
+                  className={styles.status}
+                  toolTip={tooltips.PRICE}
+                  size="small"
+                />
+              </Grid>
+
+              <Grid container spacing={2}>
+                <MyInput
+                  fullWidth
+                  label={t("label_purchase_url")}
+                  name="url"
+                  value={formData.url}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+                <MyInput
+                  fullWidth
+                  label="Avatar URL"
+                  name="avatar_url"
+                  value={formData.avatar_url}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+              </Grid>
+
+              <Grid container spacing={2}>
+                <MyInput
+                  fullWidth
+                  label={"Tồn kho"}
+                  name="availableQuantity"
+                  value={formData.availableQuantity}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+                <MyInput
+                  fullWidth
+                  label="Số lượng tối đa một người"
+                  name="quantityLimitPerBuyer"
+                  value={formData.quantityLimitPerBuyer}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+              </Grid>
+
+              <Grid container spacing={2}>
+                <MySelectDropdow
+                  id="fulfillment"
+                  name="listingPolicies.fulfillmentPolicyId"
+                  label={"Chính sách thực hiện"}
+                  value={formData.listingPolicies.fulfillmentPolicyId}
+                  onChange={handleChange}
+                  options={optionFullfimentPolicy}
+                  className={styles.dropdow}
+                  size="small"
+                />
+                <MySelectDropdow
+                  id="return"
+                  name="listingPolicies.returnPolicyId"
+                  label={"Chính sách hoàn trả"}
+                  value={formData.listingPolicies.returnPolicyId}
+                  onChange={handleChange}
+                  options={optionReturnPolicy}
+                  className={styles.dropdow}
+                  size="small"
+                />
+                <MySelectDropdow
+                  id="payment"
+                  name="listingPolicies.paymentPolicyId"
+                  label={"Chính sách thanh toán"}
+                  value={formData.listingPolicies.paymentPolicyId}
+                  onChange={handleChange}
+                  options={optionPaymentPolicy}
+                  className={styles.dropdow}
+                  size="small"
+                />
+                <MySelectDropdow
+                  id="warehouse"
+                  name="merchantLocationKey"
+                  label={"Vị trí kho hàng"}
+                  value={formData.merchantLocationKey}
+                  onChange={handleChange}
+                  options={optionInvertoryLocation}
+                  className={styles.dropdow}
+                  size="small"
+                />
+              </Grid>
+
+              <MyInput
+                label="Content"
+                name="content"
+                multiline
+                rows={6}
+                value={formData.content}
+                onChange={handleChange}
+                className={styles.status}
+              />
+            </Stack>
           </Grid>
-          <Grid container spacing={2}>
-            <MyInput
-              fullWidth
-              label={t("label_purchase_url")}
-              name="title"
-              value={formData.url}
-              onChange={handleChange}
-              className={styles.status}
-              size="small"
-            />
-            <MyInput
-              fullWidth
-              label={t("label_ebay_address")}
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className={styles.status}
-              size="small"
-            />
+
+          {/* Cột phải - 1 phần */}
+          <Grid className={styles.rightColumn}>
+            <Stack spacing={2} className={styles.frame}>
+              <MyTypography>Chọn danh mục theo cấp độ</MyTypography>
+              <ToggleButtonGroup
+                value={alignment}
+                exclusive
+                onChange={handleChangeToggle}
+                aria-label="text alignment"
+                className={styles.toggleBtn}
+              >
+                <ToggleButton value="NORMAL" className={styles.txtChooseNormal}>
+                  Chọn thường
+                </ToggleButton>
+                <ToggleButton value="SUGGESSION">Chọn theo gợi ý</ToggleButton>
+              </ToggleButtonGroup>
+
+              {alignment === "NORMAL" ? (
+                <CategorySelect
+                  rootCategoryNode={categoryTree.rootCategoryNode}
+                  selectedLeafCategoryId="42"
+                  onSelectCategory={(finalCategory) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      categoryId: finalCategory.category.categoryId,
+                    }));
+                    getItemAspectsForCategory(
+                      finalCategory.category.categoryId
+                    );
+                  }}
+                />
+              ) : (
+                <MySelectDropdow
+                  id="status"
+                  name="categoryId"
+                  label={"Chọn danh mục theo gợi ý"}
+                  value={formData.categoryId}
+                  onChange={(e) => {
+                    handleChange(e);
+                    getItemAspectsForCategory(e.target.value);
+                  }}
+                  options={optionCategorySuggestion}
+                  className={styles.dropdow}
+                  size="small"
+                />
+              )}
+            </Stack>
           </Grid>
-        </Stack>
-
-        {/* <Stack spacing={2} className={styles.frame}>
-          <MyInput
-            fullWidth
-            label={t("label_ebay_item_number")}
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            className={styles.status}
-            size="small"
-          />
-          <MyRadioGroup
-            label={t("label_ebay_auto_link")}
-            name="gender"
-            value={"on"}
-            onChange={() => {}}
-            options={optionOnOff}
-          />
-          <MyTypography>{tooltips.EBAY}</MyTypography>
-        </Stack> */}
-
-        <Stack spacing={2} className={styles.frame}>
-          <Grid className={styles.row} container spacing={2}>
-            <MyInputToolTip
-              fullWidth
-              label={t("label_purchase_price")}
-              name="price"
-              type="number"
-              value={formData.price}
-              onChange={handleChange}
-              className={styles.status}
-              toolTip={tooltips.PRICE}
-              size="small"
-            />
-            <MyInputToolTip
-              fullWidth
-              label={t("label_shipping_fee")}
-              name="price"
-              type="number"
-              value={formData.price}
-              onChange={handleChange}
-              className={styles.status}
-              toolTip={tooltips.FEE_BUY_TRANSPORT}
-              size="small"
-            />
-          </Grid>
-        </Stack>
-
-        {/* <Stack className={styles.frame}>
-          <MyTypography>{t("label_stock_keyword")}</MyTypography>
-          <MyInputToolTip
-            fullWidth
-            label={t("label_shipping_fee")}
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            className={styles.status}
-            toolTip={tooltips.KEY_STOCK}
-            size="small"
-          />
-          <MyRadioGroup
-            label=""
-            name="gender"
-            value={"on"}
-            onChange={() => {}}
-            options={mode}
-          />
-          <MyTypography>{tooltips.MODE}</MyTypography>
-        </Stack> */}
-
-        {/* <Stack className={styles.frame}>
-          <MyTypography>{t("label_check_logic")}</MyTypography>
-          <MyRadioGroup
-            label=""
-            name="gender"
-            value={"on"}
-            onChange={() => {}}
-            options={mode}
-          />
-          <MyTypography>{tooltips.LOGIC}</MyTypography>
-        </Stack> */}
-
-        <Stack className={styles.frame}>
-          <Grid className={styles.row} container spacing={2}>
-            <MyInputToolTip
-              fullWidth
-              label={t("label_ebay_shipping_fee")}
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className={styles.status}
-              toolTip={tooltips.FEE_BUY_TRANSPORT}
-              size="small"
-            />
-            <MyInputToolTip
-              fullWidth
-              label={t("label_expected_profit")}
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className={styles.status}
-              toolTip={tooltips.FEE_BUY_TRANSPORT}
-              size="small"
-            />
-            <MyInputToolTip
-              fullWidth
-              label={t("label_fee_ratio")}
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-              className={styles.status}
-              toolTip={tooltips.RATIO}
-              size="small"
-            />
-          </Grid>
-          <MyInput
-            label={t("label_note")}
-            name="description"
-            multiline
-            rows={4}
-            value={formData.description}
-            onChange={handleChange}
-            className={styles.status}
-          />
-        </Stack>
+          <Stack spacing={2} className={styles.rightColumn}>
+            <MyTypography>Chọn thuộc tính sản phẩm theo danh mục</MyTypography>
+            <Box>
+              {isLoadingAspects ? (
+                <AspectFormLoading />
+              ) : (
+                aspects?.length > 0 &&
+                aspects.map((aspect) => {
+                  const isRequired = aspect.aspectConstraint?.aspectRequired;
+                  const options = aspect?.aspectValues?.map((elm) => ({
+                    label: elm.localizedValue,
+                    value: elm.localizedValue,
+                  }));
+                  return (
+                    <Box key={aspect.localizedAspectName} mb={2}>
+                      <MySelectDropdow
+                        placeholder={`Nhập ${aspect.localizedAspectName}`}
+                        value={
+                          formData.aspects[aspect.localizedAspectName] || ""
+                        }
+                        options={options}
+                        onChange={(e) =>
+                          setFormData((prevFormData) => ({
+                            ...prevFormData,
+                            aspects: {
+                              ...prevFormData.aspects,
+                              [aspect.localizedAspectName]: e.target.value,
+                            },
+                          }))
+                        }
+                        id={aspect.localizedAspectName}
+                        name={aspect.localizedAspectName}
+                        label={
+                          isRequired
+                            ? `${aspect.localizedAspectName} * (bắt buộc)`
+                            : aspect.localizedAspectName
+                        }
+                      />
+                    </Box>
+                  );
+                })
+              )}
+            </Box>
+          </Stack>
+        </Grid>
 
         <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
