@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import HeaderProductPage from "../compoents/HeaderProductPage";
 import ProductPage from "../ProductsPage";
 import ScrapingManagerPage from "../ScrapingManagerPage";
-import ImageBanner from "../../../assets/ecommer.jpg";
+import ImageBanner from "../../../assets/banners.jpg";
 import styles from "./styles.module.scss";
 
 const TABS = [
@@ -26,7 +26,9 @@ const ProductTab = () => {
         className={styles.BannerBackground}
         style={{ backgroundImage: `url(${ImageBanner})` }}
       >
-        <HeaderProductPage />
+        <div className={styles.wrapHeader}>
+          <HeaderProductPage />
+        </div>
         <div className={styles.CustomTabHeader}>
           {TABS.map((tab, index) => (
             <button

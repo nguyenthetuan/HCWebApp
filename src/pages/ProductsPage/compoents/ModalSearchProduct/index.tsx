@@ -30,6 +30,10 @@ const ModalSearchProduct = forwardRef((props, ref) => {
     openModal: () => setOpen(true),
     closeModal: () => setOpen(false),
   }));
+
+  const closeModal = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     getProductLocal();
   }, []);
@@ -50,7 +54,7 @@ const ModalSearchProduct = forwardRef((props, ref) => {
         product={product}
         handleCheckboxChange={handleCheckboxChange}
         selectedIds={selectedIds}
-        addProduct={addProduct}
+        addProduct={() => addProduct(closeModal)}
         loadingSearch={loadingSearch}
         loadingSaveProduct={loadingSaveProduct}
         handleSelectAll={handleSelectAll}

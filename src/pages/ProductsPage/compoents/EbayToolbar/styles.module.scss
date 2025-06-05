@@ -1,22 +1,30 @@
 .container {
   display: flex;
-  flex-direction: row;
-  width: "100%";
+  flex-direction: column;
   background-color: #f8f1e4;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.Typography {
-  font-size: small;
-}
-
-.boxLink {
+.topInfo {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-.centerFlexShrink {
-  flex-shrink: 0;
-  align-content: center;
+.infoText {
+  font-size: 14px;
+  color: #333;
+}
+
+.actionsRow {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.actionButtons {
+  flex-wrap: wrap;
 }

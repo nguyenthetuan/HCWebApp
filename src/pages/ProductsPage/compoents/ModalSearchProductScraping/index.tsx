@@ -19,11 +19,16 @@ const ModalSearchProductScraping = forwardRef((props, ref) => {
     selectedIds,
     loadingAddProduct,
   } = useScrapingProduct();
-  // expose các hàm ra ngoài qua ref
+
   useImperativeHandle(ref, () => ({
     openModal: () => setOpen(true),
     closeModal: () => setOpen(false),
   }));
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     getScrapingProduct();
   }, []);
@@ -42,7 +47,7 @@ const ModalSearchProductScraping = forwardRef((props, ref) => {
         productAll={scapingProduct.filter(
           (elm) => elm.scrape_status === "success"
         )}
-        addProductToManager={addProductToManager}
+        addProductToManager={() => addProductToManager(closeModal)}
         loadingAddProduct={loadingAddProduct}
       />
     </MyModal>

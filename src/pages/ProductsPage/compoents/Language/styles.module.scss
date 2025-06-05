@@ -1,4 +1,43 @@
 .container {
   height: 2rem;
   width: 12rem;
+
+  :global {
+    /* Background ô chọn và text trong ô chọn */
+    .MuiOutlinedInput-root {
+      color: white !important; /* chữ màu xanh đậm cho dễ đọc */
+      border-radius: 4px;
+    }
+
+    /* Text hiển thị trong select */
+    .MuiSelect-select {
+      color: white !important;
+    }
+
+    /* Viền */
+    .MuiOutlinedInput-notchedOutline {
+      border-color: #cce0ff; /* viền sáng nhẹ, xanh nhạt */
+    }
+
+    /* Viền khi focus */
+    .Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: white; /* xanh đậm hơn khi focus */
+    }
+
+    /* Label (subtitle) */
+    .MuiInputLabel-root {
+      color: white !important; /* label màu trắng nổi trên nền xanh */
+      font-weight: 500;
+    }
+
+    /* Helper text (subtitle dưới input) */
+    .MuiFormHelperText-root {
+      color: white !important;
+    }
+
+    /* Icon dropdown */
+    .MuiSvgIcon-root {
+      color: white; /* icon xanh đậm */
+    }
+  }
 }

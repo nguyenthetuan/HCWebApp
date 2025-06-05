@@ -405,4 +405,18 @@ export default {
   btn_search: "検索",
   title_action: "アクション",
   title_all: "全項目",
+  title_change_product: "製品情報の変更",
+
+  title_out_of_stock: "品切れ",
+  title_in_of_stock: "在庫あり",
+
+  upload_success: "商品のアップロードに成功しました。",
+  edit_success: "編集に成功しました。",
+  save_product: "商品の保存に成功しました。",
+
+  platform: "プラットフォーム",
+  title_price_Sell: "販売価格",
+
+  title_origin: "オリジナルデータ",
+  title_transform: "変換済みデータ",
 };

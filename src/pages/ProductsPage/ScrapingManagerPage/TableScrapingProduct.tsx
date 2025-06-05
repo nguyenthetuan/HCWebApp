@@ -71,8 +71,11 @@ export default function TableScrapingProduct({
             <TableCell>
               <MyTypography>
                 {t("common_select")}
-                <Checkbox onClick={handleSelectAll} value={checkAll} />
+                <Checkbox onClick={handleSelectAll} checked={checkAll} />
               </MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography>{t("platform")}</MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>{t("common_url")}</MyTypography>
@@ -102,6 +105,9 @@ export default function TableScrapingProduct({
                   onClick={(e) => handleCheckboxChangeScraping(item._id, e)}
                   checked={selectedIds?.includes(item._id)}
                 />
+              </TableCell>
+              <TableCell>
+                <MyTypography>{item.platform_type}</MyTypography>
               </TableCell>
               <TableCell>
                 <MyLink href={item.url}>{item.url}</MyLink>

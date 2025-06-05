@@ -1,7 +1,7 @@
 import MyLink from "@/components/common/MyLink";
 import MySearchInput from "@/components/common/MySearchInput";
 import MyTypography from "@/components/common/MyTypography";
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import Language from "../Language";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -24,19 +24,25 @@ const HeaderProductPage = () => {
           </MyTypography>
         </Box>
         <Box className={styles.link}>
-          <MyLink fontSize={14}>{t("link_inventory_management_list")}</MyLink>
-          <MyLink fontSize={14}>{t("link_register_new")}</MyLink>
+          <MyTypography className={styles.nameUser} fontSize={14}>
+            {t("link_inventory_management_list")}
+          </MyTypography>
+          <MyTypography className={styles.nameUser} fontSize={14}>
+            {t("link_register_new")}
+          </MyTypography>
         </Box>
         <Box className={styles.search}>
           <MySearchInput />
         </Box>
       </Box>
       <Box className={styles.rightHeader}>
-        <MyTypography fontSize={14}>
+        <MyTypography fontSize={14} className={styles.nameUser}>
           {t("label_username")} Tokio Oyama
         </MyTypography>
         <MyLink onClick={logout} fontSize={14}>
-          {t("link_logout")}
+          <MyTypography className={styles.nameUser}>
+            {t("link_logout")}
+          </MyTypography>
         </MyLink>
         <Box className={styles.language}>
           <Language className={styles.selectLanguage} />
