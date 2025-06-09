@@ -112,7 +112,7 @@ const FormSetupEbay = ({
         <Stack spacing={2} className={styles.frame}>
           <MyInput
             fullWidth
-            label="Tỷ giá hối đoái (yên)"
+            label="Tỷ giá hối đoái (yên)          "
             name="quantityLimitPerBuyer"
             value={formData.quantityLimitPerBuyer}
             onChange={handleChange}
