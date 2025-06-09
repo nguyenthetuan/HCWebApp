@@ -14,12 +14,11 @@ export default function EBaySetting() {
     commissionRate: "", // Hệ số hoa hồng
     exchangeRate: "", // Tỷ giá hối đoái
   });
-  const { getConfig } = useSetupEbay();
+
+  const { getConfig, putConfig } = useSetupEbay();
   useEffect(() => {
     getConfig(changeFormData);
   }, []);
-
-  console.log("formData", formData);
 
   const changeFormData = (value) => {
     setFormData({
@@ -41,9 +40,7 @@ export default function EBaySetting() {
     }));
   };
   const handleSubmit = () => {
-    console.log("formData", formData);
-
-    // putConfig(formData);
+    putConfig(formData);
   };
   return (
     <Box className={styles.container}>
@@ -108,7 +105,7 @@ export default function EBaySetting() {
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              // onClick={() => handleRegister("fee")}
+              onClick={handleSubmit}
             >
               {t("label_register_change")}
             </Button>
@@ -134,7 +131,7 @@ export default function EBaySetting() {
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              // onClick={() => handleRegister("fee")}
+              onClick={handleSubmit}
             >
               {t("label_register_change")}
             </Button>
@@ -160,7 +157,7 @@ export default function EBaySetting() {
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              // onClick={() => handleRegister("fee")}
+              onClick={handleSubmit}
             >
               {t("label_register_change")}
             </Button>

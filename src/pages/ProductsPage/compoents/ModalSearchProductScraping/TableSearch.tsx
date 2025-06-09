@@ -43,60 +43,62 @@ export default function TableSearch({
       className={`${styles.TableContainer} ${styles.responsiveTable}`}
       style={{ marginTop: 0, paddingTop: 0 }}
     >
-      <Table size="small" className={styles.header}>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <MyTypography>
-                {t("table_search_select")}
-                <Checkbox onClick={handleSelectAll} />
-              </MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("table_search_url")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("table_search_status")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("table_search_name")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("table_search_price")}</MyTypography>
-            </TableCell>
-            <TableCell>
-              <MyTypography>{t("table_search_image")}</MyTypography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {products.map((item: any, i) => (
-            <TableRow key={item.id}>
+      <div className={styles.tableWrapper}>
+        <Table size="small" className={styles.stickyHeader}>
+          <TableHead>
+            <TableRow>
               <TableCell>
-                <Checkbox
-                  onClick={(e) => handleCheckboxChange(item._id, e)}
-                  checked={selectedIds.includes(item._id)}
-                />
+                <MyTypography>
+                  {t("table_search_select")}
+                  <Checkbox onClick={handleSelectAll} />
+                </MyTypography>
               </TableCell>
               <TableCell>
-                <MyLink href={item.url}>{item.url}</MyLink>
+                <MyTypography>{t("table_search_url")}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyTypography>{item.scrape_status}</MyTypography>
+                <MyTypography>{t("table_search_status")}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyTypography>{item.name}</MyTypography>
+                <MyTypography>{t("table_search_name")}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyTypography>{item.price}</MyTypography>
+                <MyTypography>{t("table_search_price")}</MyTypography>
               </TableCell>
               <TableCell>
-                <MyImage source={item.avatar_url} />
+                <MyTypography>{t("table_search_image")}</MyTypography>
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {products.map((item: any, i) => (
+              <TableRow key={item.id}>
+                <TableCell>
+                  <Checkbox
+                    onClick={(e) => handleCheckboxChange(item._id, e)}
+                    checked={selectedIds.includes(item._id)}
+                  />
+                </TableCell>
+                <TableCell>
+                  <MyLink href={item.url}>{item.url}</MyLink>
+                </TableCell>
+                <TableCell>
+                  <MyTypography>{item.scrape_status}</MyTypography>
+                </TableCell>
+                <TableCell>
+                  <MyTypography>{item.name}</MyTypography>
+                </TableCell>
+                <TableCell>
+                  <MyTypography>{item.price}</MyTypography>
+                </TableCell>
+                <TableCell>
+                  <MyImage source={item.avatar_url} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </TableContainer>
   );
 }
