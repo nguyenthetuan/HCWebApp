@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useContextDialog } from "@/context";
-
+import { useSelector } from "react-redux";
 export const userManagerProduct = () => {
   const { t } = useTranslation();
   const { openModalDelete } = useContextDialog();
@@ -26,6 +26,8 @@ export const userManagerProduct = () => {
   const [returnPolicy, setReturnPolicy] = useState<any[]>([]);
   const [paymentPolicy, setPalymentPolicy] = useState<any[]>([]);
   const [invertoryLocation, setInventoryLocation] = useState<any[]>([]);
+  const config = useSelector((state: any) => state.productManage.config);
+  console.log("config", config);
 
   const handleSelectAll = () => {
     if (checkAll) {

@@ -158,11 +158,12 @@ export const useScrapingProduct = () => {
             return {
               url: elm.url,
               name: elm.transform_data.name,
-              price: elm.price,
+              price: elm.transform_data.price,
               content: elm.transform_data.content,
               avatar_url: elm.avatar_url,
               image_urls: elm.image_urls,
               out_of_stock: true,
+              price_buy: elm?.price,
             };
           });
           const response = await request.post(

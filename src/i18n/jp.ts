@@ -420,4 +420,5 @@ export default {
   title_origin: "オリジナルデータ",
   title_transform: "変換済みデータ",
   title_inventory: "Tồn kho",
+  title_price_buy: "Giá mua",
 };

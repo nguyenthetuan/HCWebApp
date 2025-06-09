@@ -3,14 +3,17 @@ import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useContextDialog } from "@/context";
-
+import { useDispatch } from "react-redux";
+import { setConfigSlice } from "@/feature/useProductManageSlice";
 export const useSetupEbay = () => {
   const [fulfillmentPolicy, setFullFillmentPolicy] = useState<any[]>([]);
   const [returnPolicy, setReturnPolicy] = useState<any[]>([]);
   const [paymentPolicy, setPalymentPolicy] = useState<any[]>([]);
   const [invertoryLocation, setInventoryLocation] = useState<any[]>([]);
   const [config, setConfig] = useState(null);
+  const dispatch = useDispatch<any>();
   const refModalSetupEbay = useRef(null);
+
   const getfulfillmentPolicy = async () => {
     try {
       const response = await request.get(`/api/ebay/fulfillment_policy`);
@@ -43,6 +46,7 @@ export const useSetupEbay = () => {
     try {
       const response = await request.get(`/api/config`);
       setConfig(response);
+      setConfigSlice(response);
       changeFormData(response);
     } catch (error) {}
   };
