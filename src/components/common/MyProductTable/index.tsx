@@ -116,10 +116,14 @@ export default function MyProductTable({
               <MyTypography>{t("title_product_info")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_purchase_url")}</MyTypography>
+              <MyTypography>ebayId</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("status")}</MyTypography>
+              <MyTypography>{t("title_purchase_url")}</MyTypography>
+            </TableCell>
+
+            <TableCell>
+              <MyTypography>{t("title_inventory")}</MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>{t("title_price_Sell")}</MyTypography>
@@ -149,17 +153,24 @@ export default function MyProductTable({
                   <MyTypography>{item?.name}</MyTypography>
                 </TableCell>
                 <TableCell>
+                  {item?.listingId ? (
+                    <MyLink
+                      href={`https://www.ebay.com/itm/${item?.listingId}`}
+                    >
+                      {item?.listingId}
+                    </MyLink>
+                  ) : (
+                    <MyTypography>Chưa đăng lên ebay</MyTypography>
+                  )}
+                </TableCell>
+                <TableCell>
                   <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>
-                    {item?.out_of_stock
-                      ? t("title_out_of_stock")
-                      : t("title_in_of_stock")}
-                  </MyTypography>
+                  <MyTypography>{item?.availableQuantity}</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item?.price} ¥</MyTypography>
+                  <MyTypography>{item?.price}$</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyImage source={item.avatar_url} />

@@ -160,7 +160,6 @@ const FormChangeProduct = ({
       value: elm.merchantLocationKey,
     };
   });
-  console.log("returnPolicy", returnPolicy);
 
   return (
     <Box className={styles.container}>

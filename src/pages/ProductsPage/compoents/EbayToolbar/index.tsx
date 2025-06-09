@@ -19,13 +19,18 @@ export default function EbayToolbar() {
     fulfillmentPolicy,
     returnPolicy,
     paymentPolicy,
+    invertoryLocation,
+    config,
+    refModalSetupEbay,
     getfulfillmentPolicy,
     getReturnPolicies,
     getPaymentPolicy,
+    getInventoryLocations,
+    getConfig,
+    putConfig,
   } = useSetupEbay();
   const refModalChooseFile = useRef(null);
   const refModalSetupUser = useRef(null);
-  const refModalSetupEbay = useRef(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -121,6 +126,8 @@ export default function EbayToolbar() {
               getPaymentPolicy();
               getReturnPolicies();
               getfulfillmentPolicy();
+              getInventoryLocations();
+              getConfig();
               handleClick("setup-ebay");
             }}
           >
@@ -164,6 +171,9 @@ export default function EbayToolbar() {
         fulfillmentPolicy={fulfillmentPolicy}
         returnPolicy={returnPolicy}
         paymentPolicy={paymentPolicy}
+        invertoryLocation={invertoryLocation}
+        config={config}
+        putConfig={putConfig}
       />
     </Box>
   );

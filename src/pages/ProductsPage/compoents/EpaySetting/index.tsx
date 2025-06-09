@@ -1,22 +1,50 @@
 import MyTypography from "@/components/common/MyTypography";
 import { Box, Button, Grid, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import MyButton from "@/components/common/MyButton";
 import { useTranslation } from "react-i18next";
+import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
 
 export default function EBaySetting() {
-  const [exchangeRate, setExchangeRate] = useState(149);
-  const [feeMultiplier, setFeeMultiplier] = useState(0.87);
   const { t } = useTranslation();
-  const handleRegister = (type: "rate" | "fee") => {
-    alert(
-      type === "rate"
-        ? `Tỷ giá đã đăng ký: ${exchangeRate}`
-        : `Hệ số phí đã đăng ký: ${feeMultiplier}`
-    );
+  const [formData, setFormData] = useState({
+    desiredProfitMargin: "", // Tỷ lệ lợi nhuận mong muốn
+    japanShippingFee: "", // Phí vận chuyển bên Japan
+    commissionRate: "", // Hệ số hoa hồng
+    exchangeRate: "", // Tỷ giá hối đoái
+  });
+  const { getConfig } = useSetupEbay();
+  useEffect(() => {
+    getConfig(changeFormData);
+  }, []);
+
+  console.log("formData", formData);
+
+  const changeFormData = (value) => {
+    setFormData({
+      desiredProfitMargin: value?.desiredProfitMargin || "", // Tỷ lệ lợi nhuận mong muốn
+      japanShippingFee: value?.japanShippingFee || "", // Phí vận chuyển bên Japan
+      commissionRate: value?.commissionRate || "", // Hệ số hoa hồng
+      exchangeRate: value?.exchangeRate || "", // Tỷ giá hối đoái
+    });
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = () => {
+    console.log("formData", formData);
+
+    // putConfig(formData);
+  };
   return (
     <Box className={styles.container}>
       <Grid container spacing={4} justifyContent="space-between">
@@ -44,14 +72,16 @@ export default function EBaySetting() {
               <TextField
                 type="number"
                 size="small"
-                value={exchangeRate}
-                onChange={(e) => setExchangeRate(+e.target.value)}
+                name="exchangeRate"
+                value={formData.exchangeRate}
+                onChange={handleChange}
                 className={styles.myTextField}
               />
               <MyButton
                 variant="contained"
                 className={styles.btnRegistry}
                 sx={style.registry}
+                onClick={handleSubmit}
               >
                 {t("label_register_change")}
               </MyButton>
@@ -69,15 +99,16 @@ export default function EBaySetting() {
             <TextField
               size="small"
               type="number"
-              value={feeMultiplier}
-              onChange={(e) => setFeeMultiplier(+e.target.value)}
+              name="commissionRate"
+              value={formData.commissionRate}
+              onChange={handleChange}
               className={styles.myTextField}
             />
             <Button
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              onClick={() => handleRegister("fee")}
+              // onClick={() => handleRegister("fee")}
             >
               {t("label_register_change")}
             </Button>
@@ -94,15 +125,16 @@ export default function EBaySetting() {
             <TextField
               size="small"
               type="number"
-              value={feeMultiplier}
-              onChange={(e) => setFeeMultiplier(+e.target.value)}
+              name="desiredProfitMargin"
+              value={formData?.desiredProfitMargin}
+              onChange={handleChange}
               className={styles.myTextField}
             />
             <Button
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              onClick={() => handleRegister("fee")}
+              // onClick={() => handleRegister("fee")}
             >
               {t("label_register_change")}
             </Button>
@@ -119,15 +151,16 @@ export default function EBaySetting() {
             <TextField
               size="small"
               type="number"
-              value={feeMultiplier}
-              onChange={(e) => setFeeMultiplier(+e.target.value)}
+              name="japanShippingFee"
+              value={formData.japanShippingFee}
+              onChange={handleChange}
               className={styles.myTextField}
             />
             <Button
               variant="contained"
               sx={style.registry}
               className={styles.btnRegistry}
-              onClick={() => handleRegister("fee")}
+              // onClick={() => handleRegister("fee")}
             >
               {t("label_register_change")}
             </Button>

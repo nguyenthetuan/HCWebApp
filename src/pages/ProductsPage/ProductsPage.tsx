@@ -12,6 +12,7 @@ import EbayToolbar from "./compoents/EbayToolbar";
 import EBaySetting from "./compoents/EpaySetting";
 import MultileButton from "./compoents/MultileButton";
 import styles from "./style.module.scss";
+import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
 
 const ProductPage = (props: any) => {
   const {
