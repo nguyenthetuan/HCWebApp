@@ -3,7 +3,7 @@ import MyInput from "@/components/common/MyInput";
 import MySelectDropdow from "@/components/common/MySelectDropdow";
 import MyTypography from "@/components/common/MyTypography";
 import { Box, Grid, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 
@@ -25,21 +25,37 @@ const FormSetupEbay = ({
   putConfig,
 }: propsModalSetupEbay) => {
   const { t } = useTranslation();
-
+  useEffect(() => {
+    setFormData({
+      desiredProfitMargin: config?.desiredProfitMargin,
+      japanShippingFee: config?.japanShippingFee,
+      commissionRate: config?.commissionRate,
+      exchangeRate: config?.exchangeRate,
+      listingPolicies: {
+        fulfillmentPolicyId: config?.listingPolicies?.fulfillmentPolicyId,
+        paymentPolicyId: config?.listingPolicies?.paymentPolicyId,
+        returnPolicyId: config?.listingPolicies?.returnPolicyId,
+      },
+      categoryId: config?.categoryId,
+      merchantLocationKey: config?.merchantLocationKey,
+      availableQuantity: config?.availableQuantity,
+      quantityLimitPerBuyer: config?.quantityLimitPerBuyer,
+    });
+  }, [config]);
   const [formData, setFormData] = useState({
-    desiredProfitMargin: config?.desiredProfitMargin || "",
-    japanShippingFee: config?.japanShippingFee || "",
-    commissionRate: config?.commissionRate || "",
-    exchangeRate: config?.exchangeRate || "",
+    desiredProfitMargin: "",
+    japanShippingFee: "",
+    commissionRate: "",
+    exchangeRate: "",
     listingPolicies: {
-      fulfillmentPolicyId: config?.listingPolicies?.fulfillmentPolicyId || "",
-      paymentPolicyId: config?.listingPolicies?.paymentPolicyId || "",
-      returnPolicyId: config?.listingPolicies?.returnPolicyId || "",
+      fulfillmentPolicyId: "",
+      paymentPolicyId: "",
+      returnPolicyId: "",
     },
-    categoryId: config?.categoryId || "",
-    merchantLocationKey: config?.merchantLocationKey || "",
-    availableQuantity: config?.availableQuantity || "",
-    quantityLimitPerBuyer: config?.quantityLimitPerBuyer || "",
+    categoryId: "",
+    merchantLocationKey: "",
+    availableQuantity: "",
+    quantityLimitPerBuyer: "",
   });
 
   const handleChange = (

@@ -74,14 +74,6 @@ export default function EBaySetting() {
                 onChange={handleChange}
                 className={styles.myTextField}
               />
-              <MyButton
-                variant="contained"
-                className={styles.btnRegistry}
-                sx={style.registry}
-                onClick={handleSubmit}
-              >
-                {t("label_register_change")}
-              </MyButton>
             </Stack>
           </Stack>
           <Stack
@@ -101,14 +93,6 @@ export default function EBaySetting() {
               onChange={handleChange}
               className={styles.myTextField}
             />
-            <Button
-              variant="contained"
-              sx={style.registry}
-              className={styles.btnRegistry}
-              onClick={handleSubmit}
-            >
-              {t("label_register_change")}
-            </Button>
           </Stack>
           <Stack
             direction="row"
@@ -127,14 +111,6 @@ export default function EBaySetting() {
               onChange={handleChange}
               className={styles.myTextField}
             />
-            <Button
-              variant="contained"
-              sx={style.registry}
-              className={styles.btnRegistry}
-              onClick={handleSubmit}
-            >
-              {t("label_register_change")}
-            </Button>
           </Stack>
           <Stack
             direction="row"
@@ -153,14 +129,6 @@ export default function EBaySetting() {
               onChange={handleChange}
               className={styles.myTextField}
             />
-            <Button
-              variant="contained"
-              sx={style.registry}
-              className={styles.btnRegistry}
-              onClick={handleSubmit}
-            >
-              {t("label_register_change")}
-            </Button>
           </Stack>
         </Stack>
       </Grid>

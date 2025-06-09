@@ -68,6 +68,15 @@ export default function MultileButton(props: propsMutiButton) {
         >
           {t("search")}
         </MyButton>
+        <MyButton
+          variant="contained"
+          sx={{ backgroundColor: "deepskyblue", fontSize: 8 }}
+          size="small"
+          className={styles.buttons}
+          onClick={openModalSearch}
+        >
+          Tính toán lại giá bán
+        </MyButton>
       </Stack>
       <ModalSearchProductScraping ref={refModal} />
       <ModalListingEpay ref={refModalListingEbay} />

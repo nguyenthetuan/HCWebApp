@@ -424,4 +424,6 @@ export default {
   title_origin: "Dữ liệu nguyên bản",
   title_transform: "Dữ liệu chuyển đổi",
   title_inventory: "Tồn kho",
+
+  title_price_buy: "Giá mua",
 };

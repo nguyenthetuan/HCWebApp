@@ -121,9 +121,11 @@ export default function MyProductTable({
             <TableCell>
               <MyTypography>{t("title_purchase_url")}</MyTypography>
             </TableCell>
-
             <TableCell>
               <MyTypography>{t("title_inventory")}</MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography>{t("title_price_buy")}</MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography>{t("title_price_Sell")}</MyTypography>
@@ -168,6 +170,9 @@ export default function MyProductTable({
                 </TableCell>
                 <TableCell>
                   <MyTypography>{item?.availableQuantity}</MyTypography>
+                </TableCell>
+                <TableCell>
+                  <MyTypography>{item?.price_buy}$</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>{item?.price}$</MyTypography>
