@@ -8,6 +8,9 @@ interface propsModalSetupEbay {
   fulfillmentPolicy?: any[];
   returnPolicy?: any[];
   paymentPolicy?: any[];
+  invertoryLocation?: any[];
+  config?: any;
+  putConfig?: (data) => void;
 }
 const ModalSetUpEbay = forwardRef((props: propsModalSetupEbay, ref) => {
   const [open, setOpen] = useState(false);
@@ -17,7 +20,6 @@ const ModalSetUpEbay = forwardRef((props: propsModalSetupEbay, ref) => {
     openModal: () => setOpen(true),
     closeModal: () => setOpen(false),
   }));
-
   return (
     <MyModal
       open={open}
@@ -28,6 +30,9 @@ const ModalSetUpEbay = forwardRef((props: propsModalSetupEbay, ref) => {
         fulfillmentPolicy={props?.fulfillmentPolicy}
         returnPolicy={props?.returnPolicy}
         paymentPolicy={props?.paymentPolicy}
+        invertoryLocation={props?.invertoryLocation}
+        config={props?.config}
+        putConfig={props?.putConfig}
       />
     </MyModal>
   );

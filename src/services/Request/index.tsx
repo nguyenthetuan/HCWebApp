@@ -1,7 +1,8 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
-const BASE_URL = "http://localhost:8001";
-
+//const BASE_URL = "http://localhost:8001";
+const BASE_URL = "http://server-hc.sintecha.site";
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -28,6 +29,14 @@ instance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
       window.location.href = "/"; // redirect về login
+    }
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.error &&
+      error.response.status === 500
+    ) {
+      toast.error(error?.response.data.error);
     }
     return Promise.reject(error);
   }
