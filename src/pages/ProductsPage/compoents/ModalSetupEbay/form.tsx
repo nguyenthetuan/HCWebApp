@@ -80,8 +80,8 @@ const FormSetupEbay = ({
           />
           <MySelectDropdow
             id="return"
-            name="listingPolicies.returnPolicyId     "
-            label={"Chính sách hoàn trả   "}
+            name="listingPolicies.returnPolicyId"
+            label={"Chính sách hoàn trả"}
             value={"1"}
             onChange={handleChange}
             options={[]}
