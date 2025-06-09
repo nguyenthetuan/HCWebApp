@@ -69,12 +69,12 @@ const FormSetupEbay = ({
       <Grid container className={styles.row} spacing={2} marginTop={2}>
         <Stack spacing={2} className={styles.frame}>
           <MySelectDropdow
-            id="fulfillment"
+            id="fulfillment "
             name="listingPolicies.fulfillmentPolicyId"
             label={"Chính sách thực hiện"}
             value={formData.listingPolicies.fulfillmentPolicyId}
             onChange={handleChange}
-            options={[]}
+            options={optionFullfimentPolicy}
             className={styles.dropdow}
             size="small"
           />
