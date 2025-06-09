@@ -127,7 +127,7 @@ export default function EbayToolbar() {
               getReturnPolicies();
               getfulfillmentPolicy();
               getInventoryLocations();
-              getConfig();
+              getConfig(() => {});
               handleClick("setup-ebay");
             }}
           >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MySelectDropdow from "@/components/common/MySelectDropdow";
-import { CategoryNode } from "@/utils/buildCategoryLevels";
+import { CategoryNode } from "@/untils/buildCategoryLevels";
 import styles from "./styles.module.scss";
 interface Props {
   rootCategoryNode: CategoryNode;

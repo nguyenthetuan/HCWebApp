@@ -46,6 +46,8 @@ const ProductPage = (props: any) => {
     returnPolicy,
     getPaymentPolicy,
     paymentPolicy,
+    loadingPriceCalc,
+    handlePriceCalculation,
   } = userManagerProduct();
   const { t } = useTranslation();
   const { gender, setGender, page, setPage } = useProductPage();
@@ -88,6 +90,7 @@ const ProductPage = (props: any) => {
             loadingDelProduct={loadingDelProduct}
             addProductToEbay={addProductToEbay}
             loadingUpebay={loadingUpebay}
+            loadingPriceCalc={loadingPriceCalc}
           />
         </Box>
         <Box className={styles.rightPane}>

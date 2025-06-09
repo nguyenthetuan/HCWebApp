@@ -27,7 +27,7 @@ export const userManagerProduct = () => {
   const [paymentPolicy, setPalymentPolicy] = useState<any[]>([]);
   const [invertoryLocation, setInventoryLocation] = useState<any[]>([]);
   const config = useSelector((state: any) => state.productManage.config);
-  console.log("config", config);
+  const [loadingPriceCalc, setLoadingPriceCalc] = useState(false);
 
   const handleSelectAll = () => {
     if (checkAll) {
@@ -120,19 +120,57 @@ export const userManagerProduct = () => {
       setLoadingUpebay(false);
     }
   };
-
+  const editProductRaw = async (formData, id) => {
+    try {
+      await request.put(`/api/product-upload/${id}`, formData);
+    } catch (error) {
+      throw error;
+    }
+  };
   const editProduct = useCallback(
     async (formData, id) => {
       try {
-        const response = await request.put(`/api/product-upload/${id}`, {
-          ...formData,
-        });
+        editProductRaw(formData, id);
         toast.success(t("edit_success"));
         getProduct();
       } catch (error) {}
     },
     [selectedIds]
   );
+
+  const handlePriceCalculation = async () => {
+    setLoadingPriceCalc(true);
+    const {
+      desiredProfitMargin,
+      japanShippingFee,
+      commissionRate,
+      exchangeRate,
+    } = config;
+    try {
+      const productFound = products.filter((p) => selectedIds.includes(p._id));
+
+      const updateRequests = productFound.map((product) => {
+        const price_buy = product.price_by || 0;
+        const price =
+          ((price_buy + japanShippingFee) / (1 - commissionRate) +
+            price_buy * desiredProfitMargin) /
+          exchangeRate;
+
+        const formData = { price };
+        return editProductRaw(formData, product._id); // chỉ gọi bản raw
+      });
+
+      await Promise.all(updateRequests);
+      resetSelect();
+      setLoadingPriceCalc(false);
+      toast.success(t("edit_success"));
+      await getProduct();
+    } catch (error) {
+      toast.error(t("edit_error") || "Có lỗi xảy ra");
+    } finally {
+      setLoadingPriceCalc(false);
+    }
+  };
 
   const handleDeleteProduct = async (item) => {
     openModalDelete(item, async (item) => {
@@ -231,5 +269,7 @@ export const userManagerProduct = () => {
     paymentPolicy,
     getInventoryLocations,
     invertoryLocation,
+    handlePriceCalculation,
+    loadingPriceCalc,
   };
 };

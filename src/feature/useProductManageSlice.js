@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  config: {},
+  config: null,
 };
 
 const productManageSlice = createSlice({
@@ -9,9 +9,7 @@ const productManageSlice = createSlice({
   initialState,
   reducers: {
     setConfigSlice: (state, action) => {
-      console.log("action", action);
-
-      state.config = action.payload.config;
+      state.config = action.payload;
     },
   },
 });
