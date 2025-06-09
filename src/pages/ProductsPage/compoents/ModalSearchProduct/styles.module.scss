@@ -36,3 +36,10 @@
   align-self: flex-start;
   margin-bottom: 1rem !important;
 }
+.stickySearchBar {
+  position: sticky;
+  top: 0;
+  background-color: #fff; // hoặc màu phù hợp với theme
+  z-index: 10;
+  padding: 8px 0;
+}

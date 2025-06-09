@@ -111,6 +111,7 @@ export const userManagerProduct = () => {
         product_ids: selectedIds,
       });
       resetSelect();
+      getProduct();
       setLoadingUpebay(false);
       toast.success(t("upload_success"));
     } catch (error) {

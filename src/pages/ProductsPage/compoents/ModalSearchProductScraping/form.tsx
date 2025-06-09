@@ -9,10 +9,10 @@ const FormSearchProductScraping = (props) => {
   const { t } = useTranslation();
   return (
     <Box>
-      <MyTypography className={styles.textHeader}>
-        {t("title_product_scraped")}
-      </MyTypography>
-      <Stack spacing={2} className={styles.stack}>
+      <Stack spacing={2} className={styles.stickySearchBar}>
+        <MyTypography className={styles.textHeader}>
+          {t("title_product_scraped")}
+        </MyTypography>
         <MyButton
           variant="contained"
           sx={{ backgroundColor: "orange" }}
@@ -23,6 +23,8 @@ const FormSearchProductScraping = (props) => {
         >
           {t("btn_save_to_manage_product")}
         </MyButton>
+      </Stack>
+      <Stack spacing={2} className={styles.stack}>
         <TableSearch
           products={props?.productAll}
           handleCheckboxChange={props?.handleCheckboxChange}
