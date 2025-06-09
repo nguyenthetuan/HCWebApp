@@ -46,7 +46,7 @@ export const useSetupEbay = () => {
     try {
       const response = await request.get(`/api/config`);
       setConfig(response);
-      setConfigSlice(response);
+      dispatch(setConfigSlice(response));
       changeFormData(response);
     } catch (error) {}
   };
