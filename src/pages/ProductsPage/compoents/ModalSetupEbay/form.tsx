@@ -80,8 +80,8 @@ const FormSetupEbay = ({
           />
           <MySelectDropdow
             id="return"
-            name="listingPolicies.returnPolicyId     "
-            label={"Chính sách hoàn trả   "}
+            name="listingPolicies.returnPolicyId"
+            label={"Chính sách hoàn trả"}
             value={"1"}
             onChange={handleChange}
             options={[]}
@@ -112,7 +112,7 @@ const FormSetupEbay = ({
         <Stack spacing={2} className={styles.frame}>
           <MyInput
             fullWidth
-            label="Tỷ giá hối đoái (yên)"
+            label="Tỷ giá hối đoái (yên)          "
             name="quantityLimitPerBuyer"
             value={formData.quantityLimitPerBuyer}
             onChange={handleChange}
