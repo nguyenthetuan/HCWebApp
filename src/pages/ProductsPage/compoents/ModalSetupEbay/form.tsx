@@ -69,9 +69,9 @@ const FormSetupEbay = ({
       <Grid container className={styles.row} spacing={2} marginTop={2}>
         <Stack spacing={2} className={styles.frame}>
           <MySelectDropdow
-            id="fulfillment "
+            id="fulfillment"
             name="listingPolicies.fulfillmentPolicyId"
-            label={"Chính sách thực hiện"}
+            label={"Chính sách thực hiện   "}
             value={formData.listingPolicies.fulfillmentPolicyId}
             onChange={handleChange}
             options={optionFullfimentPolicy}
@@ -80,8 +80,8 @@ const FormSetupEbay = ({
           />
           <MySelectDropdow
             id="return"
-            name="listingPolicies.returnPolicyId"
-            label={"Chính sách hoàn trả"}
+            name="listingPolicies.returnPolicyId     "
+            label={"Chính sách hoàn trả   "}
             value={"1"}
             onChange={handleChange}
             options={[]}
