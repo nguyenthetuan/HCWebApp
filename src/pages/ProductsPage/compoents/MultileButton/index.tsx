@@ -78,7 +78,7 @@ export default function MultileButton(props: propsMutiButton) {
           loading={props?.loadingPriceCalc}
           onClick={props?.handlePriceCalculation}
         >
-          Tính toán lại giá bán
+          {t("caculation")}
         </MyButton>
       </Stack>
       <ModalSearchProductScraping ref={refModal} />

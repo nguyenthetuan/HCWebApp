@@ -162,7 +162,7 @@ export default function MyProductTable({
                       {item?.listingId}
                     </MyLink>
                   ) : (
-                    <MyTypography>Chưa đăng lên ebay</MyTypography>
+                    <MyTypography>{t("title_not_upebay")}</MyTypography>
                   )}
                 </TableCell>
                 <TableCell>

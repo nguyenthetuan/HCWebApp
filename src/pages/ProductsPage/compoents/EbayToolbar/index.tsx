@@ -91,12 +91,12 @@ export default function EbayToolbar() {
     <Box className={styles.container}>
       <Box className={styles.topInfo}>
         <Typography variant="body2" className={styles.infoText}>
-          Số lượng mặt hàng đã đăng ký: Surugaya: <b>100/220</b> &nbsp; NETSEA:{" "}
+          {t("number_register")} Surugaya: <b>100/220</b> &nbsp; NETSEA:{" "}
           <b>50/130</b>
         </Typography>
         <Typography variant="body2" className={styles.infoText}>
-          Số lượng danh sách eBay: <b>1000</b> (Số lượng không nhất quán:{" "}
-          <b>5</b> được hiển thị)
+          {t("number_list_ebay")} <b>1000</b> ({t("inconsistent")} <b>5</b>
+          {t("show")})
         </Typography>
       </Box>
 
@@ -107,14 +107,14 @@ export default function EbayToolbar() {
             variant="outlined"
             onClick={() => handleClick("download")}
           >
-            Tải xuống CSV
+            {t("action_dowload_csv")}
           </Button>
           <Button
             size="small"
             variant="outlined"
             onClick={() => handleClick("upload")}
           >
-            Tải lên CSV
+            {t("action_upload_csv")}
           </Button>
           {/* <Button size="small" variant="outlined" onClick={setupUser}>
             Thiết lập người dùng
@@ -131,7 +131,7 @@ export default function EbayToolbar() {
               handleClick("setup-ebay");
             }}
           >
-            Thiết lập eBay
+            {t("setup_ebay")}
           </Button>
           {/* <Button
             size="small"
