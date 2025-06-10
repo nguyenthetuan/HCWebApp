@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useContextDialog } from "@/context";
 import { useSelector } from "react-redux";
+import EventBus from "@/components/common/EventBus";
 export const userManagerProduct = () => {
   const { t } = useTranslation();
   const { openModalDelete } = useContextDialog();
@@ -27,7 +28,7 @@ export const userManagerProduct = () => {
   const [paymentPolicy, setPalymentPolicy] = useState<any[]>([]);
   const [invertoryLocation, setInventoryLocation] = useState<any[]>([]);
   const config = useSelector((state: any) => state.productManage.config);
-  const [loadingPriceCalc, setLoadingPriceCalc] = useState(false);
+  const [loadingPriceCalc, setLoadingPriceCalc] = useState(false); // loading tính toán lại giá
 
   const handleSelectAll = () => {
     if (checkAll) {
@@ -121,6 +122,7 @@ export const userManagerProduct = () => {
     }
   };
   const editProductRaw = async (formData, id) => {
+    // tính cập nhật giá sản phẩm cho một sản phẩm
     try {
       await request.put(`/api/product-upload/${id}`, formData);
     } catch (error) {
@@ -130,9 +132,10 @@ export const userManagerProduct = () => {
   const editProduct = useCallback(
     async (formData, id) => {
       try {
-        editProductRaw(formData, id);
+        editProductRaw(formData, id).then(() => {
+          EventBus.dispatchEvent(new CustomEvent("getProduct"));
+        });
         toast.success(t("edit_success"));
-        getProduct();
       } catch (error) {}
     },
     [selectedIds]

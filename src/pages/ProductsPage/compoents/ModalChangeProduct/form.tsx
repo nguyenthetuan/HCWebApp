@@ -78,6 +78,7 @@ const FormChangeProduct = ({
     availableQuantity: itemSelect?.availableQuantity || "",
     quantityLimitPerBuyer: itemSelect?.quantityLimitPerBuyer || "",
     aspects: itemSelect?.aspects || {},
+    price_buy: itemSelect?.price_buy,
   });
 
   const handleChange = (
@@ -219,7 +220,7 @@ const FormChangeProduct = ({
               <Grid container spacing={2}>
                 <MyInput
                   fullWidth
-                  label={"Tồn kho"}
+                  label={t("label_inventory")}
                   name="availableQuantity"
                   value={formData.availableQuantity}
                   onChange={handleChange}
@@ -228,9 +229,18 @@ const FormChangeProduct = ({
                 />
                 <MyInput
                   fullWidth
-                  label="Số lượng tối đa một người"
+                  label={t("label_quantity_limit_per_buyer")}
                   name="quantityLimitPerBuyer"
                   value={formData.quantityLimitPerBuyer}
+                  onChange={handleChange}
+                  className={styles.status}
+                  size="small"
+                />
+                <MyInput
+                  fullWidth
+                  label={t("label_sale_price")}
+                  name="price_buy"
+                  value={formData.price_buy}
                   onChange={handleChange}
                   className={styles.status}
                   size="small"
@@ -241,7 +251,7 @@ const FormChangeProduct = ({
                 <MySelectDropdow
                   id="fulfillment"
                   name="listingPolicies.fulfillmentPolicyId"
-                  label={"Chính sách thực hiện"}
+                  label={t("label_fulfillment_policy")}
                   value={formData.listingPolicies.fulfillmentPolicyId}
                   onChange={handleChange}
                   options={optionFullfimentPolicy}
@@ -251,7 +261,7 @@ const FormChangeProduct = ({
                 <MySelectDropdow
                   id="return"
                   name="listingPolicies.returnPolicyId"
-                  label={"Chính sách hoàn trả"}
+                  label={t("label_return_policy")}
                   value={formData.listingPolicies.returnPolicyId}
                   onChange={handleChange}
                   options={optionReturnPolicy}
@@ -261,7 +271,7 @@ const FormChangeProduct = ({
                 <MySelectDropdow
                   id="payment"
                   name="listingPolicies.paymentPolicyId"
-                  label={"Chính sách thanh toán"}
+                  label={t("label_payment_policy")}
                   value={formData.listingPolicies.paymentPolicyId}
                   onChange={handleChange}
                   options={optionPaymentPolicy}
@@ -271,7 +281,7 @@ const FormChangeProduct = ({
                 <MySelectDropdow
                   id="warehouse"
                   name="merchantLocationKey"
-                  label={"Vị trí kho hàng"}
+                  label={t("label_warehouse_location")}
                   value={formData.merchantLocationKey}
                   onChange={handleChange}
                   options={optionInvertoryLocation}
@@ -295,7 +305,7 @@ const FormChangeProduct = ({
           {/* Cột phải - 1 phần */}
           <Grid className={styles.rightColumn}>
             <Stack spacing={2} className={styles.frame}>
-              <MyTypography>Chọn danh mục theo cấp độ</MyTypography>
+              <MyTypography>{t("select_category_by_level")}</MyTypography>
               <ToggleButtonGroup
                 value={alignment}
                 exclusive
@@ -304,9 +314,11 @@ const FormChangeProduct = ({
                 className={styles.toggleBtn}
               >
                 <ToggleButton value="NORMAL" className={styles.txtChooseNormal}>
-                  Chọn thường
+                  {t("choose_normal")}
                 </ToggleButton>
-                <ToggleButton value="SUGGESSION">Chọn theo gợi ý</ToggleButton>
+                <ToggleButton value="SUGGESSION">
+                  {t("choose_suggestion")}
+                </ToggleButton>
               </ToggleButtonGroup>
 
               {alignment === "NORMAL" ? (
@@ -327,7 +339,7 @@ const FormChangeProduct = ({
                 <MySelectDropdow
                   id="status"
                   name="categoryId"
-                  label={"Chọn danh mục theo gợi ý"}
+                  label={t("select_category_suggestion")}
                   value={formData.categoryId}
                   onChange={(e) => {
                     handleChange(e);
@@ -341,7 +353,9 @@ const FormChangeProduct = ({
             </Stack>
           </Grid>
           <Stack spacing={2} className={styles.rightColumn}>
-            <MyTypography>Chọn thuộc tính sản phẩm theo danh mục</MyTypography>
+            <MyTypography>
+              {t("select_product_attributes_by_category")}
+            </MyTypography>
             <Box>
               {isLoadingAspects ? (
                 <AspectFormLoading />
@@ -374,7 +388,7 @@ const FormChangeProduct = ({
                         name={aspect.localizedAspectName}
                         label={
                           isRequired
-                            ? `${aspect.localizedAspectName} * (bắt buộc)`
+                            ? `${aspect.localizedAspectName}${t("required")}`
                             : aspect.localizedAspectName
                         }
                       />
