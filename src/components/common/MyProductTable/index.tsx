@@ -172,7 +172,7 @@ export default function MyProductTable({
                   <MyTypography>{item?.availableQuantity}</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item?.price_buy}$</MyTypography>
+                  <MyTypography>{item?.price_buy} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>{item?.price}$</MyTypography>

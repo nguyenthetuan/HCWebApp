@@ -421,4 +421,5 @@ export default {
   title_transform: "変換済みデータ",
   title_inventory: "Tồn kho",
   title_price_buy: "Giá mua",
+  title_price_transfer_jp: "Giá vận chuyển japan",
 };

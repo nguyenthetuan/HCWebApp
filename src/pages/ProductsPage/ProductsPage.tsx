@@ -91,6 +91,7 @@ const ProductPage = (props: any) => {
             addProductToEbay={addProductToEbay}
             loadingUpebay={loadingUpebay}
             loadingPriceCalc={loadingPriceCalc}
+            handlePriceCalculation={handlePriceCalculation}
           />
         </Box>
         <Box className={styles.rightPane}>

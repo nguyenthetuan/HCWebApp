@@ -150,13 +150,13 @@ export const userManagerProduct = () => {
       const productFound = products.filter((p) => selectedIds.includes(p._id));
 
       const updateRequests = productFound.map((product) => {
-        const price_buy = product.price_by || 0;
+        const price_buy = Number(product.price_by) || 0;
         const price =
           ((price_buy + japanShippingFee) / (1 - commissionRate) +
             price_buy * desiredProfitMargin) /
           exchangeRate;
 
-        const formData = { price };
+        const formData = { price: price.toFixed(2) };
         return editProductRaw(formData, product._id); // chỉ gọi bản raw
       });
 

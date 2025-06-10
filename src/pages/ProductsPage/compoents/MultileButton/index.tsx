@@ -14,6 +14,7 @@ interface propsMutiButton {
   addProductToEbay?: () => void;
   loadingUpebay?: boolean;
   loadingPriceCalc?: boolean;
+  handlePriceCalculation?: () => void;
 }
 export default function MultileButton(props: propsMutiButton) {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ export default function MultileButton(props: propsMutiButton) {
           size="small"
           className={styles.buttons}
           loading={props?.loadingPriceCalc}
-          onClick={openModalSearch}
+          onClick={props?.handlePriceCalculation}
         >
           Tính toán lại giá bán
         </MyButton>

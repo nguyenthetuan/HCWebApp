@@ -426,4 +426,6 @@ export default {
   title_inventory: "Tồn kho",
 
   title_price_buy: "Giá mua",
+  title_price_transfer_jp: "Giá vận chuyển japan",
+  title_not_upebay: "Chưa đăng lên ebay",
 };
