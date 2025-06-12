@@ -70,7 +70,7 @@ export default function MultileButton(props: propsMutiButton) {
         >
           {t("search")}
         </MyButton>
-        <MyButton
+        {/* <MyButton
           variant="contained"
           sx={{ backgroundColor: "deepskyblue", fontSize: 8 }}
           size="small"
@@ -79,7 +79,7 @@ export default function MultileButton(props: propsMutiButton) {
           onClick={props?.handlePriceCalculation}
         >
           {t("caculation")}
-        </MyButton>
+        </MyButton> */}
       </Stack>
       <ModalSearchProductScraping ref={refModal} />
       <ModalListingEpay ref={refModalListingEbay} />

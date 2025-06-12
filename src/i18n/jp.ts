@@ -1,5 +1,5 @@
 export default {
-  login:"ログイン",
+  login: "ログイン",
   username: "ユーザー名",
   password: "パスワード",
   title_MyProductPage_no: "番号",
@@ -448,4 +448,16 @@ export default {
   select_category_suggestion: "提案からカテゴリを選択",
   select_product_attributes_by_category: "カテゴリ別に製品属性を選択",
   required: "（必須）",
+
+
+  cancel: "キャンセル",
+  accept: "受け入れる",
+  change_quantity: "数量を変更",
+  change_alert_on_ebay: "この変更は eBay でも変更されます。",
+  price_title: "価格",
+  title_limit_per_buyer: "1人当たりの購入可能数量",
+  implementation_policy: "実施方針",
+  return_policy: "返品ポリシー",
+  payment_policy: "支払いポリシー",
+  marchant_location: "販売者の所在地",
 };

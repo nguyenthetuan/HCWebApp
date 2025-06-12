@@ -1,5 +1,6 @@
 // components/MuiModal.jsx
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { t } from 'i18next';
 
 export default function MuiModal({ open, title, children, onClose, onSubmit }) {
   return (
@@ -7,9 +8,9 @@ export default function MuiModal({ open, title, children, onClose, onSubmit }) {
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Hủy</Button>
+        <Button onClick={onClose}>{t("cancel")}</Button>
         <Button onClick={onSubmit} variant="contained" color="primary">
-          Xác nhận
+          {t("accept")}
         </Button>
       </DialogActions>
     </Dialog>

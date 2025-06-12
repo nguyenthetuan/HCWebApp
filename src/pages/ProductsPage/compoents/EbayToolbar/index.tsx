@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
+import request from "@/services/Request";
 
 export default function EbayToolbar() {
   const {
@@ -51,21 +52,34 @@ export default function EbayToolbar() {
     navigate("/");
   };
 
-  const handleDownload = () => {
-    const data = [
-      ["Tên", "Tuổi", "Email"],
-      ["Nguyễn Văn A", 25, "a@example.com"],
-      ["Trần Thị B", 30, "b@example.com"],
-    ];
-    const csvContent = "\uFEFF" + data.map((row) => row.join(",")).join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute("download", "du_lieu.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async () => {
+    const response = await request.post(
+      `/api/product-upload/export`,
+      {},
+      { responseType: 'blob' }  // 👈 Bắt buộc!
+    );
+
+    console.log("response", response);
+
+    try {
+      // Kiểm tra nội dung Blob
+      response.text().then(text => {
+        console.log("📄 Nội dung file CSV:", text.slice(0, 300)); // in thử 300 ký tự đầu tiên
+      });
+
+      const blob = new Blob([response], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'product_upload.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("❌ Lỗi khi tạo và tải file:", err);
+    }
   };
 
   const handleClick = (key) => {
@@ -127,7 +141,7 @@ export default function EbayToolbar() {
               getReturnPolicies();
               getfulfillmentPolicy();
               getInventoryLocations();
-              getConfig(() => {});
+              getConfig(() => { });
               handleClick("setup-ebay");
             }}
           >

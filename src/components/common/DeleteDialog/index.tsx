@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
+import { t } from "i18next";
 import { useState, forwardRef, useImperativeHandle } from "react";
 
 const DeleteDialog = (props, ref) => {
@@ -37,9 +38,9 @@ const DeleteDialog = (props, ref) => {
           <Typography>Bạn có chắc chắn muốn xoá item này không?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose}>{t("cancel")}</Button>
           <Button onClick={handleDelete} color="error" variant="contained">
-            OK
+            {t("accept")}
           </Button>
         </DialogActions>
       </Dialog>

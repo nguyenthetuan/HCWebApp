@@ -120,7 +120,7 @@ const FormSetupEbay = ({
         <Stack spacing={2} className={styles.frame}>
           <MyInput
             fullWidth
-            label="Tỷ giá hối đoái (yên)"
+            label={t("label_exchange_rate")}
             name="exchangeRate"
             value={formData.exchangeRate}
             onChange={handleChange}
@@ -130,7 +130,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Hệ số hoa hồng"
+            label={t("label_fee_multiplier")}
             name="commissionRate"
             value={formData.commissionRate}
             onChange={handleChange}
@@ -140,7 +140,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Tỉ lệ lợi nhuận mong muốn"
+            label={t("label_expected_profit_margin")}
             name="desiredProfitMargin"
             value={formData.desiredProfitMargin}
             onChange={handleChange}
@@ -150,7 +150,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Phí vận chuyển bên Japan"
+            label={t("label_japan_shipping_fee")}
             name="japanShippingFee"
             value={formData.japanShippingFee}
             onChange={handleChange}
@@ -160,7 +160,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Tồn kho"
+            label={t("title_inventory")}
             name="availableQuantity"
             value={formData.availableQuantity}
             onChange={handleChange}
@@ -170,7 +170,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Số lượng tối đa một người có thể mua"
+            label={t("title_limit_per_buyer")}
             name="quantityLimitPerBuyer"
             value={formData.quantityLimitPerBuyer}
             onChange={handleChange}
@@ -180,7 +180,7 @@ const FormSetupEbay = ({
           />
           <MyInput
             fullWidth
-            label="Mã danh mục"
+            label={t("categoryId")}
             name="categoryId"
             value={formData.categoryId}
             onChange={handleChange}
@@ -193,7 +193,7 @@ const FormSetupEbay = ({
           <MySelectDropdow
             id="fulfillment"
             name="listingPolicies.fulfillmentPolicyId"
-            label={"Chính sách thực hiện"}
+            label={t("implementation_policy")}
             value={formData.listingPolicies.fulfillmentPolicyId}
             onChange={handleChange}
             options={optionFullfimentPolicy}
@@ -203,7 +203,7 @@ const FormSetupEbay = ({
           <MySelectDropdow
             id="return"
             name="listingPolicies.returnPolicyId"
-            label={"Chính sách hoàn trả"}
+            label={t("return_policy")}
             value={formData.listingPolicies.returnPolicyId}
             onChange={handleChange}
             options={optionReturnPolicy}
@@ -213,7 +213,7 @@ const FormSetupEbay = ({
           <MySelectDropdow
             id="payment"
             name="listingPolicies.paymentPolicyId"
-            label={"Chính sách thanh toán"}
+            label={t("payment_policy")}
             value={formData.listingPolicies.paymentPolicyId}
             onChange={handleChange}
             options={optionPaymentPolicy}
@@ -223,7 +223,7 @@ const FormSetupEbay = ({
           <MySelectDropdow
             id="warehouse"
             name="merchantLocationKey"
-            label={"Vị trí kho hàng"}
+            label={t("marchant_location")}
             value={formData.merchantLocationKey}
             onChange={handleChange}
             options={optionInvertoryLocation}

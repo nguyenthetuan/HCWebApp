@@ -167,19 +167,69 @@ export const userManagerProduct = () => {
     [selectedIds]
   );
 
-  const handlePriceCalculation = async () => {
+  const changeQuantityProductRaw = async (formData, id) => {
+    // tính cập nhật giá sản phẩm cho một sản phẩm
+    try {
+      await request.post(`/api/product-upload/change_quantity/${id}`, formData);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const changeQuantityProduct = useCallback(
+    async (formData, id) => {
+      try {
+        changeQuantityProductRaw(formData, id).then(() => {
+          EventBus.dispatchEvent(new CustomEvent("getProduct"));
+        });
+        toast.success(t("edit_success"));
+      } catch (error) { }
+    },
+    []
+  );
+
+  const changePriceProductRaw = async (formData, id) => {
+    // tính cập nhật giá sản phẩm cho một sản phẩm
+    try {
+      await request.post(`/api/product-upload/change_price/${id}`, formData);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const changePriceProduct = useCallback(
+    async (formData, id) => {
+      try {
+        changePriceProductRaw(formData, id).then(() => {
+          EventBus.dispatchEvent(new CustomEvent("getProduct"));
+        });
+        toast.success(t("edit_success"));
+      } catch (error) { }
+    },
+    []
+  );
+
+
+
+  const handlePriceCalculation = async (data_config) => {
     setLoadingPriceCalc(true);
-    const {
+    let {
       desiredProfitMargin,
       japanShippingFee,
       commissionRate,
       exchangeRate,
-    } = config;
+    } = data_config;
+
+    // Ép kiểu về số (number)
+    desiredProfitMargin = Number(desiredProfitMargin) || 0;
+    japanShippingFee = Number(japanShippingFee) || 0;
+    commissionRate = Number(commissionRate) || 0;
+    exchangeRate = Number(exchangeRate) || 0;
+
     try {
       const productFound = products.filter((p) => selectedIds.includes(p._id));
 
       const updateRequests = productFound.map((product) => {
-        const price_buy = Number(product.price_by) || 0;
+        const price_buy = Number(product.price_buy) || 0;
         const price =
           ((price_buy + japanShippingFee) / (1 - commissionRate) +
             price_buy * desiredProfitMargin) /
@@ -266,6 +316,18 @@ export const userManagerProduct = () => {
     } catch (error) { }
   };
 
+
+  const exportDataProductUpload = async () => {
+    // tính cập nhật giá sản phẩm cho một sản phẩm
+    try {
+      const response = await request.post(`/api/product-upload/export`);
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     products,
     setProduct,
@@ -282,6 +344,8 @@ export const userManagerProduct = () => {
     addProductToEbay,
     loadingUpebay,
     editProduct,
+    changeQuantityProduct,
+    changePriceProduct,
     handleDeleteProduct,
     getCategoryTree,
     getItemAspectsForCategory,
@@ -300,5 +364,6 @@ export const userManagerProduct = () => {
     invertoryLocation,
     handlePriceCalculation,
     loadingPriceCalc,
+    exportDataProductUpload
   };
 };

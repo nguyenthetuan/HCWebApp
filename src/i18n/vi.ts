@@ -52,7 +52,7 @@ export default {
   title_choose_language: "Chọn ngôn ngữ",
   title_validate_language: "Vui lòng chọn ngôn ngữ",
 
-  title_register_change: "[Số 1] Đăng ký/Thay đổi",
+  title_register_change: "Đăng ký/Thay đổi",
   label_store_name: "Tên cửa hàng",
   label_product_name: "Tên sản phẩm",
   label_purchase_url: "Url mua hàng",
@@ -279,7 +279,7 @@ export default {
   startScraping: "Bắt đầu cào dữ liệu",
   deleteSelected: "Xoá sản phẩm đã chọn",
   display: "Trưng bày",
-  totoal_products:"Tổng số sản phẩm",
+  totoal_products: "Tổng số sản phẩm",
 
   //TOOLTIP
   tooltip_sku:
@@ -454,4 +454,16 @@ export default {
   select_product_attributes_by_category:
     "Chọn thuộc tính sản phẩm theo danh mục",
   required: " (bắt buộc)",
+
+
+  cancel: "Hủy bỏ",
+  accept: "Đồng ý",
+  change_quantity: "Thay đổi số lượng",
+  change_alert_on_ebay: "Thay đổi này cũng sẽ thay đổi trên eBay.",
+  price_title: "Giá",
+  title_limit_per_buyer: "Số lượng tối đa một người mua",
+  implementation_policy: "Chính sách thực hiện",
+  return_policy: "Chính sách hoàn trả",
+  payment_policy: "Chính sách thanh toán",
+  marchant_location: "Vị trí kho hàng",
 };

@@ -33,6 +33,8 @@ const ProductPage = (props: any) => {
     addProductToEbay,
     loadingUpebay,
     editProduct,
+    changeQuantityProduct,
+    changePriceProduct,
     handleDeleteProduct,
     getCategoryTree,
     getItemAspectsForCategory,
@@ -111,7 +113,8 @@ const ProductPage = (props: any) => {
     <Box className={styles.Container}>
       <Box className={styles.wrapCenter}>
         <Box className={styles.leftPane}>
-          <EBaySetting />
+          <EBaySetting loadingPriceCalc={loadingPriceCalc}
+            handlePriceCalculation={handlePriceCalculation} />
         </Box>
         <Box className={styles.centerPane}>
           <MultileButton
@@ -120,7 +123,7 @@ const ProductPage = (props: any) => {
             addProductToEbay={addProductToEbay}
             loadingUpebay={loadingUpebay}
             loadingPriceCalc={loadingPriceCalc}
-            handlePriceCalculation={handlePriceCalculation}
+          // handlePriceCalculation={handlePriceCalculation}
           />
         </Box>
         <Box className={styles.rightPane}>
@@ -192,8 +195,13 @@ const ProductPage = (props: any) => {
             getInventoryLocations();
             getCategorySuggestions(value.name);
           }}
+          setItemSelect={(value) => {
+            setItemSelect(value);
+          }}
           itemSelect={itemSelect}
           editProduct={editProduct}
+          changeQuantityProduct={changeQuantityProduct}
+          changePriceProduct={changePriceProduct}
           handleDeleteProduct={handleDeleteProduct}
           categoryTree={categoryTree}
           getItemAspectsForCategory={getItemAspectsForCategory}

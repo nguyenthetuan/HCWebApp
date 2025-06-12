@@ -24,6 +24,8 @@ import IconDelete from "../../../assets/delete.svg?react";
 import MyLink from "../MyLink";
 import MyTypography from "../MyTypography";
 import MyImage from "../MyImage";
+import ModalChangeQuantity from "@/pages/ProductsPage/compoents/ModalChangeQuantity";
+import ModalChangePrice from "@/pages/ProductsPage/compoents/ModalChangePrice";
 
 interface Product {
   _id?: string;
@@ -45,8 +47,11 @@ interface Props {
   checkAll?: boolean;
   setCheckAll?: (value: unknown) => void;
   onChange?: (item) => void;
+  setItemSelect?: (item) => void;
   itemSelect?: unknown;
   editProduct?: (FormData, id) => void;
+  changeQuantityProduct?: (FormData, id) => void;
+  changePriceProduct?: (FormData, id) => void;
   handleDeleteProduct?: (item) => void;
   categoryTree?: any[];
   getItemAspectsForCategory?: (id_category: string) => void;
@@ -68,8 +73,11 @@ export default function MyProductTable({
   checkAll,
   setCheckAll,
   onChange,
+  setItemSelect,
   itemSelect,
   editProduct,
+  changeQuantityProduct,
+  changePriceProduct,
   handleDeleteProduct,
   categoryTree,
   getItemAspectsForCategory,
@@ -84,6 +92,8 @@ export default function MyProductTable({
   const { t, i18n } = useTranslation();
   const refModal = useRef(null);
   const refModalChangeProduct = useRef(null);
+  const refModalChangeQuantity = useRef(null);
+  const refModalChangePrice = useRef(null);
   const refModalCheapProduct = useRef(null);
   const refModalStopSellingProduct = useRef(null);
   const refModalUpdateQuantity = useRef(null);
@@ -175,19 +185,38 @@ export default function MyProductTable({
                   <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyTypography> {item?.ebayUploadTimestamp}</MyTypography>
+                  <MyTypography> {item?.ebayUploadTimestamp
+                    ? new Date(item.ebayUploadTimestamp).toLocaleDateString('ja-JP')
+                    : ''}</MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>{item?.japanShippingFee} ¥</MyTypography>
+                  <MyTypography>¥ {item?.japanShippingFee}</MyTypography>
                 </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.availableQuantity}</MyTypography>
+                <TableCell style={{ width: '100px' }}>
+                  <MyTypography fontWeight={"bold"}>
+                    {item?.availableQuantity}
+                    {!item.offer_sku && <IconButton
+                      onClick={() => {
+                        refModalChangeQuantity.current.openModal();
+                        setItemSelect(item);
+                      }}
+                    >
+                      <IconEdit className={styles.iconEdit} />
+                    </IconButton>}</MyTypography>
                 </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.price_buy} ¥</MyTypography>
+                <TableCell style={{ width: '100px' }}>
+                  <MyTypography>¥ {item?.price_buy}</MyTypography>
                 </TableCell>
-                <TableCell>
-                  <MyTypography>{item?.price}$</MyTypography>
+                <TableCell style={{ width: '150px' }}>
+                  <MyTypography fontWeight={"bold"}>$ {item?.price}
+                    {!item.offer_sku && <IconButton
+                      onClick={() => {
+                        refModalChangePrice.current.openModal();
+                        setItemSelect(item);
+                      }}
+                    >
+                      <IconEdit className={styles.iconEdit} />
+                    </IconButton>}</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyImage source={item.avatar_url} />
@@ -229,6 +258,16 @@ export default function MyProductTable({
         returnPolicy={returnPolicy}
         paymentPolicy={paymentPolicy}
         invertoryLocation={invertoryLocation}
+      />
+      <ModalChangeQuantity
+        ref={refModalChangeQuantity}
+        itemSelect={itemSelect}
+        changeQuantityProduct={changeQuantityProduct}
+      />
+      <ModalChangePrice
+        ref={refModalChangePrice}
+        itemSelect={itemSelect}
+        changePriceProduct={changePriceProduct}
       />
       <ModalCheapProduct ref={refModalCheapProduct} />
       <ModalStopSellingProduct ref={refModalStopSellingProduct} />

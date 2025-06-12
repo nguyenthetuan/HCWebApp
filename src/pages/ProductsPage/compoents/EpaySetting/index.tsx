@@ -6,7 +6,12 @@ import MyButton from "@/components/common/MyButton";
 import { useTranslation } from "react-i18next";
 import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
 
-export default function EBaySetting() {
+interface propsEBaySetting {
+  loadingPriceCalc?: boolean;
+  handlePriceCalculation?: (data_config: any) => void;
+}
+
+export default function EBaySetting(props: propsEBaySetting) {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     desiredProfitMargin: "", // Tỷ lệ lợi nhuận mong muốn
@@ -40,7 +45,7 @@ export default function EBaySetting() {
     }));
   };
   const handleSubmit = () => {
-    putConfig(formData);
+    props?.handlePriceCalculation(formData);
   };
   return (
     <Box className={styles.container}>
@@ -130,8 +135,21 @@ export default function EBaySetting() {
               className={styles.myTextField}
             />
           </Stack>
+
+          <MyButton
+            variant="contained"
+            sx={{ backgroundColor: "deepskyblue", fontSize: 12 }}
+            size="small"
+            className={styles.buttons}
+            loading={props?.loadingPriceCalc}
+            onClick={handleSubmit}
+          >
+            {t("caculation")}
+          </MyButton>
         </Stack>
+
       </Grid>
+
     </Box>
   );
 }
