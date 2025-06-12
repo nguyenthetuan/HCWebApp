@@ -37,14 +37,14 @@ const Pagination: React.FC<PaginationProps> = ({
         disabled={currentPage === 1}
         className={styles.button}
       >
-        &gt;
+        &lt;
       </MyButton>
       <MyButton
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
         className={styles.button}
       >
-        &raquo;
+        &laquo;
       </MyButton>
 
       {pageNumbers.map((page) => (

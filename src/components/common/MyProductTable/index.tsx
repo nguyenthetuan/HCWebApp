@@ -98,10 +98,10 @@ export default function MyProductTable({
         <TableHead>
           <TableRow>
             <TableCell>
-              <MyTypography>{t("title_MyProudctPage_no")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_MyProductPage_no")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography className={styles.row}>
+              <MyTypography fontWeight={"bold"} className={styles.row}>
                 {t("title_select")}
                 <Checkbox
                   checked={checkAll}
@@ -113,28 +113,34 @@ export default function MyProductTable({
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_product_info")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_product_info")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>ebayId</MyTypography>
+              <MyTypography fontWeight={"bold"}>ebayId</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_purchase_url")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_purchase_url")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_inventory")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_ebay_upload_timestamp")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_price_buy")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_japan_fee")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_price_Sell")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_inventory")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("common_image")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_price_buy")}</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography>{t("title_action")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>{t("title_price_Sell")}</MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography fontWeight={"bold"}>{t("common_image")}</MyTypography>
+            </TableCell>
+            <TableCell>
+              <MyTypography fontWeight={"bold"}>{t("title_action")}</MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -162,11 +168,17 @@ export default function MyProductTable({
                       {item?.listingId}
                     </MyLink>
                   ) : (
-                    <MyTypography>{t("title_not_upebay")}</MyTypography>
+                    <MyTypography color="red">{t("title_not_upebay")}</MyTypography>
                   )}
                 </TableCell>
                 <TableCell>
                   <MyLink href={item?.url}>{item?.url}</MyLink>
+                </TableCell>
+                <TableCell>
+                  <MyTypography> {item?.ebayUploadTimestamp}</MyTypography>
+                </TableCell>
+                <TableCell>
+                  <MyTypography>{item?.japanShippingFee} ¥</MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>{item?.availableQuantity}</MyTypography>
@@ -181,14 +193,15 @@ export default function MyProductTable({
                   <MyImage source={item.avatar_url} />
                 </TableCell>
                 <TableCell>
-                  <IconButton
+                  {item.offer_sku && <IconButton
                     onClick={() => {
                       refModalChangeProduct.current.openModal();
                       onChange(item);
                     }}
                   >
                     <IconEdit className={styles.iconEdit} />
-                  </IconButton>
+                  </IconButton>}
+
                   <IconButton
                     onClick={() => {
                       handleDeleteProduct(item);

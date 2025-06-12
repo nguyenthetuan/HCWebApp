@@ -1,9 +1,11 @@
 export default {
-  title_MyProudctPage_no: "いいえ",
+  login:"ログイン",
+  username: "ユーザー名",
+  password: "パスワード",
   title_MyProductPage_no: "番号",
   title_select: "選択",
   title_store_name: "店舗名",
-  title_product_info: "商品名 eBay商品番号/数量/自動リンク機能",
+  title_product_info: "eBay商品名",
   title_purchase_url: "購入URL",
   title_ebay_link: "MyLink eBay",
   title_purchase_price: "購入価格",
@@ -11,6 +13,8 @@ export default {
   title_stock_keywords: "在庫キーワード",
   title_expected_profit: "予想利益",
   title_registered_date: "登録日",
+  title_ebay_upload_timestamp: "eBayアップロード時間",
+  title_japan_fee: "日本送料",
   title_note: "備考",
   action_change: "[変更]",
   action_delete: "[削除]",
@@ -54,7 +58,7 @@ export default {
   label_ebay_address: "eBayアドレス",
   label_ebay_item_number: "eBay商品番号",
   label_ebay_auto_link: "eBay自動リンク機能",
-  label_purchase_price: "購入価格 (円)",
+  label_purchase_price: "ebay販売価格（＄）",
   label_shipping_fee: "購入送料 (円)",
   label_stock_keyword: "在庫キーワード",
   label_mode: "動作モード",
@@ -270,6 +274,7 @@ export default {
   startScraping: "スクレイピングを開始",
   deleteSelected: "選択した商品を削除",
   display: "表示",
+  totoal_products: "合計商品数",
 
   //TOOLTIP
 
@@ -430,9 +435,9 @@ export default {
   setup_ebay: "eBay設定",
   caculation: "販売価格を再計算",
 
-  label_inventory: "在庫",
-  label_quantity_limit_per_buyer: "購入者あたりの最大数量",
-  label_sale_price: "販売価格",
+  label_inventory: "ebay在庫数",
+  label_quantity_limit_per_buyer: "在庫数最大",
+  label_sale_price: "商品価格（￥）",
   label_fulfillment_policy: "履行ポリシー",
   label_return_policy: "返品ポリシー",
   label_payment_policy: "支払いポリシー",

@@ -1,10 +1,12 @@
 export default {
-  title_MyProudctPage_no: "Không",
+  login: "Đăng nhập",
+  username: "Tên đăng nhập",
+  password: "Mật khẩu",
   title_MyProductPage_no: "STT",
   title_select: "Chọn",
   title_store_name: "Tên cửa hàng",
   title_product_info:
-    "Tên sản phẩm eBay Số mặt hàng/Số lượng/Chức năng liên kết tự động",
+    "Tên sản phẩm eBay",
   title_purchase_url: "URL mua hàng",
   title_ebay_link: "MyLink eBay",
   title_purchase_price: "Giá mua",
@@ -12,6 +14,8 @@ export default {
   title_stock_keywords: "Từ khóa chứng khoán",
   title_expected_profit: "Lợi nhuận dự kiến",
   title_registered_date: "Ngày đăng",
+  title_ebay_upload_timestamp: "Thời gian upload Ebay",
+  title_japan_fee: "Phí vận chuyển JP",
   title_note: "Ghi chú",
   action_change: "[Thay đổi]",
   action_delete: "[Xoá]",
@@ -109,7 +113,7 @@ export default {
   product_search_header: "Tìm kiếm sản phẩm",
   select_platform: "Chọn nền tảng",
   select_platform_helper: "Vui lòng chọn ngôn ngữ",
-  keyword: "Key Word",
+  keyword: "Từ khóa",
   select_category: "Danh mục",
   select_category_helper: "Vui lòng chọn ngôn ngữ",
   search_button: "Tìm kiếm",
@@ -275,6 +279,7 @@ export default {
   startScraping: "Bắt đầu cào dữ liệu",
   deleteSelected: "Xoá sản phẩm đã chọn",
   display: "Trưng bày",
+  totoal_products:"Tổng số sản phẩm",
 
   //TOOLTIP
   tooltip_sku:

@@ -80,11 +80,37 @@ export const userManagerProduct = () => {
     setLastSelectedIndex(null);
     setCheckAll(false);
   };
-  const getProduct = async () => {
+  const getProduct = async (data) => {
     try {
-      const response = await request.get("/api/product-upload");
-      setProduct(response);
-    } catch (error) {}
+      const escapeRegex = (str) => {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      };
+
+      const keyword = data.keyword?.trim() ? escapeRegex(data.keyword.trim()) : "";
+
+      const response = await request.get("/api/product-upload", {
+        page: data.page,
+        limit: data.pageSize,
+        keyword: keyword,
+        order: data.order,
+        sortBy: data.sortBy
+      });
+      setProduct(response.data);
+
+      return {
+        totalPages: response.totalPages,
+        page: response.page,
+        pageSize: response.limit,
+        total: response.total,
+      }
+    } catch (error) {
+      return {
+        totalPages: 0,
+        page: 0,
+        pageSize: 0,
+        total: 0,
+      }
+    }
   };
 
   const deleteProduct = useCallback(async () => {
@@ -98,7 +124,7 @@ export const userManagerProduct = () => {
         const response = await request.delete("/api/product-upload/bulk", {
           data: { ids: formData },
         });
-        getProduct();
+        getProduct({});
         resetSelect();
         setLoadingDelProduct(false);
       }
@@ -114,7 +140,7 @@ export const userManagerProduct = () => {
         product_ids: selectedIds,
       });
       resetSelect();
-      getProduct();
+      getProduct({});
       setLoadingUpebay(false);
       toast.success(t("upload_success"));
     } catch (error) {
@@ -136,7 +162,7 @@ export const userManagerProduct = () => {
           EventBus.dispatchEvent(new CustomEvent("getProduct"));
         });
         toast.success(t("edit_success"));
-      } catch (error) {}
+      } catch (error) { }
     },
     [selectedIds]
   );
@@ -167,7 +193,7 @@ export const userManagerProduct = () => {
       resetSelect();
       setLoadingPriceCalc(false);
       toast.success(t("edit_success"));
-      await getProduct();
+      await getProduct({});
     } catch (error) {
       toast.error(t("edit_error") || "Có lỗi xảy ra");
     } finally {
@@ -180,7 +206,7 @@ export const userManagerProduct = () => {
       const response = await request.delete("/api/product-upload/bulk", {
         data: { ids: item._id },
       });
-      getProduct();
+      getProduct({});
       resetSelect();
     });
   };
@@ -189,7 +215,7 @@ export const userManagerProduct = () => {
     try {
       const response = await request.get("/api/ebay/category_tree");
       setCategoryTree(response);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getItemAspectsForCategory = async (idCategory) => {
@@ -200,7 +226,7 @@ export const userManagerProduct = () => {
       );
       setLoadingAspects(false);
       setAspects(response.aspects);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getCategorySuggestions = async (nameProduct) => {
@@ -209,35 +235,35 @@ export const userManagerProduct = () => {
         `/api/ebay/get_category_suggestions?keyword=${nameProduct}`
       );
       setCategorySuggestion(response.categorySuggestions);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getfulfillmentPolicy = async () => {
     try {
       const response = await request.get(`/api/ebay/fulfillment_policy`);
       setFullFillmentPolicy(response.fulfillmentPolicies);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getReturnPolicies = async () => {
     try {
       const response = await request.get(`/api/ebay/return_policy`);
       setReturnPolicy(response.returnPolicies);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getPaymentPolicy = async () => {
     try {
       const response = await request.get(`/api/ebay/payment_policy`);
       setPalymentPolicy(response.paymentPolicies);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getInventoryLocations = async () => {
     try {
       const response = await request.get(`/api/ebay/inventory_location`);
       setInventoryLocation(response.locations);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return {

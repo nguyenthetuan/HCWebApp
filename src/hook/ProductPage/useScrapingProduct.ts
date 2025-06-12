@@ -114,7 +114,7 @@ export const useScrapingProduct = () => {
     try {
       const response = await request.get("/api/scrape-products");
       setScapingProduct(response);
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   const scrapingProduct = useCallback(async () => {
@@ -173,7 +173,21 @@ export const useScrapingProduct = () => {
           setLoadingProduct(false);
           resetSelect();
           closeModal();
-          toast.success(t("save_product"));
+
+          if (response.inserted === 0) {
+            toast.warning(t("all_product_exist"));
+          }
+
+          if (response.insertedCount > 0) {
+            toast.success(t("save_product") + ` ${response.insertedCount}`);
+          }
+
+          if (response.skippedCount > 0) {
+            toast.warning(t("count_product_exist") + ` ${response.skippedCount}`);
+          }
+
+          console.log(response, "response");
+
           EventBus.dispatchEvent(new CustomEvent("getProduct"));
         }
       } catch (error) {
