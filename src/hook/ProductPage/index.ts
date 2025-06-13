@@ -9,6 +9,8 @@ export const useProductPage = () => {
   const [totalPages, setTotalPages] = useState(10);
   const [totalProduct, setTotalProduct] = useState(0);
   const [textSearch, setTextSearch] = useState("");
+  const [sortBy, setSortBy] = useState("name");
+  const [order, setOder] = useState("asc");
   const name = useSelector((state: any) => state.user.name);
   const dispatch = useDispatch();
   const changeName = () => {
@@ -19,5 +21,23 @@ export const useProductPage = () => {
     changeName();
   }, []);
 
-  return { gender, setGender, name, page, setPage, pageSize, setPageSize, totalPages, setTotalPages, totalProduct, setTotalProduct, textSearch, setTextSearch };
+  return {
+    gender,
+    sortBy,
+    setSortBy,
+    order,
+    setOder,
+    setGender,
+    name,
+    page,
+    setPage,
+    pageSize,
+    setPageSize,
+    totalPages,
+    setTotalPages,
+    totalProduct,
+    setTotalProduct,
+    textSearch,
+    setTextSearch,
+  };
 };

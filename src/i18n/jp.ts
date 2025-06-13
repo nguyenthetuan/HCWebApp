@@ -58,7 +58,7 @@ export default {
   label_ebay_address: "eBayアドレス",
   label_ebay_item_number: "eBay商品番号",
   label_ebay_auto_link: "eBay自動リンク機能",
-  label_purchase_price: "ebay販売価格（＄）",
+  label_purchase_price: "ebay販売価格（¥）",
   label_shipping_fee: "購入送料 (円)",
   label_stock_keyword: "在庫キーワード",
   label_mode: "動作モード",
@@ -164,7 +164,7 @@ export default {
   btn_saveAsTemplate: "リストテンプレートとして保存",
 
   title_product_scraped: "スクレイピングされた製品",
-  btn_save_to_manage_product: "製品管理テーブルに保存",
+  btn_save_to_manage_product: "商品データ保存",
 
   introduce_setup_ebay:
     "eBay販売機能 ビジネスポリシー eBayに登録した独自のビジネスポリシー（配送、返品、支払い）を設定します。eBayにログインしている場合は、ボタンを押すことで独自のビジネスポリシーを読み込むこともできます（*HARUにすでに登録されているビジネスポリシーは上書きされます）。*注意: eBayサイトでビジネスポリシーに名前を付ける際に「|」を含む名前を使用しないでください。ビジネスポリシーを設定していない場合は、",
@@ -437,7 +437,7 @@ export default {
 
   label_inventory: "ebay在庫数",
   label_quantity_limit_per_buyer: "在庫数最大",
-  label_sale_price: "商品価格（￥）",
+  label_sale_price: "商品価格（$）",
   label_fulfillment_policy: "履行ポリシー",
   label_return_policy: "返品ポリシー",
   label_payment_policy: "支払いポリシー",
@@ -449,7 +449,6 @@ export default {
   select_product_attributes_by_category: "カテゴリ別に製品属性を選択",
   required: "（必須）",
 
-
   cancel: "キャンセル",
   accept: "受け入れる",
   change_quantity: "数量を変更",
@@ -460,4 +459,15 @@ export default {
   return_policy: "返品ポリシー",
   payment_policy: "支払いポリシー",
   marchant_location: "販売者の所在地",
+  title_desc: "降順",
+  title_asc: "昇順",
+  name: "名前",
+  content: "内容",
+  prices: "価格",
+  price_buy: "販売価格",
+  titleDelete: "削除の確認",
+  subContentDelete: "この項目を削除してもよろしいですか？",
+  extraDes: "追加説明",
+  arrange: "並べ替え",
+  filter: "フィルター",
 };

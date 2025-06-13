@@ -186,13 +186,13 @@ const FormChangeProduct = ({
                 <MyInputToolTip
                   fullWidth
                   label={t("label_purchase_price")}
-                  name="price"
                   type="number"
-                  value={formData.price}
                   onChange={handleChange}
                   className={styles.status}
                   toolTip={tooltips.PRICE}
                   size="small"
+                  name="price_buy"
+                  value={formData.price_buy}
                 />
               </Grid>
 
@@ -239,8 +239,8 @@ const FormChangeProduct = ({
                 <MyInput
                   fullWidth
                   label={t("label_sale_price")}
-                  name="price_buy"
-                  value={formData.price_buy}
+                  name="price"
+                  value={formData.price}
                   onChange={handleChange}
                   className={styles.status}
                   size="small"

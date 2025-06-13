@@ -5,8 +5,7 @@ export default {
   title_MyProductPage_no: "STT",
   title_select: "Chọn",
   title_store_name: "Tên cửa hàng",
-  title_product_info:
-    "Tên sản phẩm eBay",
+  title_product_info: "Tên sản phẩm eBay",
   title_purchase_url: "URL mua hàng",
   title_ebay_link: "MyLink eBay",
   title_purchase_price: "Giá mua",
@@ -442,7 +441,7 @@ export default {
 
   label_inventory: "Tồn kho",
   label_quantity_limit_per_buyer: "Số lượng tối đa một người mua",
-  label_sale_price: "Giá bán",
+  label_sale_price: "Giá bán($)",
   label_fulfillment_policy: "Chính sách thực hiện",
   label_return_policy: "Chính sách hoàn trả",
   label_payment_policy: "Chính sách thanh toán",
@@ -455,7 +454,6 @@ export default {
     "Chọn thuộc tính sản phẩm theo danh mục",
   required: " (bắt buộc)",
 
-
   cancel: "Hủy bỏ",
   accept: "Đồng ý",
   change_quantity: "Thay đổi số lượng",
@@ -466,4 +464,15 @@ export default {
   return_policy: "Chính sách hoàn trả",
   payment_policy: "Chính sách thanh toán",
   marchant_location: "Vị trí kho hàng",
+  title_desc: "Giảm dần",
+  title_asc: "Tăng dần",
+  name: "Tên",
+  content: "Nội dung",
+  prices: "Giá",
+  price_buy: "Giá bán",
+  titleDelete: "Xác nhận xoá",
+  subContentDelete: "Bạn có chắc chắn muốn xoá item này không?",
+  extraDes: "Mô Tả Thêm",
+  arrange: "Sắp sếp",
+  filter: "Lọc theo",
 };

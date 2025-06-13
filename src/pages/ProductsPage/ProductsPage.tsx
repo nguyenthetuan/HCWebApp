@@ -16,7 +16,8 @@ import { useSetupEbay } from "@/hook/ProductPage/useSetupEbay";
 import MyTypography from "@/components/common/MyTypography";
 import MySearchInput from "@/components/common/MySearchInput";
 import MyButton from "@/components/common/MyButton";
-
+import MySelectDropdow from "@/components/common/MySelectDropdow";
+import { arrange, SortByProperty } from "@/untils/dataMockup";
 const ProductPage = (props: any) => {
   const {
     getProduct,
@@ -55,14 +56,32 @@ const ProductPage = (props: any) => {
     handlePriceCalculation,
   } = userManagerProduct();
   const { t } = useTranslation();
-  const { gender, setGender, page, setPage, pageSize, setPageSize, totalPages, setTotalPages, totalProduct, setTotalProduct
-    , textSearch, setTextSearch
+  const {
+    gender,
+    setGender,
+    page,
+    setPage,
+    pageSize,
+    setPageSize,
+    totalPages,
+    setTotalPages,
+    totalProduct,
+    setTotalProduct,
+    textSearch,
+    setTextSearch,
+    sortBy,
+    setSortBy,
+    order,
+    setOder,
   } = useProductPage();
 
   const fetchDataProduct = async () => {
     try {
       const response = await getProduct({
-        page, pageSize, keyword: textSearch
+        page,
+        pageSize,
+        keyword: textSearch,
+        order,
       });
       if (response) {
         setTotalPages(response.totalPages);
@@ -73,11 +92,9 @@ const ProductPage = (props: any) => {
     }
   };
 
-
   useEffect(() => {
-
     fetchDataProduct();
-  }, [page, pageSize]);
+  }, [page, pageSize, order]);
 
   useEffect(() => {
     const handler = () => {
@@ -113,8 +130,10 @@ const ProductPage = (props: any) => {
     <Box className={styles.Container}>
       <Box className={styles.wrapCenter}>
         <Box className={styles.leftPane}>
-          <EBaySetting loadingPriceCalc={loadingPriceCalc}
-            handlePriceCalculation={handlePriceCalculation} />
+          <EBaySetting
+            loadingPriceCalc={loadingPriceCalc}
+            handlePriceCalculation={handlePriceCalculation}
+          />
         </Box>
         <Box className={styles.centerPane}>
           <MultileButton
@@ -123,46 +142,63 @@ const ProductPage = (props: any) => {
             addProductToEbay={addProductToEbay}
             loadingUpebay={loadingUpebay}
             loadingPriceCalc={loadingPriceCalc}
-          // handlePriceCalculation={handlePriceCalculation}
+            // handlePriceCalculation={handlePriceCalculation}
           />
         </Box>
         <Box className={styles.rightPane}>
           <EbayToolbar />
         </Box>
       </Box>
-      <Box className={styles.wrapRadioGroup}>
+      <Box className={styles.filderLeft}>
         <Box className={styles.wrapPagination}>
           <TextField
             label={t("keyword")}
             variant="outlined"
             size="medium" // 👈 thử dùng size nhỏ trước
-            sx={{
-              width: '200px', // 👈 chỉnh kích thước bạn muốn
-              '& .MuiInputBase-input': {
-                fontSize: '0.8rem', // 👈 thu nhỏ chữ input
-                padding: '10px 10px 20px 10px',     // 👈 điều chỉnh padding
-              },
-              '& .MuiInputLabel-root': {
-                fontSize: '0.8rem', // 👈 thu nhỏ label
-              },
-            }}
+            className={styles.myTextField}
             style={{ margin: "0 10px" }}
             value={textSearch}
             onChange={(event) => setTextSearch(event.target.value)}
           />
           <Button variant="contained" size="large" onClick={fetchDataProduct}>
-            <MyTypography fontSize={12} >
-              {t("btn_search")}
-            </MyTypography>
+            <MyTypography fontSize={12}>{t("btn_search")}</MyTypography>
           </Button>
+          <Box className={styles.filter}>
+            <MySelectDropdow
+              id="fulfillment"
+              name="listingPolicies.fulfillmentPolicyId"
+              label={t("arrange")}
+              value={order}
+              onChange={(e) => {
+                setOder(e.target.value);
+              }}
+              options={arrange(t)}
+              className={styles.dropdow}
+              size="small"
+            />
+            <MySelectDropdow
+              id="fulfillment"
+              name="listingPolicies.fulfillmentPolicyId"
+              label={t("filter")}
+              value={sortBy}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+              }}
+              options={SortByProperty(t)}
+              className={styles.dropdow}
+              size="small"
+            />
+          </Box>
         </Box>
-        <Box className={styles.wrapPagination} style={{ justifyContent: 'flex-end', padding: '10px' }}>
+        <Box
+          className={styles.wrapPagination}
+          style={{ justifyContent: "flex-end", padding: "10px" }}
+        >
           <MyRadioGroup
             label={t("display")}
             name="pageSize"
             value={String(pageSize)}
             onChange={(value) => setPageSize(Number(value))}
-
             options={options}
           />
           <MyPagination
@@ -172,10 +208,14 @@ const ProductPage = (props: any) => {
               setPage(page);
             }}
           />
-          <MyTypography fontSize={14} fontWeight={"bold"} className={styles.textEpay} style={{ marginLeft: "20px" }}>
+          <MyTypography
+            fontSize={14}
+            fontWeight={"bold"}
+            className={styles.textEpay}
+            style={{ marginLeft: "20px" }}
+          >
             {t("totoal_products")} : {totalProduct}
           </MyTypography>
-
         </Box>
       </Box>
       <Box className={styles.table}>
@@ -221,7 +261,6 @@ const ProductPage = (props: any) => {
           name="pageSize"
           value={String(pageSize)}
           onChange={(value) => setPageSize(Number(value))}
-
           options={options}
         />
         <MyPagination

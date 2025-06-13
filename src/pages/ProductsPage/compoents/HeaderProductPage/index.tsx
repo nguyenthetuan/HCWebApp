@@ -31,9 +31,9 @@ const HeaderProductPage = () => {
             {t("link_register_new")}
           </MyTypography>
         </Box>
-        <Box className={styles.search}>
+        {/* <Box className={styles.search}>
           <MySearchInput />
-        </Box>
+        </Box> */}
       </Box>
       <Box className={styles.rightHeader}>
         <MyTypography fontSize={14} className={styles.nameUser}>

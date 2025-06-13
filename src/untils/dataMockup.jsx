@@ -391,3 +391,33 @@ export const getMonitor = (t) => [
     label: t("client"),
   },
 ];
+
+export const arrange = (t) => [
+  {
+    value: "asc",
+    label: t("title_asc"),
+  },
+  {
+    value: "desc",
+    label: t("title_desc"),
+  },
+];
+
+export const SortByProperty = (t) => [
+  {
+    value: "name",
+    label: t("name"),
+  },
+  {
+    value: "content",
+    label: t("content"),
+  },
+  {
+    value: "price",
+    label: t("prices"),
+  },
+  {
+    value: "price_buy",
+    label: t("price_buy"),
+  },
+];

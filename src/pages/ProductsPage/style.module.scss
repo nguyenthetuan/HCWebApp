@@ -109,3 +109,39 @@
   @include container;
   margin-top: 1rem;
 }
+
+.filter {
+  display: flex;
+  flex: 0.6;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.filderLeft {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  margin-top: 1rem;
+}
+.myTextField {
+  height: 35px;
+  width: 200px;
+  :global {
+    .MuiOutlinedInput-root {
+      height: 35px;
+      min-width: 0 !important;
+      font-size: 14px;
+    }
+    .MuiInputBase-input {
+      // padding: 6px 10px;
+      min-width: 0 !important;
+    }
+
+    .MuiInputLabel-root {
+      font-size: 11px;
+      top: -5px;
+    }
+  }
+}

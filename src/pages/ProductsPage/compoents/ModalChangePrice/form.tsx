@@ -169,8 +169,6 @@ const FormChangeProduct = ({
       </MyTypography>
 
       <Stack spacing={2}>
-        
-
         <Grid container spacing={2}>
           <MyButton variant="contained" color="primary" onClick={handleSubmit}>
             {t("button_register_reset")}

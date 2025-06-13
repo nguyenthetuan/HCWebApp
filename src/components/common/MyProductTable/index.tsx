@@ -108,11 +108,12 @@ export default function MyProductTable({
         <TableHead>
           <TableRow>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_MyProductPage_no")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_MyProductPage_no")}
+              </MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography fontWeight={"bold"} className={styles.row}>
-                {t("title_select")}
                 <Checkbox
                   checked={checkAll}
                   onClick={() => {
@@ -123,34 +124,52 @@ export default function MyProductTable({
               </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_product_info")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_product_info")}
+              </MyTypography>
             </TableCell>
             <TableCell>
               <MyTypography fontWeight={"bold"}>ebayId</MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_purchase_url")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_purchase_url")}
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_ebay_upload_timestamp")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_ebay_upload_timestamp")}
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_japan_fee")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_japan_fee")}
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_inventory")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_inventory")}
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_price_buy")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_price_buy")}(¥)
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_price_Sell")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_price_Sell")}($)
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("common_image")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("common_image")}
+              </MyTypography>
             </TableCell>
             <TableCell>
-              <MyTypography fontWeight={"bold"}>{t("title_action")}</MyTypography>
+              <MyTypography fontWeight={"bold"}>
+                {t("title_action")}
+              </MyTypography>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -178,58 +197,74 @@ export default function MyProductTable({
                       {item?.listingId}
                     </MyLink>
                   ) : (
-                    <MyTypography color="red">{t("title_not_upebay")}</MyTypography>
+                    <MyTypography color="red">
+                      {t("title_not_upebay")}
+                    </MyTypography>
                   )}
                 </TableCell>
                 <TableCell>
                   <MyLink href={item?.url}>{item?.url}</MyLink>
                 </TableCell>
                 <TableCell>
-                  <MyTypography> {item?.ebayUploadTimestamp
-                    ? new Date(item.ebayUploadTimestamp).toLocaleDateString('ja-JP')
-                    : ''}</MyTypography>
+                  <MyTypography>
+                    {" "}
+                    {item?.ebayUploadTimestamp
+                      ? new Date(item.ebayUploadTimestamp).toLocaleDateString(
+                          "ja-JP"
+                        )
+                      : ""}
+                  </MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyTypography>¥ {item?.japanShippingFee}</MyTypography>
                 </TableCell>
-                <TableCell style={{ width: '100px' }}>
+                <TableCell style={{ width: "100px" }}>
                   <MyTypography fontWeight={"bold"}>
                     {item?.availableQuantity}
-                    {!item.offer_sku && <IconButton
-                      onClick={() => {
-                        refModalChangeQuantity.current.openModal();
-                        setItemSelect(item);
-                      }}
-                    >
-                      <IconEdit className={styles.iconEdit} />
-                    </IconButton>}</MyTypography>
+                    {!item.offer_sku && (
+                      <IconButton
+                        onClick={() => {
+                          refModalChangeQuantity.current.openModal();
+                          setItemSelect(item);
+                        }}
+                      >
+                        <IconEdit className={styles.iconEdit} />
+                      </IconButton>
+                    )}
+                  </MyTypography>
                 </TableCell>
-                <TableCell style={{ width: '100px' }}>
+                <TableCell style={{ width: "100px" }}>
                   <MyTypography>¥ {item?.price_buy}</MyTypography>
                 </TableCell>
-                <TableCell style={{ width: '150px' }}>
-                  <MyTypography fontWeight={"bold"}>$ {item?.price}
-                    {!item.offer_sku && <IconButton
-                      onClick={() => {
-                        refModalChangePrice.current.openModal();
-                        setItemSelect(item);
-                      }}
-                    >
-                      <IconEdit className={styles.iconEdit} />
-                    </IconButton>}</MyTypography>
+                <TableCell style={{ width: "150px" }}>
+                  <MyTypography fontWeight={"bold"}>
+                    $ {item?.price}
+                    {!item.offer_sku && (
+                      <IconButton
+                        onClick={() => {
+                          refModalChangePrice.current.openModal();
+                          setItemSelect(item);
+                        }}
+                      >
+                        <IconEdit className={styles.iconEdit} />
+                      </IconButton>
+                    )}
+                  </MyTypography>
                 </TableCell>
                 <TableCell>
                   <MyImage source={item.avatar_url} />
                 </TableCell>
                 <TableCell>
-                  {item.offer_sku && <IconButton
-                    onClick={() => {
-                      refModalChangeProduct.current.openModal();
-                      onChange(item);
-                    }}
-                  >
-                    <IconEdit className={styles.iconEdit} />
-                  </IconButton>}
+                  {item.offer_sku && (
+                    <IconButton
+                      onClick={() => {
+                        refModalChangeProduct.current.openModal();
+                        onChange(item);
+                      }}
+                    >
+                      <IconEdit className={styles.iconEdit} />
+                    </IconButton>
+                  )}
 
                   <IconButton
                     onClick={() => {

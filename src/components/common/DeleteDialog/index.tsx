@@ -8,8 +8,10 @@ import {
 } from "@mui/material";
 import { t } from "i18next";
 import { useState, forwardRef, useImperativeHandle } from "react";
+import { useTranslation } from "react-i18next";
 
 const DeleteDialog = (props, ref) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const handleOpenDialog = () => {
@@ -33,9 +35,9 @@ const DeleteDialog = (props, ref) => {
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Xác nhận xoá</DialogTitle>
+        <DialogTitle>{t("titleDelete")}</DialogTitle>
         <DialogContent>
-          <Typography>Bạn có chắc chắn muốn xoá item này không?</Typography>
+          <Typography>{t("subContentDelete")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>{t("cancel")}</Button>

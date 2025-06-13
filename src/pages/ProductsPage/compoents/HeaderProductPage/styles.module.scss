@@ -2,6 +2,8 @@
 
 .container {
   @include container;
+  align-items: center;
+  margin-top: 1rem;
 }
 .leftHeader {
   @include container;
@@ -11,10 +13,9 @@
 }
 .rightHeader {
   @include container;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  flex: 1.5;
+  flex-direction: row;
+  align-items: center;
+  flex: 1.2;
 }
 .version {
   display: flex;
@@ -55,6 +56,7 @@
 .language {
   display: flex;
   flex: 1;
+  margin-left: 1rem;
 }
 .selectLanguage {
   width: 1rem;

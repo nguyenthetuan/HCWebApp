@@ -40,6 +40,7 @@ const FormSetupEbay = ({
       merchantLocationKey: config?.merchantLocationKey,
       availableQuantity: config?.availableQuantity,
       quantityLimitPerBuyer: config?.quantityLimitPerBuyer,
+      extraDescription: config?.extraDescription,
     });
   }, [config]);
   const [formData, setFormData] = useState({
@@ -56,6 +57,7 @@ const FormSetupEbay = ({
     merchantLocationKey: "",
     availableQuantity: "",
     quantityLimitPerBuyer: "",
+    extraDescription: "",
   });
 
   const handleChange = (
@@ -229,6 +231,16 @@ const FormSetupEbay = ({
             options={optionInvertoryLocation}
             className={styles.dropdow}
             size="small"
+          />
+          <MyInput
+            fullWidth
+            label={t("extraDes")}
+            name="extraDescription"
+            value={formData.extraDescription}
+            onChange={handleChange}
+            className={styles.status}
+            size="small"
+            multiline
           />
         </Stack>
       </Grid>
