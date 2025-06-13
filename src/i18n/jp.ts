@@ -117,7 +117,7 @@ export default {
   select_category: "カテゴリ",
   select_category_helper: "言語を選択してください",
   search_button: "検索",
-  save_to_crawled_table: "クローリングデータテーブルに保存",
+  save_to_crawled_table: "スクレイピングデータ表に保存",
 
   title:
     "eBay出品データ入力 (最新のサポートサイトについては利用マニュアルを参照してください [ウェブサイト情報を取得] )。",
@@ -470,4 +470,5 @@ export default {
   extraDes: "追加説明",
   arrange: "並べ替え",
   filter: "フィルター",
+  createdAt: "作成時間",
 };

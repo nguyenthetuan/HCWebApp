@@ -405,6 +405,10 @@ export const arrange = (t) => [
 
 export const SortByProperty = (t) => [
   {
+    value: "createdAt",
+    label: t("createdAt"),
+  },
+  {
     value: "name",
     label: t("name"),
   },

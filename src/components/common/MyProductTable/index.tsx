@@ -216,7 +216,7 @@ export default function MyProductTable({
                   </MyTypography>
                 </TableCell>
                 <TableCell>
-                  <MyTypography>¥ {item?.japanShippingFee}</MyTypography>
+                  <MyTypography>{item?.japanShippingFee}</MyTypography>
                 </TableCell>
                 <TableCell style={{ width: "100px" }}>
                   <MyTypography fontWeight={"bold"}>
@@ -234,11 +234,11 @@ export default function MyProductTable({
                   </MyTypography>
                 </TableCell>
                 <TableCell style={{ width: "100px" }}>
-                  <MyTypography>¥ {item?.price_buy}</MyTypography>
+                  <MyTypography>{item?.price_buy}</MyTypography>
                 </TableCell>
                 <TableCell style={{ width: "150px" }}>
                   <MyTypography fontWeight={"bold"}>
-                    $ {item?.price}
+                    {item?.price}
                     {!item.offer_sku && (
                       <IconButton
                         onClick={() => {

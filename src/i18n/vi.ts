@@ -14,7 +14,7 @@ export default {
   title_expected_profit: "Lợi nhuận dự kiến",
   title_registered_date: "Ngày đăng",
   title_ebay_upload_timestamp: "Thời gian upload Ebay",
-  title_japan_fee: "Phí vận chuyển JP",
+  title_japan_fee: "Phí vận chuyển JP(¥)",
   title_note: "Ghi chú",
   action_change: "[Thay đổi]",
   action_delete: "[Xoá]",
@@ -475,4 +475,5 @@ export default {
   extraDes: "Mô Tả Thêm",
   arrange: "Sắp sếp",
   filter: "Lọc theo",
+  createdAt: "Thời gian tạo",
 };

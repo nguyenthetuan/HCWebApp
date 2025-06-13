@@ -9,7 +9,7 @@ export const useProductPage = () => {
   const [totalPages, setTotalPages] = useState(10);
   const [totalProduct, setTotalProduct] = useState(0);
   const [textSearch, setTextSearch] = useState("");
-  const [sortBy, setSortBy] = useState("name");
+  const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOder] = useState("asc");
   const name = useSelector((state: any) => state.user.name);
   const dispatch = useDispatch();
